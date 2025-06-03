@@ -1,0 +1,10 @@
+[*.{cs,vb}]
+
+# IDE0130: 命名空间与文件夹结构不匹配
+dotnet_style_namespace_match_folder = true
+
+# IDE0058: 永远不会使用表达式值
+csharp_style_unused_value_expression_statement_preference = unused_local_variable
+
+# CA1822: 将成员标记为 static
+dotnet_diagnostic.CA1822.severity = none
