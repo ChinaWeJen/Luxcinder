@@ -58,6 +58,8 @@ public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int da
                 // 血量低时武器发光
                 Lighting.AddLight(player.Center, 0.5f, 0.7f, 1f);
             }
+
+            
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
