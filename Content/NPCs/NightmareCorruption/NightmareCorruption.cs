@@ -59,7 +59,7 @@ namespace Luxcinder.Content.NPCs.NightmareCorruption
 
             Main.npcFrameCount[NPC.type] = 4;
 
-            Music = MusicLoader.GetMusicSlot(Mod, "Music/FoulAbyssEcho");
+            Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/FoulAbyssEcho");
         }
 
         protected override void CreateBehaviorTree()

@@ -132,6 +132,16 @@ Mods: {
 				DisplayName: Quenched_ Ingot
 				Tooltip: ""
 			}
+
+			NightmareEssence: {
+				DisplayName: Nightmare Essence
+				Tooltip: ""
+			}
+
+			NightmareSummon: {
+				DisplayName: Nightmare Summon
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
