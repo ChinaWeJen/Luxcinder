@@ -8,7 +8,7 @@ using System;
 
 namespace Luxcinder.Content.Items.BlackSeries
 {
-    public class Black_iron_sword : ModItem
+    public class BlackIronSword : ModItem
     {
         // 新常量定义
         private const float SmallDamageChance = 0.8f; // 25%概率25点伤害
@@ -108,7 +108,7 @@ namespace Luxcinder.Content.Items.BlackSeries
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<Black_iron_ingot>(12) // 自定义材料：黑铁锭
+                .AddIngredient<BlackIronIngot>(12) // 自定义材料：黑铁锭
                 .AddIngredient(ItemID.MeteoriteBar, 8) // 原版材料：陨铁锭
                 .AddTile(TileID.Anvils) // 合成站：铁砧/铅砧
                 .Register();

@@ -7,7 +7,7 @@ namespace Luxcinder.Content.Items.BOSSFallingObject
     /// <summary>
     /// 腐化夜眼 - 被腐化的夜视饰品
     /// </summary>
-    public class Decayed_Night_Eye : ModItem
+    public class DecayedNightEye : ModItem
     {
 
 

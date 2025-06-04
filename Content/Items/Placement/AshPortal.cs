@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace Luxcinder.Content.Items.Placement
 {
-    public class Ash_Portal : ModItem
+    public class AshPortal : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -29,7 +29,7 @@ namespace Luxcinder.Content.Items.Placement
 
 
             // 关联Tile
-            Item.createTile = ModContent.TileType<Tiles.Building.Ash_Portal>();
+            Item.createTile = ModContent.TileType<Tiles.Building.AshPortal>();
 
             // 稀有度
             Item.rare = ItemRarityID.Green;

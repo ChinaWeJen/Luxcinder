@@ -5,7 +5,7 @@ using Terraria.ObjectData;
 
 namespace Luxcinder.Content.Tiles.Building
 {
-    public class Deep_Light_Tower : ModTile
+    public class DeepLightTower : ModTile
     {
         public override void SetStaticDefaults()
         {

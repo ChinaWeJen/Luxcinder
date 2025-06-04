@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Luxcinder.Content.Items.PlotClues
 {
-    public class Story_fragments : ModItem
+    public class Storyfragments : ModItem
     {
         public override void SetStaticDefaults()
         {

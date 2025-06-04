@@ -7,7 +7,7 @@ using Luxcinder.Content.Items.QuenchedSeries;
 
 namespace Luxcinder.Content.Items.BlackSeries
 {
-	public class Black_iron_pickaxe : ModItem
+	public class BlackIronPickAxe : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -35,7 +35,7 @@ namespace Luxcinder.Content.Items.BlackSeries
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<Quenched_Ingot>(9)
+			recipe.AddIngredient<QuenchedIngot>(9)
 			.AddIngredient(ItemID.Wood, 3)// 添加木材作为辅助材料
 		.AddTile(TileID.Anvils)
 .Register();

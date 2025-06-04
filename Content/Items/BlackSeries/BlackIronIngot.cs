@@ -7,7 +7,7 @@ using Luxcinder.Content.Tiles.Building; // 引入音效命名空间
 
 namespace Luxcinder.Content.Items.BlackSeries
 {
-    public class Black_iron_ingot : ModItem
+    public class BlackIronIngot : ModItem
     {
         public override void SetStaticDefaults()
         {

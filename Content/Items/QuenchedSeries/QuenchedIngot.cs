@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Luxcinder.Content.Items.QuenchedSeries
 {
-    public class Quenched_Ingot : ModItem
+    public class QuenchedIngot : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -37,7 +37,7 @@ namespace Luxcinder.Content.Items.QuenchedSeries
         {
             CreateRecipe(1) // 产出2个
                 .AddIngredient(ModContent.ItemType<Quenched>(), 1)
-                .AddIngredient(ModContent.ItemType<Black_iron_ingot>(), 2)
+                .AddIngredient(ModContent.ItemType<BlackIronIngot>(), 2)
                 .AddIngredient(ItemID.DemoniteBar, 1) // 暗影锭
                 .AddTile(TileID.Hellforge) // 地狱熔炉
                 .AddTile<GiantStoneBlastFurnace>()
@@ -45,7 +45,7 @@ namespace Luxcinder.Content.Items.QuenchedSeries
 
             CreateRecipe(1) // 产出2个
                 .AddIngredient(ModContent.ItemType<Quenched>(), 1)
-                .AddIngredient(ModContent.ItemType<Black_iron_ingot>(), 2)
+                .AddIngredient(ModContent.ItemType<BlackIronIngot>(), 2)
                 .AddIngredient(ItemID.CrimtaneBar, 1) // 血腥锭
                 .AddTile(TileID.Hellforge) // 地狱熔炉
                 .AddTile<GiantStoneBlastFurnace>()

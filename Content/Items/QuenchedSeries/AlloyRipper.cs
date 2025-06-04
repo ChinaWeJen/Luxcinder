@@ -2,12 +2,13 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using static Luxcinder.Content.Items.QuenchedSeries.AlloyRipper;
 
 namespace Luxcinder.Content.Items.QuenchedSeries
 {
 
     // 合金撕裂者武器类
-    public class Alloy_Ripper : ModItem
+    public class AlloyRipper : ModItem
     {
 
         public override void SetDefaults()

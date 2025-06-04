@@ -7,7 +7,7 @@ namespace Luxcinder.Content.Items.BOSSFallingObject
     /// <summary>
     /// 腐化毒素 - 由腐化之王体内提取的剧毒物质
     /// </summary>
-    public class Rotting_toxin : ModItem
+    public class RottingToxin : ModItem
     {
 
 

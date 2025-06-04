@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace AshenVoid.Content.Items.Drops
 {
-    public class NightmareEssence : ModItem
+    public class Nightmareessence : ModItem
     {
         public override string Texture => "Terraria/Images/Item_" + ItemID.CorruptFishingCrate;
         public override void SetDefaults()

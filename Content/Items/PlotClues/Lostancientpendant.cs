@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Luxcinder.Content.Items.PlotClues
 {
-    public class Lost_ancient_pendant : ModItem
+    public class Lostancientpendant : ModItem
     {
         public override void SetStaticDefaults()
         {

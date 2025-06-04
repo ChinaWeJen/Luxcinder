@@ -7,7 +7,7 @@ using Luxcinder.Content.Projectiles;
 
 namespace Luxcinder.Content.Items.BOSSFallingObject
 {
-    public class Reason_Trapped_Dreams : ModItem
+    public class ReasonTrappedDreams : ModItem
     {
         public override void SetStaticDefaults()
         {

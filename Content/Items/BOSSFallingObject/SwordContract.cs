@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Luxcinder.Content.Items.BOSSFallingObject
 {
-    public class Sword_Contract : ModItem
+    public class SwordContract : ModItem
     {
         private bool buffActive = false;
         private int originalMaxHP = 0;

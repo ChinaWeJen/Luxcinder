@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace Luxcinder.Content.Tiles.Building
 {
-    public class Ash_Portal : ModTile
+    public class AshPortal : ModTile
     {
         public override void SetStaticDefaults()
         {

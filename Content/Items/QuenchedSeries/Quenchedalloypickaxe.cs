@@ -7,7 +7,7 @@ using Luxcinder.Content.Items.QuenchedSeries;
 
 namespace Luxcinder.Content.Items.QuenchedSeries
 {
-	public class Quenched_alloy_pickaxe : ModItem
+	public class Quenchedalloypickaxe : ModItem
 	{
 		private int blocksMined = 0;
 		private int cooldown = 0;
@@ -45,7 +45,7 @@ namespace Luxcinder.Content.Items.QuenchedSeries
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<Quenched_Ingot>(12); // 与原版铂金镐材料数量一致
+			recipe.AddIngredient<QuenchedIngot>(12); // 与原版铂金镐材料数量一致
 			recipe.AddIngredient(ItemID.Wood, 15); // 添加木材作为辅助材料
 			recipe.AddTile(TileID.Anvils)
 				.Register();

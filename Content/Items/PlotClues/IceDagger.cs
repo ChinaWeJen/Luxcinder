@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Luxcinder.Content.Items.PlotClues
 {
-    public class Ice_dagger : ModItem
+    public class IceDagger : ModItem
     {
         public override void SetStaticDefaults()
         {

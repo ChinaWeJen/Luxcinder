@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Luxcinder.Content.Items.BOSSFallingObject
 {
-    public class Decayed_crystal : ModItem
+    public class Decayedcrystal : ModItem
     {
 
 

@@ -6,7 +6,7 @@ using Luxcinder.Content.NPCs.Bosses;
 
 namespace Luxcinder.Content.Items.BOSSFallingObject
 {
-    public class Rotten_crystals : ModItem
+    public class Rottencrystals : ModItem
     {
         public override void SetStaticDefaults()
         {

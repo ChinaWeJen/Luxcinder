@@ -7,7 +7,7 @@ namespace Luxcinder.Content.Items.BOSSFallingObject
     /// <summary>
     /// 肉糜外壳 - 由腐化血肉构成的防御装备
     /// </summary>
-    public class Meat_mince_shell : ModItem
+    public class MeatminCeshell : ModItem
     {
 
         public override void SetDefaults()

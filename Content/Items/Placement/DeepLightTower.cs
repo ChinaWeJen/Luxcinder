@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Luxcinder.Content.Items.Placement
 {
-    public class Deep_Light_Tower : ModItem
+    public class DeepLightTower : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -23,7 +23,7 @@ namespace Luxcinder.Content.Items.Placement
             Item.consumable = true;
             Item.noMelee = true;
             Item.value = Item.buyPrice(0, 10, 0, 0);
-            Item.createTile = ModContent.TileType<Tiles.Building.Deep_Light_Tower>();
+            Item.createTile = ModContent.TileType<Tiles.Building.DeepLightTower>();
         }
 
         public override void AddRecipes()

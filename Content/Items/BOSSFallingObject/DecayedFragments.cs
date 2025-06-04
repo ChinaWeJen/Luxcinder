@@ -7,7 +7,7 @@ namespace Luxcinder.Content.Items.BOSSFallingObject
     /// <summary>
     /// 腐化碎片 - 来自腐化之地的黑暗材料
     /// </summary>
-    public class Decayed_fragments : ModItem
+    public class DecayedFragments : ModItem
     {
 
 
