@@ -53,7 +53,7 @@ Items: {
 			'''
 	}
 
-	Giant_Stone_Blast_Furnace: {
+	GiantStoneBlastFurnace: {
 		DisplayName: 巨型石制高炉
 		Tooltip:
 			'''
@@ -298,7 +298,7 @@ Tiles: {
 	CustomWorkbenchTile.MapEntry: 定制工作台
 	QuenchedTile.MapEntry: 淬火砖块
 	Quenched_Tile.MapEntry: 淬火砖块(装饰)
-	Giant_Stone_Blast_Furnace_Tiles.MapEntry: 巨型石制高炉组件
+	GiantStoneBlastFurnaces.MapEntry: 巨型石制高炉组件
 	Ash_Portal.MapEntry: Ash_Portal
 	Deep_Light_Tower.MapEntry: Deep_Light_Tower
 }

@@ -9,9 +9,9 @@ A Terraria tModLoader mod that adds new content including items, bosses, project
   - Quenched Series items 
   - Boss-related items
   - Plot clue items
-  - Placement_items items
-    - Portal: Placement_items portal crafted with 50 Glass + 5 Fallen Stars at an Anvil
-    - Large Structure: Placement_items building block crafted with 100 Stone at a Work Bench
+  - Placement items
+    - Portal: Placement portal crafted with 50 Glass + 5 Fallen Stars at an Anvil
+    - Large Structure: Placement Building block crafted with 100 Stone at a Work Bench
     - Giant Stone Blast Furnace: Massive furnace that produces smoke and flames, crafted with 200 Stone + 50 Clay + 10 Torches at a Work Bench
 
 - **NPCs**:
@@ -23,7 +23,7 @@ A Terraria tModLoader mod that adds new content including items, bosses, project
 - **Tiles**:
   - Quenched Tile
   - Giant Stone Blast Furnace: 7x9 tile structure with 4-frame animation and smoke/flame particle effects
-  - Various building tiles
+  - Various Building tiles
 
 ## Installation
 
@@ -38,12 +38,12 @@ A Terraria tModLoader mod that adds new content including items, bosses, project
 Luxcinder/
 ├── Luxcinder.cs        - Main mod file
 ├── Items/                  - Custom items
-│   ├── Black_Series/       - Black themed items
+│   ├── BlackSeries/       - Black themed items
 │   ├── BOSS/               - Boss-related items  
-│   ├── Placement_items/          - Placement_items items
-│   ├── Placed_items/       - Already placed items
-│   ├── Plot_clues/         - Story-related items
-│   ├── Quenched_Series/    - Quenched themed items
+│   ├── Placement/          - Placement items
+│   ├── Placeditems/       - Already placed items
+│   ├── PlotClues/         - Story-related items
+│   ├── QuenchedSeries/    - Quenched themed items
 │   ├── Ash_Portal.cs           - Portal item
 │   └── Deep_Light_Tower.cs         - Large Structure item
 ├── NPCs/                   - Custom NPCs
@@ -67,4 +67,4 @@ Luxcinder/
 2. Explore to find new content:
    - Defeat bosses to obtain special items
    - Use Quenched Series items for special effects
-   - Place custom tiles for building
+   - Place custom tiles for Building

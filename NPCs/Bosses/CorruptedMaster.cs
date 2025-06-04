@@ -983,7 +983,7 @@ namespace Luxcinder.NPCs.Bosses
             if (Main.expertMode)
             {
                 // 专家模式掉落宝藏袋
-                int item = Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<Items.BOSS_Falling_Object.Nightmare>());
+                int item = Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<Items.BOSSFallingObject.Nightmare>());
                 if (Main.netMode == NetmodeID.Server && item >= 0)
                 {
                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, item, 1f);
