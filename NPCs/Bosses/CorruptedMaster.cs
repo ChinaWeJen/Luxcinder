@@ -983,7 +983,7 @@ int type = ProjectileID.CorruptSpray; // 腐化者的毒云弹幕
             if (Main.expertMode)
             {
                 // 专家模式掉落宝藏袋
-                int item = Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<Items.BOSS.Nightmare>());
+                int item = Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<Items.BOSSFallingObject.Nightmare>());
                 if (Main.netMode == NetmodeID.Server && item >= 0)
                 {
                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, item, 1f);

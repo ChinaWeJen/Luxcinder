@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace Luxcinder.Tiles.building
+namespace Luxcinder.Tiles.Building
 {
     public class Ash_Portal : ModTile
     {

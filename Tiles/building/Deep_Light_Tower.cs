@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.ObjectData;
 
-namespace Luxcinder.Tiles.building
+namespace Luxcinder.Tiles.Building
 {
     public class Deep_Light_Tower : ModTile
     {
