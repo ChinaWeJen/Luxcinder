@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace ErosionCinder.Items
+namespace Luxcinder.Items
 {
-    public class 传送门 : ModItem
+    public class Ash_Portal : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -29,7 +29,7 @@ namespace ErosionCinder.Items
 
             
             // 关联Tile
-            Item.createTile = ModContent.TileType<Tiles.building.传送门>();
+            Item.createTile = ModContent.TileType<Tiles.building.Ash_Portal>();
             
             // 稀有度
             Item.rare = ItemRarityID.Green;

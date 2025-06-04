@@ -9,7 +9,7 @@ using ReLogic.Content;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Menu
+namespace Luxcinder.Menu
 {
     
     public class ErosionCinderModMenu : ModMenu
@@ -73,11 +73,11 @@ namespace ErosionCinder.Menu
             internal set;
         } = new();
 
-        public override string DisplayName => "ErosionCinder";
+        public override string DisplayName => "Luxcinder";
 
-        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("ErosionCinder/Menu/标题");
-        public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>("ErosionCinder/Menu/空洞像素");
-        public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("ErosionCinder/Menu/空洞像素");
+        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("Luxcinder/Menu/标题");
+        public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>("Luxcinder/Menu/空洞像素");
+        public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("Luxcinder/Menu/空洞像素");
 
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<NullSurfaceBackground>();
         public override void OnSelected()
@@ -127,7 +127,7 @@ namespace ErosionCinder.Menu
                 lastMousePosition = Main.MouseScreen; // 更新上一帧鼠标位置
             }
 
-            Texture2D texture = ModContent.Request<Texture2D>("ErosionCinder/Menu/背景").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("Luxcinder/Menu/背景").Value;
             Vector2 drawOffset = Vector2.Zero;
             float xScale = (float)Main.screenWidth / texture.Width;
             float yScale = (float)Main.screenHeight / texture.Height;
@@ -228,7 +228,7 @@ namespace ErosionCinder.Menu
             SmokeParticles.RemoveAll(s => s.Time >= s.Lifetime);
 
             // 绘制粒子
-            Texture2D cinderTexture = ModContent.Request<Texture2D>("ErosionCinder/Menu/粒子").Value;
+            Texture2D cinderTexture = ModContent.Request<Texture2D>("Luxcinder/Menu/粒子").Value;
             for (int i = 0; i < Cinders.Count; i++)
             {
                 Vector2 drawPosition = Cinders[i].Center;
@@ -236,7 +236,7 @@ namespace ErosionCinder.Menu
             }
 
             // 绘制烟雾粒子
-            Texture2D smokeTexture = ModContent.Request<Texture2D>("ErosionCinder/Menu/烟雾").Value;
+            Texture2D smokeTexture = ModContent.Request<Texture2D>("Luxcinder/Menu/烟雾").Value;
             for (int i = 0; i < SmokeParticles.Count; i++)
             {
                 Vector2 drawPosition = SmokeParticles[i].Center;

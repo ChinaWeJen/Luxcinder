@@ -1,12 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ErosionCinder.Tiles;
+using Luxcinder.Tiles;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using ErosionCinder.Tiles.building;
+using Luxcinder.Tiles.building;
 
-namespace ErosionCinder.Items.Quenched_Series
+namespace Luxcinder.Items.Quenched_Series
 {
     public class Quenched : ModItem
     {

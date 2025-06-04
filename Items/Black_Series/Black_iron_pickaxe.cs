@@ -4,10 +4,10 @@ using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ErosionCinder.Items.Black_Series;
-using ErosionCinder.Items.Quenched_Series;
+using Luxcinder.Items.Black_Series;
+using Luxcinder.Items.Quenched_Series;
 
-namespace ErosionCinder.Items.Black_Series
+namespace Luxcinder.Items.Black_Series
 {
 	public class Black_iron_pickaxe : ModItem
 	{

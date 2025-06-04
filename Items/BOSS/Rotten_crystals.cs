@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ErosionCinder.NPCs.Bosses;
+using Luxcinder.NPCs.Bosses;
 using Terraria.Audio;
 
-namespace ErosionCinder.Items.BOSS
+namespace Luxcinder.Items.BOSS
 {
     public class Rotten_crystals : ModItem
     {

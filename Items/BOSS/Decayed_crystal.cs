@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Items.BOSS
+namespace Luxcinder.Items.BOSS
 {
     public class Decayed_crystal : ModItem
     {

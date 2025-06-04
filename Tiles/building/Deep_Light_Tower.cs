@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.ObjectData;
 
-namespace ErosionCinder.Tiles.building
+namespace Luxcinder.Tiles.building
 {
-    public class 大型建筑 : ModTile
+    public class Deep_Light_Tower : ModTile
     {
         public override void SetStaticDefaults()
         {

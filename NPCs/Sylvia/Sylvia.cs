@@ -8,7 +8,7 @@ using Terraria.Audio;
 using System.Collections.Generic;
 using System;
 
-namespace ErosionCinder.NPCs.Sylvia
+namespace Luxcinder.NPCs.Sylvia
 {
     public class Sylvia : ModNPC
     {
@@ -146,7 +146,7 @@ namespace ErosionCinder.NPCs.Sylvia
         {
             if (Main.LocalPlayer.talkNPC == NPC.whoAmI)
             {
-                Texture2D chatUI = ModContent.Request<Texture2D>("ErosionCinder/NPCs/Sylvia/DHK").Value;
+                Texture2D chatUI = ModContent.Request<Texture2D>("Luxcinder/NPCs/Sylvia/DHK").Value;
                 Vector2 drawPos = new Vector2(Main.screenWidth / 2 - chatUI.Width / 2, Main.screenHeight - chatUI.Height - 50);
                 spriteBatch.Draw(chatUI, drawPos, Color.White);
                 

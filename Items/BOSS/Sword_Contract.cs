@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using System.Collections.Generic;
 
-namespace ErosionCinder.Items.BOSS
+namespace Luxcinder.Items.BOSS
 {
     public class Sword_Contract : ModItem
     {

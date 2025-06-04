@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
-using ErosionCinder.Items.Quenched_Series;
+using Luxcinder.Items.Quenched_Series;
 
-namespace ErosionCinder.Items.Quenched_Series
+namespace Luxcinder.Items.Quenched_Series
 {
 	public class Quenched_alloy_pickaxe : ModItem
 	{

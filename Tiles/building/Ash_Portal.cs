@@ -7,9 +7,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace ErosionCinder.Tiles.building
+namespace Luxcinder.Tiles.building
 {
-    public class 传送门 : ModTile
+    public class Ash_Portal : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -48,7 +48,7 @@ namespace ErosionCinder.Tiles.building
             // 破坏时掉落物品
             Item.NewItem(new EntitySource_TileBreak(i, j), 
                         i * 16, j * 16, 22 * 16, 12 * 16, 
-                        ModContent.ItemType<Items.传送门>());
+                        ModContent.ItemType<Items.Ash_Portal>());
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

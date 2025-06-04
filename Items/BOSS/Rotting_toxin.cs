@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Items.BOSS
+namespace Luxcinder.Items.BOSS
 {
     /// <summary>
     /// 腐化毒素 - 由腐化之王体内提取的剧毒物质

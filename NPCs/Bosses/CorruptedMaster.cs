@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using static Terraria.GameContent.Animations.On_Actions;
-using ErosionCinder.NPCs.Bosses;
+using Luxcinder.NPCs.Bosses;
 using Terraria.DataStructures;
 
-namespace ErosionCinder.NPCs.Bosses
+namespace Luxcinder.NPCs.Bosses
 {
     public class CorruptedMaster : ModNPC
     {
@@ -99,7 +99,7 @@ namespace ErosionCinder.NPCs.Bosses
                 dust.noGravity = true;
             }
 
-            // 传送门效果
+            // Ash_Portal效果
             if (spawnTimer % 0.2f < 0.1f)
             {
                 for (int i = 0; i < 2; i++)
@@ -138,7 +138,7 @@ namespace ErosionCinder.NPCs.Bosses
         {
             if (!spawnAnimationComplete)
             {
-                // 绘制传送门
+                // 绘制Ash_Portal
                 Texture2D portalTexture = ModContent.Request<Texture2D>("Terraria/Images/Extra_89").Value;
                 float portalScale = 0.5f + spawnTimer * 0.5f;
                 Color portalColor = Color.Purple * (0.5f * spawnTimer);

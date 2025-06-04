@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Menu
+namespace Luxcinder.Menu
 {
     internal class NullSurfaceBackground : ModSurfaceBackgroundStyle
     {
@@ -28,7 +28,7 @@ namespace ErosionCinder.Menu
             }
         }
 
-        private static readonly string TexPath = "ErosionCinder/Menu/空洞像素";
+        private static readonly string TexPath = "Luxcinder/Menu/空洞像素";
 
 		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
 		{

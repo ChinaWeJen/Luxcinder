@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Items.BOSS
+namespace Luxcinder.Items.BOSS
 {
     /// <summary>
     /// 腐化夜眼 - 被腐化的夜视饰品

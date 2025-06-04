@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
-using ErosionCinder.Items.Black_Series;
+using Luxcinder.Items.Black_Series;
 
-namespace ErosionCinder.Items.Black_Series
+namespace Luxcinder.Items.Black_Series
 {
 	public class Black_Hammer : ModItem
 	{

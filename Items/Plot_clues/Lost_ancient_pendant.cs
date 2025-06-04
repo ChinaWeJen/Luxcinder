@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Items.Plot_clues
+namespace Luxcinder.Items.Plot_clues
 {
     public class Lost_ancient_pendant : ModItem
     {

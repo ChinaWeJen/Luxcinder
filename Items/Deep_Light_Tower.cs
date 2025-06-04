@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Items
+namespace Luxcinder.Items
 {
-    public class 大型建筑 : ModItem
+    public class Deep_Light_Tower : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -23,7 +23,7 @@ namespace ErosionCinder.Items
             Item.consumable = true;
             Item.noMelee = true;
             Item.value = Item.buyPrice(0, 10, 0, 0);
-            Item.createTile = ModContent.TileType<Tiles.building.大型建筑>();
+            Item.createTile = ModContent.TileType<Tiles.building.Deep_Light_Tower>();
         }
 
         public override void AddRecipes()

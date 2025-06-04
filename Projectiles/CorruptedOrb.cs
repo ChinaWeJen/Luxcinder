@@ -5,7 +5,7 @@ using System;
 using Terraria.ID;
 using Terraria.Audio;
 
-namespace ErosionCinder.Projectiles
+namespace Luxcinder.Projectiles
 {
     public class CorruptedOrb : ModProjectile
     {

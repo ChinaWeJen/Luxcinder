@@ -1,11 +1,11 @@
 
-using ErosionCinder.Items.Black_Series;
-using ErosionCinder.Tiles.building;
+using Luxcinder.Items.Black_Series;
+using Luxcinder.Tiles.building;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Items.Quenched_Series
+namespace Luxcinder.Items.Quenched_Series
 {
     public class Quenched_Ingot : ModItem
     {

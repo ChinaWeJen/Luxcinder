@@ -3,10 +3,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
-using ErosionCinder.Items.Black_Series;
-using ErosionCinder.Tiles.building;
+using Luxcinder.Items.Black_Series;
+using Luxcinder.Tiles.building;
 
-namespace ErosionCinder.Items.Black_Series
+namespace Luxcinder.Items.Black_Series
 {
 	public class Black_Iron_Axe : ModItem
 	{

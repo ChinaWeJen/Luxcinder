@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using ErosionCinder.Projectiles;
+using Luxcinder.Projectiles;
 
-namespace ErosionCinder.Items.BOSS
+namespace Luxcinder.Items.BOSS
 {
     public class Reason_Trapped_Dreams : ModItem
     {

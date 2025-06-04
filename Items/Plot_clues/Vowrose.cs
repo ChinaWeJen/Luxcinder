@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace ErosionCinder.Items.Plot_clues
+namespace Luxcinder.Items.Plot_clues
 {
     public class Vowrose : ModItem
     {

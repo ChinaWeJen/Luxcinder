@@ -1,10 +1,10 @@
-using ErosionCinder.NPCs.Bosses;
+using Luxcinder.NPCs.Bosses;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.NPCs.Bosses
+namespace Luxcinder.NPCs.Bosses
 {
     public class CorruptedMasterShadow : ModNPC
     {

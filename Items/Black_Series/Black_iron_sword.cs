@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 using System;
 
-namespace ErosionCinder.Items.Black_Series
+namespace Luxcinder.Items.Black_Series
 {
     public class Black_iron_sword : ModItem
     {

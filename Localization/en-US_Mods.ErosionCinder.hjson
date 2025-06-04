@@ -272,13 +272,13 @@ Items: {
 			'''
 	}
 
-	大型建筑: {
-		DisplayName: 大型建筑
+	Deep_Light_Tower: {
+		DisplayName: Deep_Light_Tower
 		Tooltip: ""
 	}
 
-	传送门: {
-		DisplayName: 传送门
+	Ash_Portal: {
+		DisplayName: Ash_Portal
 		Tooltip: ""
 	}
 }
@@ -299,8 +299,8 @@ Tiles: {
 	QuenchedTile.MapEntry: 淬火砖块
 	Quenched_Tile.MapEntry: 淬火砖块(装饰)
 	Giant_Stone_Blast_Furnace_Tiles.MapEntry: 巨型石制高炉组件
-	传送门.MapEntry: 传送门
-	大型建筑.MapEntry: 大型建筑
+	Ash_Portal.MapEntry: Ash_Portal
+	Deep_Light_Tower.MapEntry: Deep_Light_Tower
 }
 
 Projectiles: {

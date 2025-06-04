@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace ErosionCinder.Tiles
+namespace Luxcinder.Tiles
 {
 	public class Quenched_Tile : ModTile
 	{

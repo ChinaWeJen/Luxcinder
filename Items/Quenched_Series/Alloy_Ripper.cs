@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace ErosionCinder.Items.Quenched_Series
+namespace Luxcinder.Items.Quenched_Series
 {
 
     // 合金撕裂者武器类

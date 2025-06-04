@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
-namespace ErosionCinder.Items.Plot_clues
+namespace Luxcinder.Items.Plot_clues
 {
     public class Ice_dagger : ModItem
     {

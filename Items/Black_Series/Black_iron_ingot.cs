@@ -3,9 +3,9 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.Audio;
-using ErosionCinder.Tiles.building; // 引入音效命名空间
+using Luxcinder.Tiles.building; // 引入音效命名空间
 
-namespace ErosionCinder.Items.Black_Series
+namespace Luxcinder.Items.Black_Series
 {
     public class Black_iron_ingot : ModItem
     {

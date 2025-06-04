@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ErosionCinder.Projectiles
+namespace Luxcinder.Projectiles
 {
     public class AlloyFire : ModProjectile
     {
