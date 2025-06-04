@@ -11,7 +11,7 @@ namespace Luxcinder.Content.Items.BlackSeries
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 14;  // 原16降低12.5%
+			Item.damage = 13;  // 原16降低12.5%
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 40;
 			Item.height = 40;
@@ -25,7 +25,7 @@ namespace Luxcinder.Content.Items.BlackSeries
 			Item.autoReuse = true;
 			Item.useTurn = true; // 允许使用转向
 
-			Item.axe = 72; // 斧力数值(铂金斧35的2倍)
+			Item.axe = 65; // 斧力数值(铂金斧35的2倍)
 		}
 
 		public override void AddRecipes()
