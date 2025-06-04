@@ -274,23 +274,23 @@ Mods: {
 			}
 
 			NightmareEssence: {
-				// DisplayName: Nightmare Essence
-				// Tooltip: ""
+				DisplayName: 噩梦精华
+				Tooltip: 噩梦精华
 			}
 
 			NightmareSummon: {
-				// DisplayName: Nightmare Summon
-				// Tooltip: ""
+				DisplayName: 噩梦召唤物
+				Tooltip: 噩梦召唤物
 			}
 		}
 
 		NPCs: {
 			CorruptedMaster.DisplayName: Corrupted Master
 			CorruptedMasterShadow.DisplayName: Corrupted Master Shadow
-			// GraspOfTrance.DisplayName: Grasp Of Trance
-			// NightmareCorruption.DisplayName: Nightmare Corruption
-			// NightmareCorruptionCorpse.DisplayName: Nightmare Corruption Corpse
-			// NightmarePhantom.DisplayName: Nightmare Phantom
+			GraspOfTrance.DisplayName: 迷幻爪
+			NightmareCorruption.DisplayName: 腐烂噩梦
+			NightmareCorruptionCorpse.DisplayName: 腐烂噩梦尸体
+			NightmarePhantom.DisplayName: 噩梦幽灵
 
 			Sylvia: {
 				DisplayName: Sylvia
