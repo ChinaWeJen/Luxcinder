@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace Luxcinder.Items
+namespace Luxcinder.Items.Placement_items
 {
     public class Ash_Portal : ModItem
     {

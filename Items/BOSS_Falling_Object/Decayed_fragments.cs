@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Luxcinder.Items.BOSS
+namespace Luxcinder.Items.BOSS_Falling_Object
 {
     /// <summary>
     /// 腐化碎片 - 来自腐化之地的黑暗材料

@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Luxcinder.Items
+namespace Luxcinder.Items.Placement_items
 {
     public class Deep_Light_Tower : ModItem
     {

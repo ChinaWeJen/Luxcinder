@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Luxcinder.NPCs.Bosses;
 using Terraria.Audio;
 
-namespace Luxcinder.Items.BOSS
+namespace Luxcinder.Items.BOSS_Falling_Object
 {
     public class Rotten_crystals : ModItem
     {

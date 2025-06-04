@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using System.Collections.Generic;
 
-namespace Luxcinder.Items.BOSS
+namespace Luxcinder.Items.BOSS_Falling_Object
 {
     public class Sword_Contract : ModItem
     {

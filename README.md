@@ -9,9 +9,10 @@ A Terraria tModLoader mod that adds new content including items, bosses, project
   - Quenched Series items 
   - Boss-related items
   - Plot clue items
-  - Placeable items
-    - Portal: Placeable portal crafted with 50 Glass + 5 Fallen Stars at an Anvil
-    - Large Structure: Placeable building block crafted with 100 Stone at a Work Bench
+  - Placement_items items
+    - Portal: Placement_items portal crafted with 50 Glass + 5 Fallen Stars at an Anvil
+    - Large Structure: Placement_items building block crafted with 100 Stone at a Work Bench
+    - Giant Stone Blast Furnace: Massive furnace that produces smoke and flames, crafted with 200 Stone + 50 Clay + 10 Torches at a Work Bench
 
 - **NPCs**:
   - New Boss enemies
@@ -21,6 +22,7 @@ A Terraria tModLoader mod that adds new content including items, bosses, project
 
 - **Tiles**:
   - Quenched Tile
+  - Giant Stone Blast Furnace: 7x9 tile structure with 4-frame animation and smoke/flame particle effects
   - Various building tiles
 
 ## Installation
@@ -38,7 +40,7 @@ Luxcinder/
 ├── Items/                  - Custom items
 │   ├── Black_Series/       - Black themed items
 │   ├── BOSS/               - Boss-related items  
-│   ├── Placeable/          - Placeable items
+│   ├── Placement_items/          - Placement_items items
 │   ├── Placed_items/       - Already placed items
 │   ├── Plot_clues/         - Story-related items
 │   ├── Quenched_Series/    - Quenched themed items

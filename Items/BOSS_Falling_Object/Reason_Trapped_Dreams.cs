@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Luxcinder.Projectiles;
 
-namespace Luxcinder.Items.BOSS
+namespace Luxcinder.Items.BOSBOSS_Falling_ObjectS
 {
     public class Reason_Trapped_Dreams : ModItem
     {

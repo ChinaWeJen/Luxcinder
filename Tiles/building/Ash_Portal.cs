@@ -46,9 +46,6 @@ namespace Luxcinder.Tiles.building
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             // 破坏时掉落物品
-            Item.NewItem(new EntitySource_TileBreak(i, j), 
-                        i * 16, j * 16, 22 * 16, 12 * 16, 
-                        ModContent.ItemType<Items.Ash_Portal>());
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
