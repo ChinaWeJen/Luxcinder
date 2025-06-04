@@ -46,17 +46,17 @@ namespace Luxcinder.NPCs.Bosses
                 }
 
                 Player player = Main.player[NPC.target];
-                
+
                 // 围绕玩家旋转
                 float rotationSpeed = 0.02f;
                 float distance = NPC.ai[2];
                 NPC.ai[1] += rotationSpeed;
-                
+
                 Vector2 targetPos = player.Center + new Vector2(0, distance).RotatedBy(NPC.ai[1]);
                 Vector2 direction = targetPos - NPC.Center;
                 float speed = MathHelper.Clamp(direction.Length() * 0.1f, 5f, 20f);
                 direction = direction.SafeNormalize(Vector2.Zero);
-                
+
                 NPC.velocity = direction * speed;
                 NPC.rotation = 0f; // 禁止旋转
             }
