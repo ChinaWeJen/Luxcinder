@@ -1,10 +1,5 @@
 Mods: {
 	Luxcinder: {
-		Tiles: {
-			Quenched_Tile.MapEntry: Quenched_ Tile
-			Ash_Portal.MapEntry: Ash_ Portal
-		}
-
 		Buffs: {
 			Alloy_Ripper_Buff: {
 				DisplayName: Alloy_ Ripper_ Buff
@@ -142,6 +137,10 @@ Mods: {
 		NPCs: {
 			CorruptedMaster.DisplayName: Corrupted Master
 			CorruptedMasterShadow.DisplayName: Corrupted Master Shadow
+			GraspOfTrance.DisplayName: Grasp Of Trance
+			NightmareCorruption.DisplayName: Nightmare Corruption
+			NightmareCorruptionCorpse.DisplayName: Nightmare Corruption Corpse
+			NightmarePhantom.DisplayName: Nightmare Phantom
 
 			Sylvia: {
 				DisplayName: Sylvia
@@ -157,6 +156,11 @@ Mods: {
 					Princess_LovesNPC: 我喜欢 {NPCName}。
 				}
 			}
+		}
+
+		Tiles: {
+			Quenched_Tile.MapEntry: Quenched_ Tile
+			Ash_Portal.MapEntry: Ash_ Portal
 		}
 
 		Projectiles: {
