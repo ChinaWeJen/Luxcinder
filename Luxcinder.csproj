@@ -10,7 +10,8 @@
 
 	<!-- References -->
 	<ItemGroup>
-		
+	  <AdditionalFiles Remove="Content\NPCs\Sylvia\Localization\en-US_Mods.Luxcinder.Sylvia.hjson" />
+	  <AdditionalFiles Remove="Content\NPCs\Sylvia\Localization\zh-Hans_Mods.Luxcinder.Sylvia.hjson" />
 	</ItemGroup>
 
 </Project>

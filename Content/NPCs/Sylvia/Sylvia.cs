@@ -1,12 +1,14 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent;
+using Luxcinder.Functions.NPCChat;
+using Luxcinder.Functions.NPCChat.Flows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Luxcinder.Content.NPCs.Sylvia
 {
@@ -21,6 +23,13 @@ namespace Luxcinder.Content.NPCs.Sylvia
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 20;
+        }
+
+        private NPCChatControlFlow _flow;
+
+        public NPCChatControlFlow GetFlow
+        {
+            get => _flow;
         }
 
         public override void SetDefaults()
@@ -40,6 +49,45 @@ namespace Luxcinder.Content.NPCs.Sylvia
             NPC.noTileCollide = false;
             NPC.rarity = 1;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
+
+            BuildNPCChatContext();
+        }
+
+        public const string NPCInternalName = nameof(Sylvia);
+
+        public void BuildNPCChatContext()
+        {
+            // 构建段落，这部分之后可以用别的工具构建，而不是写死在这里
+            var para1 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q1").Value);
+            var para2 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q2").Value);
+
+            var para3_1 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A1").Value);
+            var para3_2 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A2").Value);
+            var para3_3 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A3").Value);
+
+            var para3 = new NPCChatLoopBackAllOptionsParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3").Value,
+                new List<(Func<string>, NPCChatParagraph)> {
+                    (() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_O1").Value, para3_1),
+                    (() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_O2").Value, para3_2),
+                    (() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_O3").Value, para3_3),
+                });
+
+            para1.Next = para2;
+            para2.Next = para3;
+
+            var para4 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q4").Value);
+            var para5 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q5").Value);
+            var para6 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q6").Value);
+
+            para3.Next = para4;
+            para4.Next = para5;
+            para5.Next = para6;
+            para6.Next = para6; // 让para6循环，表示结束
+
+
+            // 启动流程
+            _flow = new NPCChatControlFlow();
+            _flow.Start(para1);
         }
 
         public override bool CanChat()
@@ -146,7 +194,7 @@ namespace Luxcinder.Content.NPCs.Sylvia
         {
             if (Main.LocalPlayer.talkNPC == NPC.whoAmI)
             {
-                Texture2D chatUI = ModContent.Request<Texture2D>("Luxcinder/NPCs/Sylvia/DHK").Value;
+                Texture2D chatUI = ModContent.Request<Texture2D>("Luxcinder/Content/NPCs/Sylvia/DHK").Value;
                 Vector2 drawPos = new Vector2(Main.screenWidth / 2 - chatUI.Width / 2, Main.screenHeight - chatUI.Height - 50);
                 spriteBatch.Draw(chatUI, drawPos, Color.White);
 
