@@ -402,6 +402,11 @@ Mods: {
 				// DisplayName: Quenched Ingot
 				// Tooltip: ""
 			}
+
+			NonferrousMetals: {
+				// DisplayName: Nonferrous Metals
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -426,6 +431,8 @@ Mods: {
 					Princess_LovesNPC: 我喜欢 {NPCName}。
 				}
 			}
+
+			// Guard.DisplayName: Guard
 		}
 
 		Tiles: {
@@ -438,6 +445,7 @@ Mods: {
 		Projectiles: {
 			AlloyFire.DisplayName: Alloy Fire
 			CorruptedOrb.DisplayName: Corrupted Orb
+			// GoldenLaser.DisplayName: Golden Laser
 		}
 	}
 }
