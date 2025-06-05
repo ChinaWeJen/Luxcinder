@@ -8,11 +8,12 @@ using ReLogic.Content;
 
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Graphics.Effects;
 
 namespace Luxcinder.Content.Menu
 {
 
-    public class ErosionCinderModMenu : ModMenu
+    public class LuxcinderModMenu : ModMenu
     {
         // 新增：记录上一帧的鼠标位置
         private Vector2 lastMousePosition = Vector2.Zero;
@@ -32,7 +33,7 @@ namespace Luxcinder.Content.Menu
             public Vector2 Center;
 
             public Cinder(int lifetime, int identity, float depth, Color color, Vector2 startingPosition, Vector2 startingVelocity)
-            {
+            { 
                 Lifetime = lifetime;
                 IdentityIndex = identity;
                 Depth = depth;
@@ -91,6 +92,7 @@ namespace Luxcinder.Content.Menu
 
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
+
             // 在鼠标位置生成红色粒子 (修改为检测鼠标移动)
             if (Main.MouseScreen != lastMousePosition) // 检测鼠标是否移动
             {
@@ -248,14 +250,98 @@ namespace Luxcinder.Content.Menu
             Main.time = 27000;
             Main.dayTime = true;
 
-            // 绘制标题
-            logoScale *= 2f; // 增大标题尺寸
-            Vector2 drawPos = new Vector2(Main.screenWidth / 2f, 100f);
+            // 绘制标题 - 稳定浮动效果
+            // 增强标题动画效果：增加垂直幅度并添加轻微水平晃动
+            float verticalOffset = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 0.5f) * 15f; // 增大到±15像素垂直浮动
+            float horizontalOffset = (float)Math.Cos(Main.GlobalTimeWrappedHourly * 0.3f) * 3.9f; // 增强到±3.9像素水平晃动
+            Vector2 drawPos = new Vector2(Main.screenWidth / 2f + horizontalOffset, 120f + verticalOffset); // 基础位置+浮动
+            
+            // 准备光晕效果绘制
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
-            spriteBatch.Draw(Logo.Value, drawPos, null, drawColor, logoRotation, Logo.Value.Size() * 0.5f, logoScale, SpriteEffects.None, 0f);
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.Additive, // 使用Additive混合增强光晕
+                SamplerState.LinearClamp, // 光晕使用线性插值
+                DepthStencilState.None,
+                Main.Rasterizer,
+                null,
+                Main.UIScaleMatrix
+            );
+
+            // 增强型光晕效果 - 三层渲染通道
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+            
+            // 第一通道: 基础光晕 (3倍强度)
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            for (int j = 0; j < 5; j++) {
+                float glowScale = 1.6f + 0.15f * (j + 1);
+                float intensity = 0.9f - 0.15f * j;
+                Color outerGlow = new Color(255, 80, 220, (int)(80 * intensity)) * intensity;
+                Color innerGlow = new Color(180, 60, 255, (int)(100 * intensity)) * intensity;
+                
+                // 外光晕
+                spriteBatch.Draw(Logo.Value, drawPos, null, outerGlow, 0f, Logo.Value.Size() * 0.5f, glowScale * 1.2f, SpriteEffects.None, 0f);
+                // 内光晕
+                spriteBatch.Draw(Logo.Value, drawPos, null, innerGlow, 0f, Logo.Value.Size() * 0.5f, glowScale, SpriteEffects.None, 0f);
+            }
+            
+            // 第二通道: 边缘发光效果
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            for (int k = 0; k < 3; k++) {
+                float edgeScale = 1.6f + 0.05f * k;
+                Color edgeColor = new Color(200, 100, 255, 120) * (0.7f - 0.2f * k);
+                spriteBatch.Draw(Logo.Value, drawPos, null, edgeColor, 0f, Logo.Value.Size() * 0.5f, edgeScale, SpriteEffects.None, 0f);
+            }
+            
+            // 切换回正常绘制模式
+            spriteBatch.End();
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                SamplerState.PointClamp, // 标题保持锐利
+                DepthStencilState.None,
+                Main.Rasterizer,
+                null,
+                Main.UIScaleMatrix
+            );
+
+            // 添加轻微阴影效果
+            spriteBatch.Draw(
+                Logo.Value, 
+                drawPos + new Vector2(2f, 2f), 
+                null, 
+                Color.Black * 0.5f, 
+                0f,
+                Logo.Value.Size() * 0.5f, 
+                1.6f,
+                SpriteEffects.None, 
+                0f
+            );
+            
+            // 绘制主标题
+            spriteBatch.Draw(
+                Logo.Value, 
+                drawPos, 
+                null, 
+                Color.White, 
+                0f,
+                Logo.Value.Size() * 0.5f, 
+                1.6f,
+                SpriteEffects.None, 
+                0f
+            );
+            
+            spriteBatch.End();
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp, // 保持一致性
+                DepthStencilState.None, 
+                Main.Rasterizer, 
+                null, 
+                Main.UIScaleMatrix
+            );
 
             return false;
         }

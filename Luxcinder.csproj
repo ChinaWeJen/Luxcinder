@@ -13,4 +13,13 @@
 		
 	</ItemGroup>
 
+	<!-- Content -->
+	<ItemGroup>
+		<Compile Include="**\*.cs" />
+		<EmbeddedResource Include="**\*.png" />
+		<EmbeddedResource Include="Effects\EdgeGlow.fx">
+			<LogicalName>Luxcinder.Effects.EdgeGlow</LogicalName>
+		</EmbeddedResource>
+	</ItemGroup>
+
 </Project>
