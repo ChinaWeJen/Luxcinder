@@ -76,9 +76,9 @@ namespace Luxcinder.Content.Menu
 
         public override string DisplayName => "Luxcinder";
 
-        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("Luxcinder/Menu/标题");
-        public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>("Luxcinder/Menu/空洞像素");
-        public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("Luxcinder/Menu/空洞像素");
+        public override Asset<Texture2D> Logo => this.RequestModRelativeTexture("标题");
+        public override Asset<Texture2D> SunTexture => this.RequestModRelativeTexture("空洞像素");
+        public override Asset<Texture2D> MoonTexture => this.RequestModRelativeTexture("空洞像素");
 
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<NullSurfaceBackground>();
         public override void OnSelected()
@@ -89,6 +89,18 @@ namespace Luxcinder.Content.Menu
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Sound/Music/ZCD/ZCDYY");
         // 设置音乐音量 (1.0f是最大音量)
 
+
+        private Asset<Texture2D> _backgroundTexture;
+        private Asset<Texture2D> _cinderDustTexture;
+        private Asset<Texture2D> _smokeTexture;
+
+        public override void Load()
+        {
+            // 预加载纹理
+            _backgroundTexture = this.RequestModRelativeTexture("背景");
+            _cinderDustTexture = this.RequestModRelativeTexture("粒子");
+            _smokeTexture = this.RequestModRelativeTexture("烟雾");
+        }
 
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
@@ -129,7 +141,7 @@ namespace Luxcinder.Content.Menu
                 lastMousePosition = Main.MouseScreen; // 更新上一帧鼠标位置
             }
 
-            Texture2D texture = ModContent.Request<Texture2D>("Luxcinder/Menu/背景").Value;
+            Texture2D texture = _backgroundTexture.Value;
             Vector2 drawOffset = Vector2.Zero;
             float xScale = (float)Main.screenWidth / texture.Width;
             float yScale = (float)Main.screenHeight / texture.Height;
@@ -230,7 +242,7 @@ namespace Luxcinder.Content.Menu
             SmokeParticles.RemoveAll(s => s.Time >= s.Lifetime);
 
             // 绘制粒子
-            Texture2D cinderTexture = ModContent.Request<Texture2D>("Luxcinder/Menu/粒子").Value;
+            Texture2D cinderTexture = _cinderDustTexture.Value;
             for (int i = 0; i < Cinders.Count; i++)
             {
                 Vector2 drawPosition = Cinders[i].Center;
@@ -238,7 +250,7 @@ namespace Luxcinder.Content.Menu
             }
 
             // 绘制烟雾粒子
-            Texture2D smokeTexture = ModContent.Request<Texture2D>("Luxcinder/Menu/烟雾").Value;
+            Texture2D smokeTexture = _smokeTexture.Value;
             for (int i = 0; i < SmokeParticles.Count; i++)
             {
                 Vector2 drawPosition = SmokeParticles[i].Center;
