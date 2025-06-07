@@ -28,21 +28,21 @@ namespace Luxcinder.Content.Menu
             }
         }
 
-        private static readonly string TexPath = "Luxcinder/Menu/空洞像素";
+        private static readonly string TexPath = $"{AssetExtensions.GetModRelativePath<NullSurfaceBackground>()}/Backgrounds/EmptyPixel";
 
         public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
         {
-            return BackgroundTextureLoader.GetBackgroundSlot(TexPath);
+            return BackgroundTextureLoader.GetBackgroundSlot(Mod, TexPath);
         }
 
         public override int ChooseFarTexture()
         {
-            return BackgroundTextureLoader.GetBackgroundSlot(TexPath);
+            return BackgroundTextureLoader.GetBackgroundSlot(Mod, TexPath);
         }
 
         public override int ChooseMiddleTexture()
         {
-            return BackgroundTextureLoader.GetBackgroundSlot(TexPath);
+            return BackgroundTextureLoader.GetBackgroundSlot(Mod, TexPath);
         }
 
         public override bool PreDrawCloseBackground(SpriteBatch spriteBatch)

@@ -35,25 +35,25 @@ namespace Luxcinder.Content.Items.BOSSFallingObject
             var source = player.GetSource_OpenItem(Type);
 
             // 必定掉落物品
-            player.QuickSpawnItem(source, ModContent.ItemType<Decayed_fragments>(), Main.rand.Next(1, 5));
+            player.QuickSpawnItem(source, ModContent.ItemType<DecayedFragments>(), Main.rand.Next(1, 5));
 
             // 稀有掉落 (25%概率)
             if (Main.rand.NextFloat() < 0.25f)
             {
-                player.QuickSpawnItem(source, ModContent.ItemType<Decayed_Night_Eye>());
+                player.QuickSpawnItem(source, ModContent.ItemType<DecayedNightEye>());
             }
             if (Main.rand.NextFloat() < 0.25f)
             {
-                player.QuickSpawnItem(source, ModContent.ItemType<Reason_Trapped_Dreams>());
+                player.QuickSpawnItem(source, ModContent.ItemType<ReasonTrappedDreams>());
             }
             if (Main.rand.NextFloat() < 0.5f)
             {
-                player.QuickSpawnItem(source, ModContent.ItemType<Meat_mince_shell>(), Main.rand.Next(15, 26));
+                player.QuickSpawnItem(source, ModContent.ItemType<MeatminCeshell>(), Main.rand.Next(15, 26));
             }
             // 非常稀有掉落 (10%概率)
             if (Main.rand.NextFloat() < 0.1f)
             {
-                player.QuickSpawnItem(source, ModContent.ItemType<Sword_Contract>());
+                player.QuickSpawnItem(source, ModContent.ItemType<SwordContract>());
             }
 
             // 专家模式额外掉落

@@ -60,7 +60,7 @@ namespace Luxcinder.Content.Items.QuenchedSeries
             Item.consumable = true; // 物品会被消耗
 
             // 设置放置的Tile类型
-            Item.createTile = ModContent.TileType<Quenched_Tile>();
+            Item.createTile = ModContent.TileType<QuenchedTile>();
 
             // 物品稀有度
             Item.rare = ItemRarityID.Orange;

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace AshenVoid.Content.Items.Summons
 {
-    public class NightmareSummon : ModItem
+    public class Nightmaresummon : ModItem
     {
         public override string Texture => "Terraria/Images/Item_" + ItemID.CorruptSeeds;
 

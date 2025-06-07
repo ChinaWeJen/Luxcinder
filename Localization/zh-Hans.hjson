@@ -282,6 +282,131 @@ Mods: {
 				DisplayName: 噩梦召唤物
 				Tooltip: 噩梦召唤物
 			}
+
+			DecayedNightEye: {
+				// Tooltip: ""
+				// DisplayName: Decayed Night Eye
+			}
+
+			DecayedFragments: {
+				// Tooltip: ""
+				// DisplayName: Decayed Fragments
+			}
+
+			Decayedcrystal: {
+				// Tooltip: ""
+				// DisplayName: Decayedcrystal
+			}
+
+			BlackIronSword: {
+				// Tooltip: ""
+				// DisplayName: Black Iron Sword
+			}
+
+			BlackIronShield: {
+				// Tooltip: ""
+				// DisplayName: Black Iron Shield
+			}
+
+			BlackIronPickAxe: {
+				// Tooltip: ""
+				// DisplayName: Black Iron Pick Axe
+			}
+
+			BlackIronIngot: {
+				// Tooltip: ""
+				// DisplayName: Black Iron Ingot
+			}
+
+			BlackIronAxe: {
+				// Tooltip: ""
+				// DisplayName: Black Iron Axe
+			}
+
+			BlackHammer: {
+				// Tooltip: ""
+				// DisplayName: Black Hammer
+			}
+
+			Nightmaresummon: {
+				// Tooltip: ""
+				// DisplayName: Nightmaresummon
+			}
+
+			Nightmareessence: {
+				// Tooltip: ""
+				// DisplayName: Nightmareessence
+			}
+
+			MeatminCeshell: {
+				// DisplayName: Meatmin Ceshell
+				// Tooltip: ""
+			}
+
+			ReasonTrappedDreams: {
+				// DisplayName: Reason Trapped Dreams
+				// Tooltip: ""
+			}
+
+			Rottencrystals: {
+				// DisplayName: Rottencrystals
+				// Tooltip: ""
+			}
+
+			RottingToxin: {
+				// DisplayName: Rotting Toxin
+				// Tooltip: ""
+			}
+
+			SwordContract: {
+				// DisplayName: Sword Contract
+				// Tooltip: ""
+			}
+
+			AshPortal: {
+				// DisplayName: Ash Portal
+				// Tooltip: ""
+			}
+
+			DeepLightTower: {
+				// DisplayName: Deep Light Tower
+				// Tooltip: ""
+			}
+
+			IceDagger: {
+				// DisplayName: Ice Dagger
+				// Tooltip: ""
+			}
+
+			Lostancientpendant: {
+				// DisplayName: Lostancientpendant
+				// Tooltip: ""
+			}
+
+			Storyfragments: {
+				// DisplayName: Storyfragments
+				// Tooltip: ""
+			}
+
+			AlloyRipper: {
+				// DisplayName: Alloy Ripper
+				// Tooltip: ""
+			}
+
+			Quenchedalloypickaxe: {
+				// DisplayName: Quenchedalloypickaxe
+				// Tooltip: ""
+			}
+
+			QuenchedIngot: {
+				// DisplayName: Quenched Ingot
+				// Tooltip: ""
+			}
+
+			NonferrousMetals: {
+				// DisplayName: Nonferrous Metals
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -306,16 +431,21 @@ Mods: {
 					Princess_LovesNPC: 我喜欢 {NPCName}。
 				}
 			}
+
+			// Guard.DisplayName: Guard
 		}
 
 		Tiles: {
 			Quenched_Tile.MapEntry: 淬火砖块(装饰)
 			Ash_Portal.MapEntry: Ash_Portal
+			// QuenchedTile.MapEntry: Quenched Tile
+			// AshPortal.MapEntry: Ash Portal
 		}
 
 		Projectiles: {
 			AlloyFire.DisplayName: Alloy Fire
 			CorruptedOrb.DisplayName: Corrupted Orb
+			// GoldenLaser.DisplayName: Golden Laser
 		}
 	}
 }

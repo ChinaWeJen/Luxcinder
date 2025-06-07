@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace Luxcinder.Content.Tiles.Block
 {
-	public class Quenched_Tile : ModTile
+	public class QuenchedTile : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
