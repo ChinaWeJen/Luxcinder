@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Luxcinder.Content.NPCs.Bosses;
+using Luxcinder.Content.NPCs.Bosses.CorruptedMaster;
 
 namespace Luxcinder.Content.Items.BOSSFallingObject
 {

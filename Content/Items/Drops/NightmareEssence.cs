@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AshenVoid.Content.Items.Drops
+namespace Luxcinder.Content.Items.Drops
 {
-    public class Nightmareessence : ModItem
+    public class NightmareEssence : ModItem
     {
         public override string Texture => "Terraria/Images/Item_" + ItemID.CorruptFishingCrate;
         public override void SetDefaults()

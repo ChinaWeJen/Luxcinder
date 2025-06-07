@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Luxcinder.Content.NPCs.NightmareCorruption
+namespace Luxcinder.Content.NPCs.Bosses.NightmareCorruption
 {
     public class GraspOfTrance : ModNPC
     {
