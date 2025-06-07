@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Luxcinder.Content.NPCs.Bosses
+namespace Luxcinder.Content.NPCs.Bosses.CorruptedMaster
 {
     public class CorruptedMasterShadow : ModNPC
     {

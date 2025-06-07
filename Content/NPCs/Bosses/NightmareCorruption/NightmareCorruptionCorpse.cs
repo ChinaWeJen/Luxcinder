@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Luxcinder.Content.NPCs.NightmareCorruption
+namespace Luxcinder.Content.NPCs.Bosses.NightmareCorruption
 {
     public class NightmareCorruptionCorpse : ModNPC
     {
@@ -28,12 +28,14 @@ namespace Luxcinder.Content.NPCs.NightmareCorruption
         public override void AI()
         {
             NPC.alpha -= 5;
-            if (NPC.alpha < 100) NPC.alpha = 100;
+            if (NPC.alpha < 100)
+                NPC.alpha = 100;
 
             NPC.velocity.Y = 0.5f;
 
             // 随时间消失
-            if (NPC.timeLeft > 600) NPC.timeLeft = 600;
+            if (NPC.timeLeft > 600)
+                NPC.timeLeft = 600;
 
             // 粒子效果
             if (Main.rand.NextBool(10))

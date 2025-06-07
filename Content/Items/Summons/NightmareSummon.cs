@@ -1,11 +1,11 @@
 
-using Luxcinder.Content.NPCs.NightmareCorruption;
+using Luxcinder.Content.NPCs.Bosses.NightmareCorruption;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AshenVoid.Content.Items.Summons
+namespace Luxcinder.Content.Items.Summons
 {
     public class Nightmaresummon : ModItem
     {
