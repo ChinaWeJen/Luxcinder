@@ -5,8 +5,7 @@ global using Microsoft.Xna.Framework;
 global using Microsoft.Xna.Framework.Graphics;
 global using Terraria;
 global using Terraria.ID;
-
-using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 
@@ -23,6 +22,41 @@ namespace Luxcinder
             {
                 string texturePath = $"Luxcinder/Content/NPCs/GoldenGuards/NPC_Death_Fragments/{i}";
                 this.AddContent(new GoldenGuardGore(texturePath, i));
+            }
+
+            // 安全加载音乐资源
+            try 
+            {
+MusicLoader.GetMusicSlot(this, "Assets/Music/Boss/SGZY/ZYKK.ogg");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Failed to load music: {ex.Message}");
+                // 可以在这里添加备用音乐或空处理
+            }
+        }
+
+        public override void Unload()
+        {
+            try
+            {
+                // 防御性释放资源
+                // tModLoader会自动处理大部分资源释放
+                // 这里主要确保自定义资源的清理
+                
+                // 示例：清理静态字段或单例
+                // if (MyStaticResource != null)
+                // {
+                //     MyStaticResource.Dispose();
+                //     MyStaticResource = null;
+                // }
+
+                base.Unload();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Error during mod unloading: {ex}");
+                throw; // 重新抛出以确保tModLoader知道卸载失败
             }
         }
         

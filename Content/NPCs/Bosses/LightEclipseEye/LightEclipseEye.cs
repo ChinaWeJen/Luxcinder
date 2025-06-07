@@ -11,9 +11,9 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
     {
         // 全局移动调整常量
         private const float globalSpeedModifier = 1f;  // 降低移动速度
-        private const float distanceMultiplier = 0.8f;  // 增加与玩家距离
-        private const float minDistance = 200f;  // 最小跟踪距离
-        private const float maxDistance = 500f;  // 最大跟踪距离
+        private const float distanceMultiplier = 1.2f;  // 增加与玩家距离
+        private const float minDistance = 300f;  // 最小跟踪距离
+        private const float maxDistance = 600f;  // 最大跟踪距离
 
 
         private enum AttackPhase
@@ -148,6 +148,7 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
                     for (int i = 0; i < projectiles; i++)
                     {
                         Vector2 velocity = Vector2.UnitX.RotatedBy(rotation * i) * 8f;
+                        SoundEngine.PlaySound(new SoundStyle("Luxcinder/Assets/Sounds/SGZY/DMYX"), NPC.Center);
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, 
                             ModContent.ProjectileType<LightEclipseBolt>(), 40, 2f);
                     }
@@ -246,7 +247,7 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
             // 智能弹幕攻击
             if (NPC.ai[0]++ % 120 == 0)
             {
-                int projectileCount = 3 + (int)(NPC.life / NPC.lifeMax * 2); // 根据血量增加数量
+                int projectileCount = 2 + (int)(NPC.life / NPC.lifeMax * 1); // 减少弹幕数量
                 for (int i = 0; i < projectileCount; i++)
                 {
                     Vector2 offset = new Vector2(Main.rand.Next(-100, 100), Main.rand.Next(-100, 100));
@@ -254,6 +255,7 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
                     Vector2 predictPos = player.Center + player.velocity * (offset.Length() / 10f); // 预测玩家位置
                     Vector2 projectileVel = (predictPos - projectilePos).SafeNormalize(Vector2.Zero) * 10f;
                     
+                    SoundEngine.PlaySound(new SoundStyle("Luxcinder/Assets/Sounds/SGZY/DMYX"), NPC.Center);
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), projectilePos, projectileVel, 
                         ModContent.ProjectileType<LightEclipseBolt>(), 30, 2f);
                 }
@@ -318,7 +320,7 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
             // 智能环形弹幕攻击
             if (NPC.ai[0]++ % 80 == 0)
             {
-                int projectileCount = 6 + (int)((1f - NPC.life / NPC.lifeMax) * 4); // 血量越低越多
+                int projectileCount = 4 + (int)((1f - NPC.life / NPC.lifeMax) * 2); // 减少弹幕数量
                 for (int i = 0; i < projectileCount; i++)
                 {
                     float angle = MathHelper.TwoPi * i / projectileCount;
@@ -328,6 +330,7 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
                     Vector2 playerDir = (player.Center - NPC.Center).SafeNormalize(Vector2.Zero);
                     projectileVel = (projectileVel + playerDir * 2f).SafeNormalize(Vector2.Zero) * 8f;
                     
+                    SoundEngine.PlaySound(new SoundStyle("Luxcinder/Assets/Sounds/SGZY/DMYX"), NPC.Center);
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, projectileVel, 
                         ModContent.ProjectileType<LightEclipseBolt>(), 40, 2f);
                 }
@@ -391,7 +394,7 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
             // 智能弹幕风暴
             if (NPC.ai[1]++ % 30 == 0) // 降低频率
             {
-                int projectileCount = 2 + (int)((1f - NPC.life / NPC.lifeMax) * 2); // 减少弹幕数量
+                int projectileCount = 1 + (int)((1f - NPC.life / NPC.lifeMax) * 1); // 进一步减少弹幕数量
                 for (int i = 0; i < projectileCount; i++)
                 {
                     float angle = Main.rand.NextFloat(MathHelper.TwoPi);
@@ -401,6 +404,7 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
                     Vector2 baseDir = (player.Center - spawnPos).SafeNormalize(Vector2.Zero);
                     Vector2 projectileVel = baseDir.RotatedBy(Main.rand.NextFloat(-0.3f, 0.3f)) * 10f; // 增加散布角度并降低速度
                     
+                    SoundEngine.PlaySound(new SoundStyle("Luxcinder/Assets/Sounds/SGZY/DMYX"), NPC.Center);
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), spawnPos, projectileVel,
                         ModContent.ProjectileType<LightEclipseBolt>(), 50, 2f);
                 }
