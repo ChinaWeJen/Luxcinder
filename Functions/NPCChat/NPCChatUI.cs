@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.Options;
+using Luxcinder.Functions.NPCChat.Nodes;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Linq;
@@ -33,24 +34,24 @@ namespace Luxcinder.Functions.NPCChat
         private bool _isActive;
         private NPC _targetNPC;
         private int _chosenOption;
-        private bool _userClickNextStep;
 
         // 打字的时候的间隔
-        private readonly int _typingInterval = 6;
+        private int _typingInterval = 7;
         // 停顿的间隔
-        private readonly int _pauseInterval = 30;
+        private int _pauseInterval = 30;
 
 
-        private Asset<Texture2D> 聊天栏;
-        private Asset<Texture2D> 宝石;
-        private Asset<Texture2D> 下一步;
-        private SoundStyle 打字声;
+        private Asset<Texture2D> _texture_聊天栏;
+        private Asset<Texture2D> _texture_宝石;
+        private Asset<Texture2D> _texture_下一步;
+        private SoundStyle _sound_打字声;
         public NPCChatUI()
         {
-            聊天栏 = ModContent.Request<Texture2D>($"{nameof(Luxcinder)}/Functions/NPCChat/Images/聊天栏");
-            宝石 = ModContent.Request<Texture2D>($"{nameof(Luxcinder)}/Functions/NPCChat/Images/宝石");
-            下一步 = ModContent.Request<Texture2D>($"{nameof(Luxcinder)}/Functions/NPCChat/Images/下一步");
-            打字声 = new SoundStyle($"{nameof(Luxcinder)}/Functions/NPCChat/Sounds/对话音效")
+			string relativePath = AssetExtensions.GetModRelativePathFull<NPCChatUI>();
+			_texture_聊天栏 = ModContent.Request<Texture2D>($"{relativePath}/Images/聊天栏");
+			_texture_宝石 = ModContent.Request<Texture2D>($"{relativePath}/Images/宝石");
+			_texture_下一步 = ModContent.Request<Texture2D>($"{relativePath}/Images/下一步");
+			_sound_打字声 = new SoundStyle($"{relativePath}/Sounds/对话音效")
             {
                 Volume = 0.9f,
                 PitchVariance = 0.2f,
@@ -73,18 +74,11 @@ namespace Luxcinder.Functions.NPCChat
             return result;
         }
 
-        public bool GetAndClearNextStep()
-        {
-            bool result = _userClickNextStep;
-            _userClickNextStep = false;
-            return result;
-        }
-
         public void Activate(NPC npc)
         {
             if (!_isActive)
             {
-                // 从休眠到唤起
+                // 从休眠到唤起，清空状态
                 _typewriterCharCount = 0;
                 _chosenOption = -1;
                 _isActive = true;
@@ -101,14 +95,14 @@ namespace Luxcinder.Functions.NPCChat
             }
         }
 
-        public void SetPage(string text, bool immediateShow)
+        public void SetPage(NPCChatPage page)
         {
-            _currentText = text;
-            if (text != _lastText)
+            _currentText = page.Text;
+            if (_currentText != _lastText)
             {
-                if (immediateShow)
+                if (page.ImmediateShow)
                 {
-                    _typewriterCharCount = text.Length; // 立即显示全部文本
+                    _typewriterCharCount = _currentText.Length; // 立即显示全部文本
                 }
                 else
                 {
@@ -116,8 +110,15 @@ namespace Luxcinder.Functions.NPCChat
                 }
                 _updateCounter = 0; // 重置更新时间
                 _chosenOption = -1;
-                _lastText = text; // 更新最后的文本
+                _lastText = _currentText; // 更新最后的文本
             }
+
+            if(_options != page.Options)
+            {
+                _options = page.Options ?? new List<string>();
+            }
+
+            _typingInterval = page.TypewriterTypeInterval;
         }
         public string Text
         {
@@ -127,10 +128,6 @@ namespace Luxcinder.Functions.NPCChat
             }
         }
 
-        public void SetOptions(List<string> options)
-        {
-            _options = options;
-        }
         public void Update()
         {
             if (_typewriterCharCount < _currentText.Length)
@@ -142,7 +139,7 @@ namespace Luxcinder.Functions.NPCChat
                     _updateCounter = 0;
 
                     // 播放打字机音效
-                    SoundEngine.PlaySound(打字声, _targetNPC.Center);
+                    SoundEngine.PlaySound(_sound_打字声, _targetNPC.Center);
                 }
             }
         }
@@ -150,10 +147,6 @@ namespace Luxcinder.Functions.NPCChat
         public void Draw(SpriteBatch spriteBatch)
         {
             string showText = _currentText.Substring(0, Math.Min(_typewriterCharCount, _currentText.Length));
-            if (_typewriterCharCount < _currentText.Length)
-            {
-                showText += "_"; // 添加光标效果
-            }
             DrawSimpleDialogueUI(spriteBatch, showText, _targetNPC);
         }
 
@@ -180,7 +173,7 @@ namespace Luxcinder.Functions.NPCChat
             Color bgColor = new Color(0, 0, 0, 200);
             spriteBatch.Draw(panel, new Rectangle((int)x, (int)y, width, height), bgColor);
 
-            spriteBatch.Draw(聊天栏.Value, new Vector2(x, y + 20), Color.White);
+            spriteBatch.Draw(_texture_聊天栏.Value, new Vector2(x, y + 20), Color.White);
 
             Color borderColor = Color.White;
             int border = 2;
@@ -189,6 +182,10 @@ namespace Luxcinder.Functions.NPCChat
             spriteBatch.Draw(panel, new Rectangle((int)(x - border), (int)y, border, height), borderColor); // 左
             spriteBatch.Draw(panel, new Rectangle((int)(x + width), (int)y, border, height), borderColor); // 右
 
+            if (_typewriterCharCount < _currentText.Length)
+            {
+                text += "_"; // 添加光标效果
+            }
             Terraria.Utils.DrawBorderString(spriteBatch, text, new Vector2(x + 40, y + 20), Color.Yellow, 1f);
 
             // 文本准备完毕以后才显示选项
@@ -198,7 +195,7 @@ namespace Luxcinder.Functions.NPCChat
                 {
                     float yDraw = y + 80;
                     float xDraw = x + width - 55;
-                    spriteBatch.Draw(下一步.Value, new Vector2(xDraw, yDraw), Color.White);
+                    spriteBatch.Draw(_texture_下一步.Value, new Vector2(xDraw, yDraw), Color.White);
 
                     Rectangle buttonRect = new Rectangle((int)xDraw, (int)yDraw, 45, 30);
                     PlayerInput.SetZoom_World();
@@ -206,7 +203,7 @@ namespace Luxcinder.Functions.NPCChat
                     {
                         if (Main.mouseLeft && Main.mouseLeftRelease)
                         {
-                            _userClickNextStep = true;
+                            _chosenOption = 0;
                         }
                     }
                 }
@@ -216,7 +213,7 @@ namespace Luxcinder.Functions.NPCChat
                     {
                         Vector2 text_size = value.MeasureString(option);
                         float yDraw = y + 60 + _options.IndexOf(option) * 30;
-                        spriteBatch.Draw(宝石.Value, new Vector2(x + 10, yDraw), Color.White);
+                        spriteBatch.Draw(_texture_宝石.Value, new Vector2(x + 10, yDraw), Color.White);
 
                         Rectangle buttonRect = new Rectangle((int)x + 10, (int)yDraw, (int)(text_size.X + 20), 30);
                         Color color = Color.White;

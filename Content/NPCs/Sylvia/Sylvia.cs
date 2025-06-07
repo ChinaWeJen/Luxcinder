@@ -1,5 +1,5 @@
 using Luxcinder.Functions.NPCChat;
-using Luxcinder.Functions.NPCChat.Flows;
+using Luxcinder.Functions.NPCChat.Nodes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -58,15 +58,15 @@ namespace Luxcinder.Content.NPCs.Sylvia
         public void BuildNPCChatContext()
         {
             // 构建段落，这部分之后可以用别的工具构建，而不是写死在这里
-            var para1 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q1").Value);
-            var para2 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q2").Value);
+            var para1 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q1").Value);
+            var para2 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q2").Value);
 
-            var para3_1 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A1").Value);
-            var para3_2 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A2").Value);
-            var para3_3 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A3").Value);
+            var para3_1 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A1").Value);
+            var para3_2 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A2").Value);
+            var para3_3 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_A3").Value);
 
-            var para3 = new NPCChatLoopBackAllOptionsParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3").Value,
-                new List<(Func<string>, NPCChatParagraph)> {
+            var para3 = new ExhaustiveOptionsNode(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3").Value,
+                new List<(Func<string>, NPCChatNode)> {
                     (() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_O1").Value, para3_1),
                     (() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_O2").Value, para3_2),
                     (() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q3_O3").Value, para3_3),
@@ -75,14 +75,14 @@ namespace Luxcinder.Content.NPCs.Sylvia
             para1.Next = para2;
             para2.Next = para3;
 
-            var para4 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q4").Value);
-            var para5 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q5").Value);
-            var para6 = new NPCChatParagraph(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q6").Value);
+            var para4 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q4").Value);
+            var para5 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q5").Value);
+            var para6 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q6").Value);
 
             para3.Next = para4;
             para4.Next = para5;
             para5.Next = para6;
-            para6.Next = para6; // 让para6循环，表示结束
+            para6.Next = null; // 让para6循环，表示结束
 
 
             // 启动流程

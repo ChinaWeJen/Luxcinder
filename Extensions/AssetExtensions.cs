@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.CodeAnalysis.Operations;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -43,14 +44,24 @@ namespace Luxcinder
             return modType.Mod.Assets.Request<Texture2D>(relativePath + "/" + path, AssetRequestMode.AsyncLoad);
         }
 
-        /// <summary>
-        /// 返回当前类型命名空间所代表相对路径
-        /// </summary>
-        /// <param name="modType">基本类型（注意是以这个类型的命名空间为准）</param>
-        /// <returns></returns>
-        public static string GetModRelativePath<T>()
+		/// <summary>
+		/// 返回当前类型命名空间所代表相对路径
+		/// </summary>
+		/// <param name="modType">基本类型（注意是以这个类型的命名空间为准）</param>
+		/// <returns></returns>
+		public static string GetModRelativePath<T>()
         {
             return TypeFullNameToRelativePath(typeof(T).FullName);
         }
-    }
+
+		/// <summary>
+		/// 返回当前类型命名空间所代表相对路径，带Mod名
+		/// </summary>
+		/// <param name="modType">基本类型（注意是以这个类型的命名空间为准）</param>
+		/// <returns></returns>
+		public static string GetModRelativePathFull<T>()
+		{
+			return nameof(Luxcinder) + "/" + TypeFullNameToRelativePath(typeof(T).FullName);
+		}
+	}
 }

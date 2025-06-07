@@ -1,5 +1,4 @@
-﻿using Luxcinder.Content.NPCs.Sylvia;
-using Luxcinder.Functions.NPCChat.Flows;
+using Luxcinder.Content.NPCs.Sylvia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,6 @@ namespace Luxcinder.Functions.NPCChat
     {
         private NPCChatUI _activeNPCChatUI;
         private bool _isInNPCChat;
-        private NPCChatParagraph _oldChatParagraph;
 
 
         public override void Load()
@@ -25,7 +23,6 @@ namespace Luxcinder.Functions.NPCChat
         public override void PostSetupContent()
         {
             _activeNPCChatUI = new NPCChatUI();
-            _oldChatParagraph = null;
         }
 
         private bool TryReplaceNPCChatGUI()
@@ -61,26 +58,16 @@ namespace Luxcinder.Functions.NPCChat
                     var examplePerson = (Sylvia)npc.ModNPC;
                     // 将NPC的对话流程数据上传给UI渲染模块
                     var flow = examplePerson.GetFlow;
-                    flow.Update(1 / 60.0f);
+                    flow.Update();
+
+                    // 读取用户交互数据
                     int option = _activeNPCChatUI.GetAndClearChosenOption();
                     if (option != -1)
                     {
                         flow.SelectOption(option);
                     }
-                    else
-                    {
-                        bool nextStep = _activeNPCChatUI.GetAndClearNextStep();
-                        if (nextStep)
-                        {
-                            flow.GoToNext();
-                        }
-                    }
 
-                    if (_oldChatParagraph != flow.Current)
-                    {
-                        _oldChatParagraph = flow.Current;
-                        OnNPCParagraphChanged(flow);
-                    }
+                    _activeNPCChatUI.SetPage(flow.Current.PageInfo);
                 }
             }
             else
@@ -94,29 +81,9 @@ namespace Luxcinder.Functions.NPCChat
 
         private void OnEnterNPCChat(NPC npc)
         {
-            var examplePerson = (Sylvia)npc.ModNPC;
-            // 刷新UI状态
-            var flow = examplePerson.GetFlow;
-            OnNPCParagraphChanged(flow);
+            // var examplePerson = (Sylvia)npc.ModNPC;
         }
 
-        private void OnNPCParagraphChanged(NPCChatControlFlow flow)
-        {
-            if (flow.Current != null)
-            {
-                _activeNPCChatUI.SetPage(flow.Current.Text, flow.Current.ImmediateShow);
-
-                if (flow.Current.Options != null && flow.Current.Options.Count > 0)
-                {
-                    _activeNPCChatUI.SetOptions(flow.Current.Options.Select(o => o.GetText()).ToList());
-
-                }
-                else
-                {
-                    _activeNPCChatUI.SetOptions(new List<string>());
-                }
-            }
-        }
         private void On_Main_GUIChatDraw(On_Main.orig_GUIChatDraw orig, Main self)
         {
             if (!TryReplaceNPCChatGUI())
