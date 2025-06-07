@@ -267,6 +267,11 @@ Mods: {
 				DisplayName: Nonferrous Metals
 				Tooltip: ""
 			}
+
+			SkeletonSight: {
+				DisplayName: Skeleton Sight
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
