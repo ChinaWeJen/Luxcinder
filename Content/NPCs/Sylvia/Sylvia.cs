@@ -22,7 +22,7 @@ namespace Luxcinder.Content.NPCs.Sylvia
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[Type] = 20;
+            Main.npcFrameCount[Type] = 19;
         }
 
         private NPCChatControlFlow _flow;
@@ -35,7 +35,7 @@ namespace Luxcinder.Content.NPCs.Sylvia
         public override void SetDefaults()
         {
             NPC.width = 40;
-            NPC.height = 64;
+            NPC.height = 70;
             NPC.aiStyle = 7;
             NPC.damage = 10;
             NPC.defense = 15;
@@ -221,24 +221,28 @@ namespace Luxcinder.Content.NPCs.Sylvia
             {
                 NPC.frameCounter = 0.0;
 
-                if (Math.Abs(NPC.velocity.X) > 6f)
+                // 投掷动作检测(帧1-4)
+                if (NPC.ai[1] == 1)  // 假设使用ai[1]作为投掷标志
                 {
                     NPC.frame.Y += frameHeight;
-                    if (NPC.frame.Y < 3 * frameHeight || NPC.frame.Y >= 6 * frameHeight)
-                        NPC.frame.Y = 3 * frameHeight;
+                    if (NPC.frame.Y < 1 * frameHeight || NPC.frame.Y >= 5 * frameHeight)
+                        NPC.frame.Y = 1 * frameHeight;
                 }
+                // 掉落状态(帧5)
                 else if (NPC.velocity.Y != 0)
                 {
-                    NPC.frame.Y = 7 * frameHeight;
+                    NPC.frame.Y = 5 * frameHeight;
                 }
+                // 行走动画(帧6-18)
                 else if (NPC.velocity.X != 0)
                 {
                     NPC.frame.Y += frameHeight;
-                    if (NPC.frame.Y >= 20 * frameHeight)
-                        NPC.frame.Y = 8 * frameHeight;
-                    else if (NPC.frame.Y < 8 * frameHeight)
-                        NPC.frame.Y = 8 * frameHeight;
+                    if (NPC.frame.Y >= 19 * frameHeight)
+                        NPC.frame.Y = 6 * frameHeight;
+                    else if (NPC.frame.Y < 6 * frameHeight)
+                        NPC.frame.Y = 6 * frameHeight;
                 }
+                // 站立(帧0)
                 else
                 {
                     NPC.frame.Y = 0;
