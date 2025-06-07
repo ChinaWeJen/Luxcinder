@@ -21,6 +21,7 @@ namespace Luxcinder.Content.Projectiles.LightEclipseEye
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 1.2f;
+            Projectile.rotation = Projectile.velocity.ToRotation(); // 确保初始方向正确
         }
 
         public override void AI()

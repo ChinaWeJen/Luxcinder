@@ -3,19 +3,25 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
 {
     public class LightEclipseEye : ModNPC
     {
-        // AI状态
+        // 全局移动调整常量
+        private const float globalSpeedModifier = 1f;  // 降低移动速度
+        private const float distanceMultiplier = 0.8f;  // 增加与玩家距离
+        private const float minDistance = 200f;  // 最小跟踪距离
+        private const float maxDistance = 500f;  // 最大跟踪距离
+
+
         private enum AttackPhase
         {
             Phase1,
             Phase2,
             Phase3
         }
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 1; // 单帧NPC
@@ -23,6 +29,7 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
 
         public override void SetDefaults()
         {
+            Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Boss/SGZY/ZYKK");
             NPC.width = 120;
             NPC.height = 120;
             NPC.lifeMax = 50000;
@@ -34,12 +41,121 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.boss = true;
+
             NPC.value = Item.buyPrice(0, 10);
             NPC.aiStyle = -1; // 自定义AI
         }
 
+        
+            // 其他默认设置...
+
+        // 其他设置...
         public override void AI()
         {
+            // ===== 出场动画逻辑 =====
+            if (NPC.localAI[3] == 0) // 初始状态
+            {
+                NPC.localAI[3] = 1; // 标记已开始
+                NPC.alpha = 255; // 完全透明
+                NPC.dontTakeDamage = true; // 无敌状态
+                NPC.ai[3] = 0; // 重置计时器
+                
+                // 播放出场音效
+                SoundEngine.PlaySound(new SoundStyle("Luxcinder/Assets/Music/Boss/SGZY/GDYX") with { Volume = 1.3f }, NPC.Center);
+                
+                // 强烈初始特效
+                for (int i = 0; i < 50; i++) // 增加粒子数量
+                {
+                    int dustType = Main.rand.NextBool(3) ? DustID.GoldFlame : DustID.Enchanted_Gold;
+                    Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 
+                        dustType, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), 
+                        100, default, Main.rand.NextFloat(1.5f, 3f)).noGravity = true;
+                }
+                
+                // 添加光环特效
+                for (int i = 0; i < 36; i++)
+                {
+                    Vector2 position = NPC.Center + Vector2.UnitX.RotatedBy(MathHelper.TwoPi * i / 36) * 100;
+                    Dust.NewDustPerfect(position, DustID.GoldFlame, 
+                        Vector2.Zero, 100, default, 2f).noGravity = true;
+                }
+            }
+
+            // 渐显动画(5秒=300帧)
+            if (NPC.ai[3] < 300)
+            {
+                NPC.ai[3]++;
+                NPC.alpha = (int)(255 * (1 - NPC.ai[3]/300f)); // 线性渐显
+                
+                // 使BOSS旋转面朝玩家(但不影响贴图渲染)
+                if (Main.player[NPC.target].active)
+                {
+                    Vector2 direction = Main.player[NPC.target].Center - NPC.Center;
+                    NPC.rotation = direction.ToRotation() - MathHelper.PiOver2;
+                    
+                    // 强制重绘确保效果同步
+                    NPC.spriteDirection = 1;
+                    NPC.dontCountMe = true;
+                }
+                
+                // 更丰富的持续特效
+                if (Main.rand.NextBool(3)) // 增加粒子频率
+                {
+                    int dustType = Main.rand.NextBool() ? DustID.GoldFlame : DustID.Enchanted_Pink;
+                    Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, 
+                        dustType, Main.rand.NextFloat(-2, 2), Main.rand.NextFloat(-2, 2), 
+                        100, default, Main.rand.NextFloat(1f, 2f)).noGravity = true;
+                    
+                    // 添加旋转光环粒子
+                    if (NPC.ai[3] % 10 == 0)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Vector2 position = NPC.Center + Vector2.UnitX.RotatedBy(MathHelper.TwoPi * (i + NPC.ai[3]/30f)) * 80;
+                            Dust.NewDustPerfect(position, DustID.GoldFlame, 
+                                Vector2.Zero, 100, default, 1.8f).noGravity = true;
+                        }
+                    }
+                }
+
+                if (NPC.ai[3] >= 300) // 动画结束
+                {
+                    NPC.dontTakeDamage = false; // 取消无敌
+                    // 更强烈的爆发特效
+                    for (int i = 0; i < 60; i++) // 增加粒子数量
+                    {
+                        int dustType = i % 3 == 0 ? DustID.Enchanted_Pink : DustID.GoldFlame;
+                        Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 
+                            dustType, Main.rand.NextFloat(-6, 6), 
+                            Main.rand.NextFloat(-6, 6), 100, default, 
+                            Main.rand.NextFloat(1.5f, 3f)).noGravity = true;
+                    }
+                    
+                    // 添加冲击波效果
+                    for (int i = 0; i < 72; i++)
+                    {
+                        Vector2 velocity = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * i / 72) * 8;
+                        Dust.NewDustPerfect(NPC.Center, DustID.GoldFlame, 
+                            velocity, 100, default, 2.5f).noGravity = true;
+                    }
+
+                    // 爆炸音效
+                    SoundEngine.PlaySound(new SoundStyle("Luxcinder/Assets/Sounds/SGZY/BZ") with { Volume = 1.3f }, NPC.Center);
+
+                    // 圆形弹幕圈
+                    int projectiles = 12;
+                    float rotation = MathHelper.TwoPi / projectiles;
+                    for (int i = 0; i < projectiles; i++)
+                    {
+                        Vector2 velocity = Vector2.UnitX.RotatedBy(rotation * i) * 8f;
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, 
+                            ModContent.ProjectileType<LightEclipseBolt>(), 40, 2f);
+                    }
+                }
+                return; // 动画期间不执行其他AI
+            }
+            // ===== 结束出场动画 =====
+
             Player player = Main.player[NPC.target];
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
             {
@@ -47,22 +163,22 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
                 player = Main.player[NPC.target];
             }
 
-            // 面向玩家逻辑
-            NPC.direction = NPC.Center.X < player.Center.X ? 1 : -1;
-            NPC.spriteDirection = NPC.direction;
+            // 调整旋转使BOSS正面(贴图朝右)对准玩家
+            Vector2 toPlayer = player.Center - NPC.Center;
+            NPC.rotation = toPlayer.ToRotation();  // 移除了PiOver2偏移使正面朝向玩家
 
             // 神圣光环效果
             if (Main.rand.NextBool(10))
             {
-                Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 
+                Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height,
                     DustID.GoldFlame, 0f, 0f, 100, default, 2f);
                 dust.noGravity = true;
                 dust.velocity *= 0.5f;
             }
 
             // 根据血量切换阶段
-            AttackPhase currentPhase = NPC.life > NPC.lifeMax * 0.66f ? AttackPhase.Phase1 : 
-                                     NPC.life > NPC.lifeMax * 0.33f ? AttackPhase.Phase2 : 
+            AttackPhase currentPhase = NPC.life > NPC.lifeMax * 0.66f ? AttackPhase.Phase1 :
+                                     NPC.life > NPC.lifeMax * 0.33f ? AttackPhase.Phase2 :
                                      AttackPhase.Phase3;
 
             switch (currentPhase)
@@ -93,24 +209,39 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
             switch (NPC.localAI[1])
             {
                 case 1: // 环绕模式
-                    targetPos = player.Center + new Vector2(0, -300).RotatedBy(NPC.localAI[0] * 0.02f);
-                    speed = 8f;
+                    targetPos = player.Center + (new Vector2(0, -400) * distanceMultiplier).RotatedBy(NPC.localAI[0] * 0.015f);
+                    speed = 6f * globalSpeedModifier;
                     break;
-                case 2: // 快速突进模式
-                    targetPos = player.Center + new Vector2(Main.rand.Next(-200, 200), Main.rand.Next(-200, 200));
-                    speed = 15f;
+                case 2: // 突进模式
+                    targetPos = player.Center + new Vector2(
+                        Main.rand.Next(-300, 300) * distanceMultiplier, 
+                        Main.rand.Next(-300, 300) * distanceMultiplier);
+                    speed = 10f * globalSpeedModifier;
                     break;
                 default: // 默认追踪模式
-                    targetPos = player.Center + new Vector2(0, -300);
-                    speed = 12f;
+                    targetPos = player.Center + new Vector2(0, -350 * distanceMultiplier);
+                    speed = 8f * globalSpeedModifier;
                     break;
             }
 
-            Vector2 direction = targetPos - NPC.Center;
-            float distance = direction.Length();
-            direction.Normalize();
+            // 确保最小距离
+            Vector2 toPlayer = player.Center - NPC.Center;
+            if (toPlayer.Length() < minDistance)
+            {
+                targetPos = player.Center + toPlayer.SafeNormalize(Vector2.Zero) * minDistance;
+            }
 
-            NPC.velocity = (NPC.velocity * 10f + direction * speed) / 11f;
+            Vector2 direction = targetPos - NPC.Center;
+            direction.Normalize();
+            
+            // 更平滑柔和的速度过渡
+            Vector2 targetVelocity = direction * speed;
+            // 添加轻微随机偏移使运动更自然
+            targetVelocity += new Vector2(
+                Main.rand.NextFloat(-0.3f, 0.3f),
+                Main.rand.NextFloat(-0.3f, 0.3f)) * speed * 0.1f;
+            // 更平缓的过渡
+            NPC.velocity = Vector2.Lerp(NPC.velocity, targetVelocity, 0.05f);
 
             // 智能弹幕攻击
             if (NPC.ai[0]++ % 120 == 0)
@@ -150,36 +281,52 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
             
             switch (NPC.localAI[1])
             {
-                case 1: // 快速环绕模式
-                    targetPos = player.Center + new Vector2(0, -150).RotatedBy(NPC.localAI[0] * 0.03f);
-                    speed = 18f;
+                case 1: // 环绕模式
+                    targetPos = player.Center + (new Vector2(0, -250) * distanceMultiplier).RotatedBy(NPC.localAI[0] * 0.02f);
+                    speed = 12f * globalSpeedModifier;
                     break;
                 case 2: // 突袭模式
-                    targetPos = player.Center + new Vector2(Main.rand.Next(-150, 150), Main.rand.Next(-150, 150));
-                    speed = 25f;
+                    targetPos = player.Center + new Vector2(
+                        Main.rand.Next(-200, 200) * distanceMultiplier, 
+                        Main.rand.Next(-200, 200) * distanceMultiplier);
+                    speed = 18f * globalSpeedModifier;
                     break;
                 default: // 默认追踪模式
-                    targetPos = player.Center + new Vector2(0, -200);
-                    speed = 15f;
+                    targetPos = player.Center + new Vector2(0, -300 * distanceMultiplier);
+                    speed = 10f * globalSpeedModifier;
                     break;
+            }
+
+            // 确保最小距离
+            Vector2 toPlayer = player.Center - NPC.Center;
+            if (toPlayer.Length() < minDistance)
+            {
+                targetPos = player.Center + toPlayer.SafeNormalize(Vector2.Zero) * minDistance;
             }
 
             Vector2 direction = targetPos - NPC.Center;
             direction.Normalize();
-            NPC.velocity = (NPC.velocity * 5f + direction * speed) / 6f;
+            // 更平滑柔和的运动
+            Vector2 targetVelocity = direction * speed;
+            // 添加自然随机偏移
+            targetVelocity += new Vector2(
+                Main.rand.NextFloat(-0.4f, 0.4f),
+                Main.rand.NextFloat(-0.4f, 0.4f)) * speed * 0.1f;
+            // 更平缓的速度变化
+            NPC.velocity = Vector2.Lerp(NPC.velocity, targetVelocity, 0.05f);
 
             // 智能环形弹幕攻击
             if (NPC.ai[0]++ % 80 == 0)
             {
-                int projectileCount = 8 + (int)((1f - NPC.life / NPC.lifeMax) * 4); // 血量越低越多
+                int projectileCount = 6 + (int)((1f - NPC.life / NPC.lifeMax) * 4); // 血量越低越多
                 for (int i = 0; i < projectileCount; i++)
                 {
                     float angle = MathHelper.TwoPi * i / projectileCount;
-                    Vector2 projectileVel = Vector2.UnitX.RotatedBy(angle) * 10f;
+                    Vector2 projectileVel = Vector2.UnitX.RotatedBy(angle) * 8f;
                     
                     // 向玩家方向偏移
                     Vector2 playerDir = (player.Center - NPC.Center).SafeNormalize(Vector2.Zero);
-                    projectileVel = (projectileVel + playerDir * 2f).SafeNormalize(Vector2.Zero) * 10f;
+                    projectileVel = (projectileVel + playerDir * 2f).SafeNormalize(Vector2.Zero) * 8f;
                     
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, projectileVel, 
                         ModContent.ProjectileType<LightEclipseBolt>(), 40, 2f);
@@ -197,14 +344,21 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
                 NPC.localAI[1] = Main.rand.Next(3); // 0-2随机模式
             }
 
+            // 确保最小距离
+            Vector2 toPlayer = player.Center - NPC.Center;
+            if (toPlayer.Length() < minDistance)
+            {
+                NPC.velocity = toPlayer.SafeNormalize(Vector2.Zero) * -5f;
+            }
+
             // 狂暴移动模式
             switch (NPC.localAI[1])
             {
                 case 1: // 闪电冲刺模式
-                    if (NPC.ai[0]++ % 40 == 0)
+                    if (NPC.ai[0]++ % 60 == 0) // 增加冷却时间
                     {
                         Vector2 chargeDirection = (player.Center - NPC.Center).SafeNormalize(Vector2.Zero);
-                        NPC.velocity = chargeDirection * 30f;
+                        NPC.velocity = chargeDirection * (22f * globalSpeedModifier); // 降低冲刺速度
                         
                         // 冲刺轨迹效果
                         for (int i = 0; i < 5; i++)
@@ -215,38 +369,44 @@ namespace Luxcinder.Content.NPCs.Bosses.LightEclipseEye
                         }
                     }
                     break;
-                case 2: // 疯狂环绕模式
-                    Vector2 orbitPos = player.Center + new Vector2(0, -100).RotatedBy(NPC.localAI[0] * 0.05f);
+                case 2: // 环绕模式
+                    Vector2 orbitPos = player.Center + (new Vector2(0, -200) * distanceMultiplier).RotatedBy(NPC.localAI[0] * 0.03f); // 增加环绕距离
                     Vector2 orbitDir = (orbitPos - NPC.Center).SafeNormalize(Vector2.Zero);
-                    NPC.velocity = (NPC.velocity * 3f + orbitDir * 20f) / 4f;
+                    // 更柔和的环绕运动
+                    Vector2 targetOrbitVel = orbitDir * (15f * globalSpeedModifier);
+                    // 添加自然随机偏移
+                    targetOrbitVel += new Vector2(
+                        Main.rand.NextFloat(-0.5f, 0.5f),
+                        Main.rand.NextFloat(-0.5f, 0.5f)) * 2f;
+                    // 更平缓的速度变化
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, targetOrbitVel, 0.05f);
                     break;
-                default: // 默认狂暴追踪模式
-                    Vector2 targetPos = player.Center + new Vector2(0, -100);
+                default: // 默认追踪模式
+                    Vector2 targetPos = player.Center + new Vector2(0, -200 * distanceMultiplier); // 增加距离
                     Vector2 direction = (targetPos - NPC.Center).SafeNormalize(Vector2.Zero);
-                    NPC.velocity = (NPC.velocity * 2f + direction * 25f) / 3f;
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, direction * (18f * globalSpeedModifier), 0.1f); // 降低速度并平滑
                     break;
             }
 
             // 智能弹幕风暴
-            if (NPC.ai[1]++ % 20 == 0)
+            if (NPC.ai[1]++ % 30 == 0) // 降低频率
             {
-                int projectileCount = 2 + (int)((1f - NPC.life / NPC.lifeMax) * 4); // 血量越低越多
+                int projectileCount = 2 + (int)((1f - NPC.life / NPC.lifeMax) * 2); // 减少弹幕数量
                 for (int i = 0; i < projectileCount; i++)
                 {
                     float angle = Main.rand.NextFloat(MathHelper.TwoPi);
                     Vector2 spawnPos = NPC.Center + Vector2.UnitX.RotatedBy(angle) * 50f;
                     
-                    // 智能追踪弹幕
-                    Vector2 predictPos = player.Center + player.velocity * 1.5f;
-                    Vector2 projectileVel = (predictPos - spawnPos).SafeNormalize(Vector2.Zero) * 15f;
+                    // 降低精度的弹幕
+                    Vector2 baseDir = (player.Center - spawnPos).SafeNormalize(Vector2.Zero);
+                    Vector2 projectileVel = baseDir.RotatedBy(Main.rand.NextFloat(-0.3f, 0.3f)) * 10f; // 增加散布角度并降低速度
                     
-
-
-                    
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), spawnPos, projectileVel,
+                        ModContent.ProjectileType<LightEclipseBolt>(), 50, 2f);
                 }
             }
 
-            // 终极技能: 神圣审判
+            // 终极技能: 神圣审判(保持不变)
             if (NPC.ai[2]++ % 500 == 0 && NPC.life < NPC.lifeMax * 0.3f)
             {
                 // 全屏弹幕雨
