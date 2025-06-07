@@ -438,6 +438,7 @@ Mods: {
 			}
 
 			// Guard.DisplayName: Guard
+			// LightEclipseEye.DisplayName: Light Eclipse Eye
 		}
 
 		Tiles: {
@@ -451,6 +452,7 @@ Mods: {
 			AlloyFire.DisplayName: Alloy Fire
 			CorruptedOrb.DisplayName: Corrupted Orb
 			// GoldenLaser.DisplayName: Golden Laser
+			// LightEclipseBolt.DisplayName: Light Eclipse Bolt
 		}
 	}
 }
