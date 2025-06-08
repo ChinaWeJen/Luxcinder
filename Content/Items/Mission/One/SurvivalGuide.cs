@@ -9,6 +9,17 @@ namespace Luxcinder.Content.Items.Mission.One
 {
     public class SurvivalGuide : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            // 合成配方
+            Recipe.Create(Type)
+                .AddIngredient(ItemID.Acorn, 8)  // 8橡果
+                .AddIngredient(ItemID.Wood, 20)  // 20木材
+                .AddIngredient(ItemID.Mushroom, 5)  // 5蘑菇
+                .AddTile(TileID.WorkBenches)  // 在工作台合成
+                .Register();
+        }
+
         public override void SetDefaults()
         {
             Item.width = 24;
