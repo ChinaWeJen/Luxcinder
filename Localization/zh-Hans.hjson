@@ -412,6 +412,38 @@ Mods: {
 				// DisplayName: Skeleton Sight
 				// Tooltip: ""
 			}
+
+			Encyclopedia: {
+				DisplayName: 百科全书
+				Tooltip:
+					'''
+					[c/FFA500:智慧结晶的载体]
+					[c/FF8C00:【知识启迪】]你有什么疑问吗或许有一天你可以试试翻阅它
+					书页边缘泛着温暖的橙色微光
+					能感受到知识在脉动！
+					'''
+			}
+
+			ScienceTechnologyANDInnovation: {
+				DisplayName: 科技与创新
+				Tooltip:
+					'''
+					[c/00BFFF:创新才会带来历史性的进步]
+					[c/1E90FF:【创新思维】]它告诉我该利用一些奇奇怪怪的物理法则？
+					如何在三天成为理科大神
+					'''
+			}
+
+			SurvivalGuide: {
+				DisplayName: 生存指南手册
+				Tooltip:
+					'''
+					[c/32CD32:冒险者必备的实用指南]
+					[c/7CFC00:【生存技巧】]上面写了好多怎样在这片泰拉大陆生存下去的法子
+					书页间夹着各种植物标本
+					内页记满了实用的生存笔记
+					'''
+			}
 		}
 
 		NPCs: {

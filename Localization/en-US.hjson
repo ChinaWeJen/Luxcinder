@@ -272,6 +272,21 @@ Mods: {
 				DisplayName: Skeleton Sight
 				Tooltip: ""
 			}
+
+			Encyclopedia: {
+				DisplayName: Encyclopedia
+				Tooltip: ""
+			}
+
+			ScienceTechnologyANDInnovation: {
+				DisplayName: Science Technology A N D Innovation
+				Tooltip: ""
+			}
+
+			SurvivalGuide: {
+				DisplayName: Survival Guide
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
