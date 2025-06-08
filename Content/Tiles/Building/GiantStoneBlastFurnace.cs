@@ -13,7 +13,7 @@ namespace Luxcinder.Content.Tiles.Building
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
-            Main.tileLavaDeath[Type] = false;
+            Main.tileLavaDeath[Type] = true;
 
             // 7宽9高的建筑
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
@@ -24,16 +24,16 @@ namespace Luxcinder.Content.Tiles.Building
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
 
-            AnimationFrameHeight = 36; // 9格高 × 4帧 = 36帧高度
+            AnimationFrameHeight = 160; // 每帧高度160像素
         }
 
         public override void AnimateTile(ref int frame, ref int frameCounter)
         {
             // 4帧动画
-            if (++frameCounter >= 10) // 每10帧切换一次
+            if (++frameCounter >= 6) // 每6帧切换一次
             {
                 frameCounter = 0;
-                frame = ++frame % 4;
+                frame = (frame + 1) % 4;
             }
         }
 

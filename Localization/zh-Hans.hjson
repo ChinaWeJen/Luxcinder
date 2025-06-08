@@ -446,6 +446,8 @@ Mods: {
 			Ash_Portal.MapEntry: Ash_Portal
 			// QuenchedTile.MapEntry: Quenched Tile
 			// AshPortal.MapEntry: Ash Portal
+			// DeepLightTower.MapEntry: Deep Light Tower
+			// GiantStoneBlastFurnace.MapEntry: Giant Stone Blast Furnace
 		}
 
 		Projectiles: {
