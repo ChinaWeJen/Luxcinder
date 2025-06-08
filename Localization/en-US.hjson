@@ -287,6 +287,11 @@ Mods: {
 				DisplayName: Survival Guide
 				Tooltip: ""
 			}
+
+			SourceSpiritBow: {
+				DisplayName: Source Spirit Bow
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -314,6 +319,7 @@ Mods: {
 
 			Guard.DisplayName: Guard
 			LightEclipseEye.DisplayName: Light Eclipse Eye
+			Spy.DisplayName: Spy
 		}
 
 		Tiles: {
@@ -330,6 +336,7 @@ Mods: {
 			CorruptedOrb.DisplayName: Corrupted Orb
 			GoldenLaser.DisplayName: Golden Laser
 			LightEclipseBolt.DisplayName: Light Eclipse Bolt
+			SourceSpiritArrow.DisplayName: Source Spirit Arrow
 		}
 	}
 }
