@@ -1,21 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Luxcinder.Functions.NPCChat.Nodes;
+using Luxcinder.Functions.UISystem.UINodes;
+using Luxcinder.Functions.UISystem.Utils;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Linq;
 using ReLogic.Content;
 using ReLogic.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.UI;
+using Terraria.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Luxcinder.Functions.NPCChat
 {
@@ -24,8 +30,19 @@ namespace Luxcinder.Functions.NPCChat
         CLOSED,
         ACTIVE
     }
-    public class NPCChatUI
+
+    public class NPCDiaglogUI : UIState
     {
+        private LuxcinderUIPanel _backgroundPanel;
+        private LuxcinderUIImageButton _nextStepButton;
+        private UIList _listOptions;
+
+        private Asset<Texture2D> _texture_聊天栏;
+        private Asset<Texture2D> _texture_宝石;
+        private Asset<Texture2D> _texture_下一步;
+        private Asset<Texture2D> _texture_下一步_Hover;
+        private SoundStyle _sound_打字声;
+
         private int _typewriterCharCount = 0;
         private int _updateCounter = 0;
         private string _lastText = "";
@@ -35,30 +52,15 @@ namespace Luxcinder.Functions.NPCChat
         private NPC _targetNPC;
         private int _chosenOption;
 
-        // 打字的时候的间隔
-        private int _typingInterval = 7;
-        // 停顿的间隔
-        private int _pauseInterval = 30;
+        private int _typingInterval;
+        private List<string> _warppedText = new List<string>();
 
 
-        private Asset<Texture2D> _texture_聊天栏;
-        private Asset<Texture2D> _texture_宝石;
-        private Asset<Texture2D> _texture_下一步;
-        private SoundStyle _sound_打字声;
-        public NPCChatUI()
+        public NPC TargetNPC
         {
-			string relativePath = AssetExtensions.GetModRelativePathFull<NPCChatUI>();
-			_texture_聊天栏 = ModContent.Request<Texture2D>($"{relativePath}/Images/聊天栏");
-			_texture_宝石 = ModContent.Request<Texture2D>($"{relativePath}/Images/宝石");
-			_texture_下一步 = ModContent.Request<Texture2D>($"{relativePath}/Images/下一步");
-			_sound_打字声 = new SoundStyle($"{relativePath}/Sounds/对话音效")
-            {
-                Volume = 0.9f,
-                PitchVariance = 0.2f,
-                MaxInstances = 3,
-            };
+            get => _targetNPC;
+            set => _targetNPC = value;
         }
-
         public bool IsReady
         {
             get
@@ -74,7 +76,54 @@ namespace Luxcinder.Functions.NPCChat
             return result;
         }
 
-        public void Activate(NPC npc)
+        public override void OnInitialize()
+        {
+            InitializeResources();
+
+            var textureBackground = this.RequestModRelativeTexture("Images/TextBackground");
+            _backgroundPanel = new LuxcinderUIPanel(textureBackground, 32, 32, 32, 32);
+            _backgroundPanel.BackgroundColor = Color.White;
+            _backgroundPanel.BorderColor = Color.White;
+
+            _nextStepButton = new LuxcinderUIImageButton(_texture_下一步);
+            _nextStepButton.SetHoverImage(_texture_下一步_Hover);
+            _nextStepButton.Width.Set(68, 0);
+            _nextStepButton.Height.Set(22, 0);
+			_nextStepButton.OnLeftClick += _nextStepButton_OnLeftClick;
+            _nextStepButton.SetVisibility(1.0f, 0.5f);
+
+            _listOptions = new UIList();
+
+            _backgroundPanel.Append(_listOptions);
+            _backgroundPanel.Append(_nextStepButton);
+
+            base.Append(_backgroundPanel);
+        }
+
+        private void _nextStepButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
+        {
+            if (IsReady)
+            {
+                _chosenOption = 0;
+            }
+        }
+
+		private void InitializeResources()
+        {
+            string relativePath = AssetExtensions.GetModRelativePathFull<NPCChatUI>();
+            _texture_聊天栏 = ModContent.Request<Texture2D>($"{relativePath}/Images/聊天栏");
+            _texture_宝石 = ModContent.Request<Texture2D>($"{relativePath}/Images/宝石");
+            _texture_下一步 = ModContent.Request<Texture2D>($"{relativePath}/Images/下一步");
+            _texture_下一步_Hover = ModContent.Request<Texture2D>($"{relativePath}/Images/NextStep_Hover");
+            _sound_打字声 = new SoundStyle($"{relativePath}/Sounds/对话音效")
+            {
+                Volume = 0.9f,
+                PitchVariance = 0.2f,
+                MaxInstances = 3,
+            };
+        }
+
+        public override void OnActivate()
         {
             if (!_isActive)
             {
@@ -83,17 +132,94 @@ namespace Luxcinder.Functions.NPCChat
                 _chosenOption = -1;
                 _isActive = true;
             }
-            _targetNPC = npc;
         }
 
-        public void Deactivate()
+        public override void OnDeactivate()
         {
-            if (_isActive)
+            _isActive = false;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            // 如果NPC对话框处于活动状态，更新UI位置
+            if (Main.LocalPlayer.talkNPC != -1)
             {
-                // 关闭UI窗口的瞬间发生的事情
-                _isActive = false;
+                NPC targetNPC = Main.npc[Main.LocalPlayer.talkNPC];
+                _backgroundPanel.Width.Set(500, 0);
+                _backgroundPanel.Height.Set(200, 0);
+
+                var dimension = _backgroundPanel.GetDimensions();
+
+                // 将NPC在Game View中的位置转换到UI坐标下
+                Vector2 npcScreenPos = targetNPC.Center - Main.screenPosition;
+                Vector2 npcUIPos = Vector2.Transform(npcScreenPos, Main.GameViewMatrix.ZoomMatrix);
+                // 现在 npcUIPos 就是UI坐标，可以用于UI元素定位
+                npcUIPos = Vector2.Transform(npcUIPos, Matrix.Invert(Main.UIScaleMatrix));
+
+                _backgroundPanel.Left.Set(npcUIPos.X - dimension.Width / 2, 0f);
+                _backgroundPanel.Top.Set(npcUIPos.Y + 46, 0f);
+
+
+                _nextStepButton.Top.Set(-30, 1);
+                _nextStepButton.Left.Set(-60, 1);
+                _nextStepButton.IsActive = IsReady && _options.Count == 0;
+
+                if (_backgroundPanel.IsMouseHovering)
+                {
+                    Main.LocalPlayer.mouseInterface = true;
+                }
+            }
+
+            // 打字机效果更新
+            if (_typewriterCharCount < _currentText.Length)
+            {
+                _updateCounter++;
+                if (_updateCounter >= _typingInterval)
+                {
+                    _typewriterCharCount += 2;
+                    _typewriterCharCount = Math.Min(_typewriterCharCount, _currentText.Length);
+                    _updateCounter = 0;
+
+                    // 播放打字机音效
+                    SoundEngine.PlaySound(_sound_打字声, _targetNPC.Center);
+                }
             }
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.End();
+            {
+
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Main.UIScaleMatrix);
+
+                base.Draw(spriteBatch);
+
+                spriteBatch.End();
+            }
+
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Main.UIScaleMatrix);
+
+                float x = (_backgroundPanel.Left.Pixels);
+                float y = (_backgroundPanel.Top.Pixels);
+
+                string showText = _currentText.Substring(0, Math.Min(_typewriterCharCount, _currentText.Length));
+                var innerDimension = _backgroundPanel.GetInnerDimensions();
+                _warppedText = UIUtils.WrapText(showText, FontAssets.MouseText.Value, innerDimension.Width);
+
+                int lineNum = 0;
+                foreach (var line in _warppedText)
+                {
+                    Terraria.Utils.DrawBorderString(spriteBatch, line, new Vector2(innerDimension.X , innerDimension.Y  + 30 * lineNum), Color.White, 1f);
+                    lineNum++;
+                }
+                spriteBatch.End();
+            }
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
+        }
+
 
         public void SetPage(NPCChatPage page)
         {
@@ -111,133 +237,115 @@ namespace Luxcinder.Functions.NPCChat
                 _updateCounter = 0; // 重置更新时间
                 _chosenOption = -1;
                 _lastText = _currentText; // 更新最后的文本
+
             }
 
-            if(_options != page.Options)
+            // 将此处改为列表里的所有元素的字符串相等
+
+            if (!(_options?.SequenceEqual(page.Options ?? new List<string>()) ?? (page.Options == null)))
             {
                 _options = page.Options ?? new List<string>();
+                ResetOptionsUI();
             }
 
             _typingInterval = page.TypewriterTypeInterval;
         }
-        public string Text
+
+        private void ResetOptionsUI()
         {
-            get
+            _listOptions.Clear();
+
+            if (_options.Count == 0)
+                return;
+
+            foreach (var option in _options)
             {
-                return _currentText;
+                var alignBox = new LuxcinderUIHorizontalAlign();
+                var uiIcon = new UIImage(_texture_宝石);
+                uiIcon.Width.Set(16, 0);
+                uiIcon.Height.Set(16, 0);
+                uiIcon.MarginRight = 16f;
+                var uiText = new LuxcinderUIAutoScaleText<string>(option);
+                uiText.TextScale = 1f;
+				uiText.OnMouseOver += UiText_OnMouseOver;
+				uiText.OnMouseOut += UiText_OnMouseOut;
+                alignBox.Append(uiIcon);
+                alignBox.Append(uiText);
+                _listOptions.Add(alignBox);
             }
+            int textHeight = 30 * _warppedText.Count;
+
+            var bgDimension = _backgroundPanel.GetInnerDimensions();
+            _listOptions.Width.Set(bgDimension.Width, 0);
+            _listOptions.Height.Set(100, 0);
+            _listOptions.Top.Set(textHeight + 5, 0);
         }
 
-        public void Update()
+        private void UiText_OnMouseOut(UIMouseEvent evt, UIElement listeningElement)
         {
-            if (_typewriterCharCount < _currentText.Length)
-            {
-                _updateCounter++;
-                if (_updateCounter >= (_currentText[_typewriterCharCount] == ' ' ? _pauseInterval : _typingInterval))
-                {
-                    _typewriterCharCount++;
-                    _updateCounter = 0;
-
-                    // 播放打字机音效
-                    SoundEngine.PlaySound(_sound_打字声, _targetNPC.Center);
-                }
-            }
+            LuxcinderUIAutoScaleText<string> uiText = (LuxcinderUIAutoScaleText<string>)listeningElement;
+            uiText.TextScale = 1f;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+		private void UiText_OnMouseOver(UIMouseEvent evt, UIElement listeningElement)
         {
-            string showText = _currentText.Substring(0, Math.Min(_typewriterCharCount, _currentText.Length));
-            DrawSimpleDialogueUI(spriteBatch, showText, _targetNPC);
+            LuxcinderUIAutoScaleText<string> uiText = (LuxcinderUIAutoScaleText<string>)listeningElement;
+            uiText.TextScale = 1.33f;
         }
 
-        public void Reset()
+
+		public void Reset()
         {
             _typewriterCharCount = 0;
             _lastText = "";
             _updateCounter = 0;
         }
-
-        private void DrawSimpleDialogueUI(SpriteBatch spriteBatch, string text, NPC npc)
-        {
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-
-            DynamicSpriteFont value = FontAssets.MouseText.Value;
-            Vector2 mainTextSize = value.MeasureString(text);
-            int width = Math.Max(400, (int)mainTextSize.X + 60);
-            int height = 130 + (_typewriterCharCount >= _currentText.Length ? Math.Max(0, _options.Count - 2) * 30 : 0);
-            float x = (npc.Center.X - Main.screenPosition.X - width / 2);
-            float y = (npc.Center.Y - Main.screenPosition.Y + height / 2);
-
-            Texture2D panel = TextureAssets.MagicPixel.Value;
-            Color bgColor = new Color(0, 0, 0, 200);
-            spriteBatch.Draw(panel, new Rectangle((int)x, (int)y, width, height), bgColor);
-
-            spriteBatch.Draw(_texture_聊天栏.Value, new Vector2(x, y + 20), Color.White);
-
-            Color borderColor = Color.White;
-            int border = 2;
-            spriteBatch.Draw(panel, new Rectangle((int)(x - border), (int)(y - border), width + border * 2, border), borderColor); // 上
-            spriteBatch.Draw(panel, new Rectangle((int)(x - border), (int)(y + height), width + border * 2, border), borderColor); // 下
-            spriteBatch.Draw(panel, new Rectangle((int)(x - border), (int)y, border, height), borderColor); // 左
-            spriteBatch.Draw(panel, new Rectangle((int)(x + width), (int)y, border, height), borderColor); // 右
-
-            if (_typewriterCharCount < _currentText.Length)
-            {
-                text += "_"; // 添加光标效果
-            }
-            Terraria.Utils.DrawBorderString(spriteBatch, text, new Vector2(x + 40, y + 20), Color.Yellow, 1f);
-
-            // 文本准备完毕以后才显示选项
-            if (_typewriterCharCount >= _currentText.Length)
-            {
-                if (_options.Count == 0)
-                {
-                    float yDraw = y + 80;
-                    float xDraw = x + width - 55;
-                    spriteBatch.Draw(_texture_下一步.Value, new Vector2(xDraw, yDraw), Color.White);
-
-                    Rectangle buttonRect = new Rectangle((int)xDraw, (int)yDraw, 45, 30);
-                    PlayerInput.SetZoom_World();
-                    if (buttonRect.Contains(Main.MouseScreen.ToPoint()))
-                    {
-                        if (Main.mouseLeft && Main.mouseLeftRelease)
-                        {
-                            _chosenOption = 0;
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (var option in _options)
-                    {
-                        Vector2 text_size = value.MeasureString(option);
-                        float yDraw = y + 60 + _options.IndexOf(option) * 30;
-                        spriteBatch.Draw(_texture_宝石.Value, new Vector2(x + 10, yDraw), Color.White);
-
-                        Rectangle buttonRect = new Rectangle((int)x + 10, (int)yDraw, (int)(text_size.X + 20), 30);
-                        Color color = Color.White;
-                        float scale = 1f;
-                        PlayerInput.SetZoom_World();
-                        if (buttonRect.Contains(Main.MouseScreen.ToPoint()))
-                        {
-                            color = Color.Yellow;
-                            scale = 1.33f;
-                            //spriteBatch.Draw(panel, new Rectangle((int)(x + 40), (int)(yDraw + text_size.Y / 2), (int)text_size.X + 10, 2), Color.White);
-                            if (Main.mouseLeft && Main.mouseLeftRelease)
-                            {
-                                _chosenOption = _options.IndexOf(option);
-                            }
-                        }
-                        Terraria.Utils.DrawBorderString(spriteBatch, option, new Vector2(x + 40, yDraw + text_size.Y / 2), color, scale, 0.0f, 0.5f);
-                    }
-                }
-            }
-
-
-            PlayerInput.SetZoom_UI();
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
-        }
     }
+
+    public class NPCChatUI
+    {
+        private UserInterface _userInterface;
+        private NPCDiaglogUI _npcChatUI;
+
+        public NPCChatUI()
+        {
+            _userInterface = new UserInterface();
+            _npcChatUI = new NPCDiaglogUI();
+            _npcChatUI.Initialize();
+        }
+
+
+
+        public void Activate(NPC npc)
+        {
+            _npcChatUI.TargetNPC = npc;
+            _userInterface.SetState(_npcChatUI);
+        }
+
+        public int GetAndClearChosenOption()
+        {
+            return _npcChatUI.GetAndClearChosenOption();
+        }
+
+
+        public void Update(GameTime gameTime)
+        {
+            _userInterface.Update(gameTime);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            _userInterface.Draw(spriteBatch, Main._drawInterfaceGameTime);
+        }
+
+        public void SetPage(NPCChatPage pageInfo)
+        {
+            _npcChatUI.SetPage(pageInfo);
+        }
+        public void Deactivate()
+        {
+            _userInterface.SetState(null);
+            _npcChatUI.Deactivate();
+        }
+	}
 }
