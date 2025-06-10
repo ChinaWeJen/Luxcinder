@@ -85,8 +85,10 @@ namespace Luxcinder.Content.Menu
         {
             Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Zombie93); // 选择了这个ModMenu之后播放一个打雷音效
         }
+            
+		public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sound/Music/ZCD/ZCDYY");
+        
 
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Sound/Music/ZCD/ZCDYY");
         // 设置音乐音量 (1.0f是最大音量)
 
 

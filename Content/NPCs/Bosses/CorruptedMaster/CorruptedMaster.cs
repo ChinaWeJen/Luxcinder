@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria.DataStructures;
 
-namespace Luxcinder.Content.NPCs.Bosses
+namespace Luxcinder.Content.NPCs.Bosses.CorruptedMaster
 {
     public class CorruptedMaster : ModNPC
     {
@@ -176,7 +176,8 @@ namespace Luxcinder.Content.NPCs.Bosses
                             Main.npc[i].checkDead();
                             shadowsKilled++;
 
-                            if (shadowsKilled >= shadowsToKill) break;
+                            if (shadowsKilled >= shadowsToKill)
+                                break;
                         }
                     }
 

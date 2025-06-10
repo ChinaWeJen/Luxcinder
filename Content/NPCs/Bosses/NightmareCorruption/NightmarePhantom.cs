@@ -2,13 +2,13 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Luxcinder.Content.NPCs.NightmareCorruption
+namespace Luxcinder.Content.NPCs.Bosses.NightmareCorruption
 {
     public class NightmarePhantom : ModNPC
     {
         private NPC Boss => Main.npc[(int)NPC.ai[0]];
         private int PhantomIndex => (int)NPC.ai[1];
-        public override string Texture => "Luxcinder/Content/NPCs/NightmareCorruption/NightmareCorruption";
+        public override string Texture => "Luxcinder/Content/NPCs/Bosses/NightmareCorruption/NightmareCorruption";
 
         public override void SetDefaults()
         {

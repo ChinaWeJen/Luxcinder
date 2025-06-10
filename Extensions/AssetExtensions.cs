@@ -63,5 +63,15 @@ namespace Luxcinder
 		{
 			return nameof(Luxcinder) + "/" + TypeFullNameToRelativePath(typeof(T).FullName);
 		}
+
+		public static Asset<Texture2D> RequestModRelativeTexturePathFull<T>(string path)
+		{
+			return ModContent.Request<Texture2D>(nameof(Luxcinder) + "/" + TypeFullNameToRelativePath(typeof(T).FullName) + "/" + path, AssetRequestMode.AsyncLoad);
+		}
+
+		public static Asset<Texture2D> RequestModRelativeTexture(this object obj, string path)
+		{
+			return ModContent.Request<Texture2D>(nameof(Luxcinder) + "/" + TypeFullNameToRelativePath(obj.GetType().FullName) + "/" + path, AssetRequestMode.AsyncLoad);
+		}
 	}
 }
