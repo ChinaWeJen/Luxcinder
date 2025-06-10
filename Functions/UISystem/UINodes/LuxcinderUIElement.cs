@@ -21,6 +21,7 @@ public class LuxcinderUIElement : UIElement
 	{
 		if (IsActive)
 		{
+			this.IgnoresMouseInteraction = !IsActive;
 			base.Update(gameTime);
 		}
     }

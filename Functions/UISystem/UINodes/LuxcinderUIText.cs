@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReLogic.Graphics;
+using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI.Chat;
 
 namespace Luxcinder.Functions.UISystem.UINodes;
-public class LuxcinderUIAutoScaleText<T> : LuxcinderUIElement
+public class LuxcinderUIText : LuxcinderUIElement
 {
     public string Text => _text?.ToString() ?? string.Empty;
 
@@ -28,12 +29,12 @@ public class LuxcinderUIAutoScaleText<T> : LuxcinderUIElement
     public float TextOriginY = 0.5f;
 
     private Rectangle oldInnerDimensions;
-    private T _text = default;
+    private string _text = default;
     private string oldText;
     private string[] textStrings;
     private Vector2[] drawOffsets;
 
-    public LuxcinderUIAutoScaleText(T text, float textScaleMax = 1f, bool large = false) : base()
+    public LuxcinderUIText(string text, float textScaleMax = 1f, bool large = false) : base()
     {
         SetText(text, textScaleMax, large);
     }
@@ -44,12 +45,12 @@ public class LuxcinderUIAutoScaleText<T> : LuxcinderUIElement
         SetText(_text, TextScaleMax, IsLarge);
     }
 
-    public void SetText(T text)
+    public void SetText(string text)
     {
         SetText(text, TextScaleMax, IsLarge);
     }
 
-    public virtual void SetText(T text, float textScaleMax, bool large)
+    public virtual void SetText(string text, float textScaleMax, bool large)
     {
         if (ScalePanel)
         {
@@ -136,9 +137,11 @@ public class LuxcinderUIAutoScaleText<T> : LuxcinderUIElement
         else
             innerDimensions.Inflate(-4, -8);
 
+        DynamicSpriteFont dynamicSpriteFont = IsLarge ? FontAssets.DeathText.Value : FontAssets.MouseText.Value;
         for (int i = 0; i < textStrings.Length; i++)
         {
-            Vector2 pos = innerDimensions.TopLeft() + drawOffsets[i];
+            Vector2 size = ChatManager.GetStringSize(dynamicSpriteFont, textStrings[i], new Vector2(TextScale));
+            Vector2 pos = innerDimensions.Center() - size * 0.5f;
             if (IsLarge)
                 Terraria.Utils.DrawBorderStringBig(spriteBatch, textStrings[i], pos, TextColor, TextScale, 0f, 0f, -1);
             else

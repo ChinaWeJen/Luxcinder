@@ -147,7 +147,8 @@ namespace Luxcinder.Functions.NPCChat
             {
                 NPC targetNPC = Main.npc[Main.LocalPlayer.talkNPC];
                 _backgroundPanel.Width.Set(500, 0);
-                _backgroundPanel.Height.Set(200, 0);
+                int textHeight = 30 * _warppedText.Count + Math.Max(1, _options.Count) * 30 + 30;
+                _backgroundPanel.Height.Set(Math.Max(200, textHeight), 0);
 
                 var dimension = _backgroundPanel.GetDimensions();
 
@@ -258,6 +259,7 @@ namespace Luxcinder.Functions.NPCChat
             if (_options.Count == 0)
                 return;
 
+            int index = 0;
             foreach (var option in _options)
             {
                 var alignBox = new LuxcinderUIHorizontalAlign();
@@ -265,13 +267,21 @@ namespace Luxcinder.Functions.NPCChat
                 uiIcon.Width.Set(16, 0);
                 uiIcon.Height.Set(16, 0);
                 uiIcon.MarginRight = 16f;
-                var uiText = new LuxcinderUIAutoScaleText<string>(option);
+                var uiText = new LuxcinderUIText(option);
                 uiText.TextScale = 1f;
 				uiText.OnMouseOver += UiText_OnMouseOver;
 				uiText.OnMouseOut += UiText_OnMouseOut;
+
+                int capturedIndex = index;
+                uiText.OnLeftClick += (evt, ui) =>
+                {
+                    _chosenOption = capturedIndex;
+                };
+
                 alignBox.Append(uiIcon);
                 alignBox.Append(uiText);
                 _listOptions.Add(alignBox);
+                index++;
             }
             int textHeight = 30 * _warppedText.Count;
 
@@ -281,16 +291,17 @@ namespace Luxcinder.Functions.NPCChat
             _listOptions.Top.Set(textHeight + 5, 0);
         }
 
-        private void UiText_OnMouseOut(UIMouseEvent evt, UIElement listeningElement)
+		private void UiText_OnMouseOut(UIMouseEvent evt, UIElement listeningElement)
         {
-            LuxcinderUIAutoScaleText<string> uiText = (LuxcinderUIAutoScaleText<string>)listeningElement;
+            LuxcinderUIText uiText = (LuxcinderUIText)listeningElement;
             uiText.TextScale = 1f;
+            uiText.TextColor = Color.White;
         }
 
 		private void UiText_OnMouseOver(UIMouseEvent evt, UIElement listeningElement)
         {
-            LuxcinderUIAutoScaleText<string> uiText = (LuxcinderUIAutoScaleText<string>)listeningElement;
-            uiText.TextScale = 1.33f;
+            LuxcinderUIText uiText = (LuxcinderUIText)listeningElement;
+            uiText.TextColor = Color.Yellow;
         }
 
 
