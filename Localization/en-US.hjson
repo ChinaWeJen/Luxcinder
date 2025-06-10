@@ -272,6 +272,26 @@ Mods: {
 				DisplayName: Skeleton Sight
 				Tooltip: ""
 			}
+
+			Encyclopedia: {
+				DisplayName: Encyclopedia
+				Tooltip: ""
+			}
+
+			ScienceTechnologyANDInnovation: {
+				DisplayName: Science Technology A N D Innovation
+				Tooltip: ""
+			}
+
+			SurvivalGuide: {
+				DisplayName: Survival Guide
+				Tooltip: ""
+			}
+
+			SourceSpiritBow: {
+				DisplayName: Source Spirit Bow
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -299,6 +319,7 @@ Mods: {
 
 			Guard.DisplayName: Guard
 			LightEclipseEye.DisplayName: Light Eclipse Eye
+			Spy.DisplayName: Spy
 		}
 
 		Tiles: {
@@ -306,6 +327,8 @@ Mods: {
 			Ash_Portal.MapEntry: Ash_ Portal
 			QuenchedTile.MapEntry: Quenched Tile
 			AshPortal.MapEntry: Ash Portal
+			DeepLightTower.MapEntry: Deep Light Tower
+			GiantStoneBlastFurnace.MapEntry: Giant Stone Blast Furnace
 		}
 
 		Projectiles: {
@@ -313,6 +336,7 @@ Mods: {
 			CorruptedOrb.DisplayName: Corrupted Orb
 			GoldenLaser.DisplayName: Golden Laser
 			LightEclipseBolt.DisplayName: Light Eclipse Bolt
+			SourceSpiritArrow.DisplayName: Source Spirit Arrow
 		}
 	}
 }
