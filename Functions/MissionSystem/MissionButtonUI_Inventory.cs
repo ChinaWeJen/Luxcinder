@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ using Terraria.GameInput;
 using Terraria.ModLoader;
 
 namespace Luxcinder.Functions.MissionSystem;
-internal class MissionButtonUI_Inventory : LuxcinderUI
+internal class MissionButtonUI_Inventory : LuxcinderUILayer
 {
 	public override string InterfaceLayerName => "Luxcinder.MissionSystem.InventoryButtonUI";
 

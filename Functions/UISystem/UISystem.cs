@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +9,9 @@ using Terraria.UI;
 namespace Luxcinder.Functions.UISystem;
 internal class UISystem : ModSystem
 {
-    private static List<LuxcinderUI> LoadedUIs = new List<LuxcinderUI>();
+    private static List<LuxcinderUILayer> LoadedUIs = new List<LuxcinderUILayer>();
 
-    public static void RegisterUI(LuxcinderUI ui)
+    public static void RegisterUI(LuxcinderUILayer ui)
     {
         if (!LoadedUIs.Contains(ui))
         {
