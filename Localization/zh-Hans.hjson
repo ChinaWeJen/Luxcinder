@@ -508,6 +508,11 @@ Mods: {
 				DisplayName: 骸骨之瞳
 				Tooltip: 透过亡者的眼睛窥视世界的另一面
 			}
+
+			UIViewer: {
+				// DisplayName: U I Viewer
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

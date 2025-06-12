@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.UI;
 
 namespace Luxcinder.Functions.UISystem.UICore;
 
@@ -14,47 +15,28 @@ public enum DependencyState
     Invalid
 }
 
-public interface IDependencyProperty
-{
-    object Value { get; set;}
-
-	/// <summary>
-	/// Gets a value indicating whether the property has been resolved.
-	/// </summary>
-	DependencyState GetDependencyState
-    {
-        get;
-    }
-
-    /// <summary>
-    /// Ensures that the property's value is resolved.
-    /// This method will trigger the resolution process if not already resolved.
-    /// </summary>
-    void Resolve();
-
-    // void AddDependee(IDependencyProperty dependency);
-
-	public void ResetDependencyState();
-}
-
-public class DependencyProperty<T> : IDependencyProperty
+public class DependencyProperty<T>
 {
     private T _value;
-    private Func<object[], T> _valueResolver;
-    private List<IDependencyProperty> _dependencies = new List<IDependencyProperty>();
-    private List<IDependencyProperty> _dependees = new List<IDependencyProperty>();
-    private DependencyState _dependencyState = DependencyState.Unresolved;
+    private Func<T> _valueResolver;
+    private DependencyState _dependencyState = DependencyState.Invalid;
 
 	public object Value
     {
-        get => _value;
+        get
+        {
+            if (_dependencyState != DependencyState.Resolved)
+                Resolve();
+
+            return _value;
+        }
         set => _value = (T)value;
     }
 
     public T TypedValue
     {
-        get => _value;
-        set => _value = value;
+        get => (T)Value;
+        set => Value = value;
     }
 
     public DependencyState GetDependencyState
@@ -67,44 +49,42 @@ public class DependencyProperty<T> : IDependencyProperty
 		_dependencyState = DependencyState.Unresolved;
 	}
 
-	public void AddDependee(IDependencyProperty dependency) => _dependees.Add(dependency);
+	////public void AddDependee(IDependencyProperty dependency) => _dependees.Add(dependency);
 
-    /// <summary>
-    /// Binds this dependency property to a resolver function and its dependencies.
-    /// </summary>
-    /// <param name="resolver">The function that resolves the value based on the dependencies.</param>
-    /// <param name="dependencies">The list of dependencies that this property relies on.</param>
+ //   /// <summary>
+ //   /// Binds this dependency property to a resolver function and its dependencies.
+ //   /// </summary>
+ //   /// <param name="resolver">The function that resolves the value based on the dependencies.</param>
+ //   /// <param name="dependencies">The list of dependencies that this property relies on.</param>
 
-    public void Bind(Func<object[], T> resolver, List<IDependencyProperty> dependencies)
-    {
-		ResetDependencyState();
-		_valueResolver = resolver;
-        _dependencies = dependencies ?? new List<IDependencyProperty>();
-        //foreach(var dep in _dependencies)
-        //{
-        //    dep.AddDependee(this);
-        //}
-        if (_dependencies.Count == 0)
-        {
-            _dependencyState = DependencyState.Resolved;
-        }
-    }
+ //   public void Bind(Func<object[], T> resolver, List<> dependencies)
+ //   {
+	//	ResetDependencyState();
+	//	_valueResolver = resolver;
+ //       _dependencies = dependencies ?? new List<IDependencyProperty>();
+ //       //foreach(var dep in _dependencies)
+ //       //{
+ //       //    dep.AddDependee(this);
+ //       //}
+ //       if (_dependencies.Count == 0)
+ //       {
+ //           _dependencyState = DependencyState.Resolved;
+ //       }
+ //   }
 
-    public void Bind(Func<T, T> resolver, IDependencyProperty dependency)
-    {
-		ResetDependencyState();
-        _valueResolver = (os) => resolver((T)os[0]);
-        _dependencies = new List<IDependencyProperty>() { dependency };
+ //   public void Bind(Func<T, T> resolver, IDependencyProperty dependency)
+ //   {
+	//	ResetDependencyState();
+ //       _valueResolver = (os) => resolver((T)os[0]);
+ //       _dependencies = new List<IDependencyProperty>() { dependency };
 
-        //dependency.AddDependee(this);
-    }
+ //       //dependency.AddDependee(this);
+ //   }
 
 	public void Bind(Func<T> resolver)
 	{
 		ResetDependencyState();
-		_valueResolver = (os) => resolver();
-		_dependencies = new List<IDependencyProperty>();
-		_dependencyState = DependencyState.Resolved; // No dependencies, so it's resolved immediately.
+		_valueResolver = resolver;
 	}
 
 	public void Resolve()
@@ -131,16 +111,7 @@ public class DependencyProperty<T> : IDependencyProperty
                 return;
             }
 
-            object[] depValues = new object[_dependencies.Count];
-            for (int i = 0; i < _dependencies.Count; i++)
-            {
-                // Will recursively call Resolve on dependencies.
-                // If a cycle is formed, the _isResolving flag in one of the ancestors will catch it.
-                _dependencies[i].Resolve();
-                depValues[i] = _dependencies[i].Value;
-            }
-
-            _value = _valueResolver(depValues);
+            _value = _valueResolver();
             _dependencyState = DependencyState.Resolved;
         }
         finally

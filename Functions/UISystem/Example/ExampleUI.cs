@@ -14,17 +14,21 @@ public class ExampleUI : LuxcinderUILayer
 	private LuxUI _userInterface;
 	private ExampleUIState _exampleUIState;
 
+	public static ExampleUI Instance { get; private set; }
+
 	public override string InterfaceLayerName => "Luxcinder.ExampleUI.ExampleUI";
 
 	public ExampleUI()
 	{
-		_userInterface = new LuxUI();
+		Instance = this;
+        _userInterface = new LuxUI();
 		_exampleUIState = new ExampleUIState();
 	}
 
-	public void Activate(NPC npc)
+	public void Activate()
 	{
-		_userInterface.SetState(_exampleUIState);
+        _exampleUIState = new ExampleUIState();
+        _userInterface.SetState(_exampleUIState);
 	}
 
 	public override void Update(GameTime gameTime)
@@ -34,7 +38,6 @@ public class ExampleUI : LuxcinderUILayer
 
 	public override void Draw(SpriteBatch spriteBatch)
 	{
-		_userInterface.SetState(_exampleUIState);
 		_userInterface.Draw(spriteBatch, Main._drawInterfaceGameTime);
 
 	}

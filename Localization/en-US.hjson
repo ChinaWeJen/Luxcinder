@@ -272,6 +272,11 @@ Mods: {
 				DisplayName: Skeleton Sight
 				Tooltip: ""
 			}
+
+			UIViewer: {
+				DisplayName: U I Viewer
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

@@ -10,6 +10,7 @@ using Terraria.UI;
 
 namespace Luxcinder.Functions.UISystem.UICore;
 
+
 /// <summary>
 /// Represents a dimension, either an absolute pixel size, a percentage of the available space, or a combination of both.
 /// <para/> For example <c>uiElement.Width.Set(200, 0f);</c> sets an absolute width of 200 pixels. <c>uiElement.Width.Set(0, 0.5f);</c> on the otherhand sets a width of 50% of the parent's avaiable <see cref="UIElement.GetInnerDimensions"/>.
@@ -68,49 +69,20 @@ public class LuxcinderUIBase
 	/// <summary> How tall this element intends to be. The calculated height will be clamped between <see cref="MinHeight"/> and <see cref="MaxHeight"/> according to the <see cref="GetInnerDimensions"/> of the parent element. </summary>
 	public StyleDimension Height;
 
-	/// <summary>
-	/// Additional spacing between this element and the <see cref="GetInnerDimensions"/> of its parent element. 
-	/// </summary>
-	public float MarginTop;
-	/// <inheritdoc cref="MarginTop"/>
-	public float MarginLeft;
-	/// <inheritdoc cref="MarginTop"/>
-	public float MarginRight;
-	/// <inheritdoc cref="MarginTop"/>
-	public float MarginBottom;
-
-	/// <summary>
-	/// Additional spacing between this element's <see cref="GetDimensions"/> and the position of its children placed within. 
-	/// </summary>
-	public float PaddingTop;
-	/// <inheritdoc cref="PaddingTop"/>
-	public float PaddingLeft;
-	/// <inheritdoc cref="PaddingTop"/>
-	public float PaddingRight;
-	/// <inheritdoc cref="PaddingTop"/>
-	public float PaddingBottom;
-
-	private CalculatedStyle _innerDimensions;
 	private CalculatedStyle _dimensions;
-	private CalculatedStyle _outerDimensions;
 
-
-	/// <summary> The dimensions of the area within this element suitable for placing children elements. Takes into account <see cref="PaddingLeft"/>/Right/Top/Bottom. </summary>
-	public CalculatedStyle GetInnerDimensions() => _innerDimensions;
 	/// <summary>
 	/// The dimensions of the area covered by this element. This is the area of this element interactible by the mouse.
 	/// <para/> The width and height are derived from the <see cref="Width"/> and <see cref="Height"/> values of this element and will be limited by <see cref="MinWidth"/>/MaxWidth/MinHeight/MaxHeight as well as the <see cref="GetInnerDimensions"/> of the parent element.
 	/// <para/> The position is derived from the <see cref="Top"/>, <see cref="Left"/>, <see cref="HAlign"/>, <see cref="VAlign"/>, and <see cref="MarginLeft"/>/Right/Top/Bottom values of this element as well as the <see cref="GetInnerDimensions"/> of the parent element.
 	/// </summary>
 	public CalculatedStyle GetDimensions() => _dimensions;
-	/// <summary> The dimensions of the area covered by this element plus the additional <see cref="MarginLeft"/>/Right/Top/Bottom. </summary>
-	public CalculatedStyle GetOuterDimensions() => _outerDimensions;
 
 	// 核心布局属性
-	private DependencyProperty<float> _top = new();
-	private DependencyProperty<float> _left = new();
-	private DependencyProperty<float> _width  = new();
-	private DependencyProperty<float> _height = new();
+	protected DependencyProperty<float> _top = new();
+    protected DependencyProperty<float> _left = new();
+    protected DependencyProperty<float> _width  = new();
+    protected DependencyProperty<float> _height = new();
 
 	public event MouseEvent OnLeftMouseDown;
 	public event MouseEvent OnLeftMouseUp;
@@ -147,107 +119,128 @@ public class LuxcinderUIBase
 	}
 	public bool IgnoresMouseInteraction { get; set; }
 
-	// 初始化依赖关系
-	public virtual void InitializeDependencies()
-	{
-		// 默认情况下，宽高不依赖其他属性
-		// 子类可以重写此方法来建立依赖关系
-		if (Parent == null)
-		{
-			CalculatedStyle parentDimensions = LuxUI.ActiveInstance.GetDimensions();
-			if (Top.Percent > 0f)
-			{
-				_top.Bind(() => parentDimensions.Height * Top.Percent + Top.Pixels);
-			}
-			if (Left.Percent > 0f)
-			{
-				_left.Bind(() => parentDimensions.Width * Left.Percent + Left.Pixels);
-			}
-			if (Width.Percent > 0f)
-			{
-				_width.Bind(() => parentDimensions.Width * Width.Percent + Width.Pixels);
-			}
-			if (Height.Percent > 0f)
-			{
-				_height.Bind(() => parentDimensions.Height * Height.Percent + Height.Pixels);
-			}
-		}
-		else
-		{
-			if (Top.Percent > 0f)
-			{
-				_top.Bind((x) => x * Top.Percent + Top.Pixels, Parent._height);
-			}
-			else
-			{
-				_top.Bind(() => Top.Pixels);
-			}
-			if (Left.Percent > 0f)
-			{
-				_left.Bind((x) => x * Left.Percent + Left.Pixels, Parent._width);
-			}
-			else
-			{
-				_left.Bind(() => Left.Pixels);
-			}
-			if (Width.Percent > 0f)
-			{
-				_width.Bind((x) => x * Width.Percent + Width.Pixels, Parent._width);
-			}
-			else
-			{
-				_width.Bind(() => Width.Pixels);
-			}
-			if (Height.Percent > 0f)
-			{
-				_height.Bind((x) => x * Height.Percent + Height.Pixels, Parent._height);
-			}
-			else
-			{
-				_height.Bind(() => Height.Pixels);
-			}
-		}
-	}
 
-	public virtual void ResolveDependencies()
+	protected virtual float BindTop(CalculatedStyle topMostDimensions)
+	{
+        float height = topMostDimensions.Height;
+        if (Parent != null)
+        {
+            if (Top.Percent > 0f)
+            {
+                height = Parent._height.TypedValue;
+            }
+        }
+        return Top.Pixels + Top.Percent * height;
+    }
+
+    protected virtual float BindLeft(CalculatedStyle topMostDimensions)
+    {
+        float width = topMostDimensions.Width;
+        if (Parent != null)
+        {
+            if (Left.Percent > 0f)
+            {
+                width = Parent._width.TypedValue;
+            }
+        }
+        return Left.Pixels + Left.Percent * width;
+    }
+
+    protected virtual float BindWidth(CalculatedStyle topMostDimensions)
+    {
+        float width = topMostDimensions.Width;
+        if (Parent != null)
+        {
+            if (Width.Percent > 0f)
+            {
+                width = Parent._width.TypedValue;
+            }
+        }
+        return Width.Pixels + Width.Percent * width;
+    }
+
+    protected virtual float BindHeight(CalculatedStyle topMostDimensions)
+    {	
+		float height = topMostDimensions.Height;
+        if (Parent != null)
+        {
+            if (Height.Percent > 0f)
+            {
+                height = Parent._height.TypedValue;
+            }
+        }
+        return Height.Pixels + Height.Percent * height;
+    }
+
+    // 初始化依赖关系
+    public virtual void InitializeDependencies()
+	{
+        // 默认情况下，宽高不依赖其他属性
+        // 子类可以重写此方法来建立依赖关系
+        CalculatedStyle topMostDimensions = LuxUI.ActiveInstance.GetDimensions();
+        _top.Bind(() =>
+		{
+			return BindTop(topMostDimensions);
+        });
+        _left.Bind(() =>
+        {
+            return BindTop(topMostDimensions);
+        });
+        _width.Bind(() =>
+		{
+			return BindWidth(topMostDimensions);
+		});
+		_height.Bind(() =>
+		{
+			return BindHeight(topMostDimensions);
+        });
+
+        foreach (var child in Children)
+        {
+            child.InitializeDependencies();
+        }
+    }
+
+	public void ResetDependencyStates()
 	{
 		_top.ResetDependencyState();
 		_left.ResetDependencyState();
 		_width.ResetDependencyState();
 		_height.ResetDependencyState();
 
+		foreach (var child in Children)
+		{
+			child.ResetDependencyStates();
+        }
+    }
+
+    public virtual void ResolveDependencies()
+	{
 		_top.Resolve();
 		_left.Resolve();
 		_width.Resolve();
 		_height.Resolve();
+
+		foreach (var child in Children)
+		{
+			child.ResolveDependencies();
+        }
 	}
 
 	public void Recalculate()
 	{
-		CalculatedStyle result = default;
-		result.X = _left.TypedValue;
-		result.Y = _top.TypedValue;
+        CalculatedStyle parentDimensions = Parent == null ? LuxUI.ActiveInstance.GetDimensions() : Parent.GetDimensions();
+
+        CalculatedStyle result = default;
+		result.X = _left.TypedValue + parentDimensions.X;
+		result.Y = _top.TypedValue + parentDimensions.Y;
 		result.Width = _width.TypedValue;
 		result.Height = _height.TypedValue;
-		result.Width += MarginLeft + MarginRight;
-		result.Height += MarginTop + MarginBottom;
-		_outerDimensions = result;
 
-		result.X += MarginLeft;
-		result.Y += MarginTop;
-		result.Width -= MarginLeft + MarginRight;
-		result.Height -= MarginTop + MarginBottom;
 		_dimensions = result;
 
-		result.X += PaddingLeft;
-		result.Y += PaddingTop;
-		result.Width -= PaddingLeft + PaddingRight;
-		result.Height -= PaddingTop + PaddingBottom;
-		_innerDimensions = result;
-
-
-		// 更新子元素的布局
-		RecalculateChildren();
+        // 更新子元素的布局
+        RecalculateChildren();
 	}
 
 	public virtual void RecalculateChildren()
@@ -268,43 +261,42 @@ public class LuxcinderUIBase
 	[Conditional("DEBUG")]
 	public void DrawDebugHitbox(BasicDebugDrawer drawer, bool drawChildren)
 	{
-		Color color = Color.White;
-		CalculatedStyle innerDimensions = GetInnerDimensions();
-		drawer.DrawLine(innerDimensions.Position(), innerDimensions.Position() + new Vector2(innerDimensions.Width, 0f), 2f, color);
-		drawer.DrawLine(innerDimensions.Position() + new Vector2(innerDimensions.Width, 0f), innerDimensions.Position() + new Vector2(innerDimensions.Width, innerDimensions.Height), 2f, color);
-		drawer.DrawLine(innerDimensions.Position() + new Vector2(innerDimensions.Width, innerDimensions.Height), innerDimensions.Position() + new Vector2(0f, innerDimensions.Height), 2f, color);
-		drawer.DrawLine(innerDimensions.Position() + new Vector2(0f, innerDimensions.Height), innerDimensions.Position(), 2f, color);
+        _drawDebugHitbox(drawer, drawChildren, 0);
+    }
 
-		color = Color.Green;
+	private void _drawDebugHitbox(BasicDebugDrawer drawer, bool drawChildren, int level)
+	{
+		Color color = Color.White;
+		if (level % 3 == 1)
+		{
+			color = Color.Yellow;
+		}
+		else if(level % 3 == 2)
+		{
+			color = Color.Lime;
+        }
 		CalculatedStyle dimensions = GetDimensions();
 		drawer.DrawLine(dimensions.Position(), dimensions.Position() + new Vector2(dimensions.Width, 0f), 2f, color);
 		drawer.DrawLine(dimensions.Position() + new Vector2(dimensions.Width, 0f), dimensions.Position() + new Vector2(dimensions.Width, dimensions.Height), 2f, color);
 		drawer.DrawLine(dimensions.Position() + new Vector2(dimensions.Width, dimensions.Height), dimensions.Position() + new Vector2(0f, dimensions.Height), 2f, color);
 		drawer.DrawLine(dimensions.Position() + new Vector2(0f, dimensions.Height), dimensions.Position(), 2f, color);
 
-		color = Color.Green;
-		CalculatedStyle outerDimensions = GetOuterDimensions();
-		drawer.DrawLine(outerDimensions.Position(), dimensions.Position() + new Vector2(outerDimensions.Width, 0f), 2f, color);
-		drawer.DrawLine(outerDimensions.Position() + new Vector2(outerDimensions.Width, 0f), outerDimensions.Position() + new Vector2(outerDimensions.Width, outerDimensions.Height), 2f, color);
-		drawer.DrawLine(outerDimensions.Position() + new Vector2(outerDimensions.Width, outerDimensions.Height), outerDimensions.Position() + new Vector2(0f, outerDimensions.Height), 2f, color);
-		drawer.DrawLine(outerDimensions.Position() + new Vector2(0f, dimensions.Height), outerDimensions.Position(), 2f, color);
-
 
 		if (drawChildren)
 		{
 			foreach (var child in Children)
 			{
-				child.DrawDebugHitbox(drawer, drawChildren);
+				child._drawDebugHitbox(drawer, drawChildren, level + 1);
 			}
 		}
 	}
 
-	/// <summary>
-	/// Called when the UIElement under the mouse is left clicked. The default code calls the <see cref="OnLeftMouseDown"/> event and then calls <see cref="LeftMouseDown"/> on the <see cref="Parent"/> element.
-	/// <para/> Since the method is called on all parent elements in the hierarchy, check <c>if (evt.Target == this)</c> for code only interested in direct clicks to this element. Children elements overlaying this element can be ignored by setting <see cref="IgnoresMouseInteraction"/> to true on them.
-	/// </summary>
-	/// <param name="evt"></param>
-	public virtual void LeftMouseDown(LuxUIMouseEvent evt)
+    /// <summary>
+    /// Called when the UIElement under the mouse is left clicked. The default code calls the <see cref="OnLeftMouseDown"/> event and then calls <see cref="LeftMouseDown"/> on the <see cref="Parent"/> element.
+    /// <para/> Since the method is called on all parent elements in the hierarchy, check <c>if (evt.Target == this)</c> for code only interested in direct clicks to this element. Children elements overlaying this element can be ignored by setting <see cref="IgnoresMouseInteraction"/> to true on them.
+    /// </summary>
+    /// <param name="evt"></param>
+    public virtual void LeftMouseDown(LuxUIMouseEvent evt)
 	{
 		if (this.OnLeftMouseDown != null)
 			this.OnLeftMouseDown(evt, this);
@@ -514,8 +506,8 @@ public class LuxcinderUIBase
 
 	public Rectangle GetClippingRectangle(SpriteBatch spriteBatch)
 	{
-		Vector2 vector = new Vector2(_innerDimensions.X, _innerDimensions.Y);
-		Vector2 position = new Vector2(_innerDimensions.Width, _innerDimensions.Height) + vector;
+		Vector2 vector = new Vector2(_dimensions.X, _dimensions.Y);
+		Vector2 position = new Vector2(_dimensions.Width, _dimensions.Height) + vector;
 		vector = Vector2.Transform(vector, Main.UIScaleMatrix);
 		position = Vector2.Transform(position, Main.UIScaleMatrix);
 		Rectangle rectangle = new Rectangle((int)vector.X, (int)vector.Y, (int)(position.X - vector.X), (int)(position.Y - vector.Y));

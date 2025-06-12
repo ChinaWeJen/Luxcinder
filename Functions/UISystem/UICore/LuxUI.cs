@@ -150,10 +150,8 @@ public class LuxUI
 		_clickDisabledTimeRemaining = Math.Max(0.0, _clickDisabledTimeRemaining - time.ElapsedGameTime.TotalMilliseconds);
 		bool num = _clickDisabledTimeRemaining > 0.0;
 
-		LayoutSolver solver = new LayoutSolver();
-		solver.AddRoot(_currentState);
-		solver.Solve();
-
+        _currentState.InitializeDependencies();
+		_currentState.ResolveDependencies();
 		_currentState.Recalculate();
 
 		try
