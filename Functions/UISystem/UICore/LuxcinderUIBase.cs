@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Luxcinder.Core.Renderer;
 using ReLogic.Graphics;
 using Terraria.UI;
 
@@ -184,7 +185,7 @@ public class LuxcinderUIBase
         });
         _left.Bind(() =>
         {
-            return BindTop(topMostDimensions);
+            return BindLeft(topMostDimensions);
         });
         _width.Bind(() =>
 		{
@@ -443,7 +444,7 @@ public class LuxcinderUIBase
 		}
 	}
 
-	public virtual void Draw(SpriteBatch spriteBatch)
+	public virtual void Draw(SpriteBatchX spriteBatch)
 	{
 		bool overflowHidden = OverflowHidden;
 		bool useImmediateMode = false;
@@ -452,12 +453,10 @@ public class LuxcinderUIBase
 		SamplerState anisotropicClamp = SamplerState.AnisotropicClamp;
 		if (useImmediateMode)
 		{
-			spriteBatch.End();
-			spriteBatch.Begin(useImmediateMode ? SpriteSortMode.Immediate : SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);
+			spriteBatch.Push(SpriteSortMode.Immediate, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);		
 			DrawSelf(spriteBatch);
-			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);
-		}
+			spriteBatch.Pop();
+        }
 		else
 		{
 			DrawSelf(spriteBatch);
@@ -465,38 +464,24 @@ public class LuxcinderUIBase
 
 		if (overflowHidden)
 		{
-			spriteBatch.End();
-			Rectangle clippingRectangle = GetClippingRectangle(spriteBatch);
-
-			/*
-			spriteBatch.GraphicsDevice.ScissorRectangle = clippingRectangle;
-			*/
-			Rectangle adjustedClippingRectangle = Rectangle.Intersect(clippingRectangle, spriteBatch.GraphicsDevice.ScissorRectangle);
-			spriteBatch.GraphicsDevice.ScissorRectangle = adjustedClippingRectangle;
-
-			spriteBatch.GraphicsDevice.RasterizerState = OverflowHiddenRasterizerState;
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);
-		}
+            Rectangle clippingRectangle = GetClippingRectangle(spriteBatch);
+            Rectangle adjustedClippingRectangle = Rectangle.Intersect(clippingRectangle, spriteBatch.GraphicsDevice.ScissorRectangle);
+            spriteBatch.Push(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix, adjustedClippingRectangle);
+        }
 
 		DrawChildren(spriteBatch);
 		if (overflowHidden)
 		{
-			// TML: save a new rasterizer state snapshot to restore
-			rasterizerState = spriteBatch.GraphicsDevice.RasterizerState;
-
-			spriteBatch.End();
-			spriteBatch.GraphicsDevice.ScissorRectangle = scissorRectangle;
-			spriteBatch.GraphicsDevice.RasterizerState = rasterizerState;
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, rasterizerState, null, Main.UIScaleMatrix);
+			spriteBatch.Pop();
 		}
 	}
 
 
-	protected virtual void DrawSelf(SpriteBatch spriteBatch)
+	protected virtual void DrawSelf(SpriteBatchX spriteBatch)
 	{
 	}
 
-	protected virtual void DrawChildren(SpriteBatch spriteBatch)
+	protected virtual void DrawChildren(SpriteBatchX spriteBatch)
 	{
 		foreach (LuxcinderUIBase element in Children)
 		{
@@ -504,7 +489,7 @@ public class LuxcinderUIBase
 		}
 	}
 
-	public Rectangle GetClippingRectangle(SpriteBatch spriteBatch)
+	public Rectangle GetClippingRectangle(SpriteBatchX spriteBatch)
 	{
 		Vector2 vector = new Vector2(_dimensions.X, _dimensions.Y);
 		Vector2 position = new Vector2(_dimensions.Width, _dimensions.Height) + vector;

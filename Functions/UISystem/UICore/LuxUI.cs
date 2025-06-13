@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luxcinder.Core.Renderer;
 using ReLogic.Graphics;
 using Terraria.GameInput;
 using Terraria.UI;
@@ -245,8 +246,11 @@ public class LuxUI
 				_isStateDirty = false;
 			}
 
-			_currentState.Draw(spriteBatch);
-		}
+			SpriteBatchX spriteBatchX = new SpriteBatchX(spriteBatch);
+			spriteBatchX.Push(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, null, null, null, Main.UIScaleMatrix, null);
+            _currentState.Draw(spriteBatchX);
+			spriteBatchX.Pop();
+        }
 	}
 
 	public void DrawDebugHitbox(BasicDebugDrawer drawer)
