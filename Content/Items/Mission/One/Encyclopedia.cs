@@ -11,13 +11,7 @@ namespace Luxcinder.Content.Items.Mission.One
     {
         public override void SetStaticDefaults()
         {
-            // 合成配方
-            Recipe.Create(Type)
-                .AddIngredient(ItemID.StoneBlock, 10)  // 10石块
-                .AddIngredient(ItemID.DirtBlock, 30)  // 30土块
-                .AddIngredient(ItemID.WorkBench, 1)  // 1工作台
-                .AddTile(TileID.WorkBenches)  // 在工作台合成
-                .Register();
+
         }
 
         public override void SetDefaults()

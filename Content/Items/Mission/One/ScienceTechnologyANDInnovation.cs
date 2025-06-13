@@ -11,18 +11,7 @@ namespace Luxcinder.Content.Items.Mission.One
     {
         public override void SetStaticDefaults()
         {
-            // 铜锭/锡锭配方组
-            int[] copperOrTin = new int[] { ItemID.CopperBar, ItemID.TinBar };
-            RecipeGroup group = new RecipeGroup(() => "铜锭或锡锭", copperOrTin);
-            RecipeGroup.RegisterGroup("Luxcinder:CopperOrTinBars", group);
 
-            // 合成配方
-            Recipe.Create(Type)
-                .AddIngredient(ItemID.IronBar, 5)  // 5铁锭
-                .AddRecipeGroup("Luxcinder:CopperOrTinBars", 5)  // 5铜锭或锡锭
-                .AddIngredient(ItemID.Gel, 20)  // 20凝胶
-                .AddTile(TileID.WorkBenches)  // 在工作台合成
-                .Register();
         }
 
         public override void SetDefaults()

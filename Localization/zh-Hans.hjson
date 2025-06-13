@@ -1,4 +1,3 @@
-
 Mods: {
 	Luxcinder: {
 		Buffs: {
@@ -181,8 +180,8 @@ Mods: {
 			}
 
 			Ash_Portal: {
-				DisplayName: "灰烬传送门"
-				Tooltip: 
+				DisplayName: 灰烬传送门
+				Tooltip:
 					'''
 					[c/808080:由古老灰烬构成的空间通道]
 					表面飘散着永不熄灭的火星
@@ -194,8 +193,8 @@ Mods: {
 			}
 
 			Deep_Light_Tower: {
-				DisplayName: "深光之塔"
-				Tooltip: 
+				DisplayName: 深光之塔
+				Tooltip:
 					'''
 					[c/1E90FF:从深渊中升起的光明建筑]
 					塔身刻有古老的净化符文
@@ -291,8 +290,8 @@ Mods: {
 			}
 
 			NightmareEssence: {
-				DisplayName: "噩梦精华"
-				Tooltip: 
+				DisplayName: 噩梦精华
+				Tooltip:
 					'''
 					这是从腐化之王体内提取的诡异液体
 					装在瓶子里会自己蠕动，像有生命一样
@@ -304,8 +303,8 @@ Mods: {
 			}
 
 			NightmareSummon: {
-				DisplayName: "噩梦仪式核心"
-				Tooltip: 
+				DisplayName: 噩梦仪式核心
+				Tooltip:
 					'''
 					这是个危险的召唤装置
 					上面刻满了看不懂的古老符文
@@ -319,23 +318,22 @@ Mods: {
 			}
 
 			DecayedNightEye: {
-				DisplayName: "腐化夜瞳"
-				Tooltip: "一颗在黑暗中发光的变异眼球，佩戴时会感到不适"
+				Tooltip: 一颗在黑暗中发光的变异眼球，佩戴时会感到不适
+				DisplayName: 腐化夜瞳
 			}
 
 			DecayedFragments: {
-				DisplayName: "腐化碎片" 
-				Tooltip: "从腐化生物身上掉落的黑暗结晶，散发着不祥的能量"
+				Tooltip: 从腐化生物身上掉落的黑暗结晶，散发着不祥的能量
+				DisplayName: 腐化碎片
 			}
 
 			Decayedcrystal: {
-				DisplayName: "腐化晶核"
-				Tooltip: "被黑暗能量侵蚀的晶体核心，散发着不稳定的能量波动"
+				Tooltip: 被黑暗能量侵蚀的晶体核心，散发着不稳定的能量波动
+				DisplayName: 腐化晶核
 			}
 
 			BlackIronSword: {
-				DisplayName: "黑铁圣剑"
-				Tooltip: 
+				Tooltip:
 					'''
 					[c/666666:由古老黑铁锻造的仪式武器]
 					剑身刻有神秘的符文
@@ -344,11 +342,11 @@ Mods: {
 					握持时能感受到金属的低鸣
 					在月光下会显现隐藏的铭文
 					'''
+				DisplayName: 黑铁圣剑
 			}
 
 			BlackIronShield: {
-				DisplayName: "黑铁圣盾"
-				Tooltip: 
+				Tooltip:
 					'''
 					[c/666666:由黑铁与神圣合金打造的防御装备]
 					盾面刻有守护符文
@@ -356,11 +354,11 @@ Mods: {
 					表面有古老的战斗痕迹
 					在危急时刻会发出金色微光
 					'''
+				DisplayName: 黑铁圣盾
 			}
 
 			BlackIronPickAxe: {
-				DisplayName: "黑铁矿镐"
-				Tooltip: 
+				Tooltip:
 					'''
 					[c/666666:坚固耐用的采矿工具]
 					镐头经过特殊淬火处理
@@ -369,16 +367,16 @@ Mods: {
 					握柄包裹着防滑皮革
 					在黑暗中会发出微弱的金属光泽
 					'''
+				DisplayName: 黑铁矿镐
 			}
 
 			BlackIronIngot: {
-			                                DisplayName: "黑铁锭"
-			        Tooltip: "经过精炼的黑铁金属块，表面有独特的暗色纹路"
-			                        }
+				Tooltip: 经过精炼的黑铁金属块，表面有独特的暗色纹路
+				DisplayName: 黑铁锭
+			}
 
 			BlackIronAxe: {
-				DisplayName: "黑铁伐木斧"
-				Tooltip: 
+				Tooltip:
 					'''
 					[c/666666:专为伐木设计的重型工具]
 					斧刃经过特殊平衡处理
@@ -387,71 +385,72 @@ Mods: {
 					握柄采用防震设计
 					斧面刻有林业符文
 					'''
+				DisplayName: 黑铁伐木斧
 			}
 
-			                        BlackHammer: {
-			                                DisplayName: "黑铁重锤"
-			                                Tooltip: "沉甸甸的锻造工具，敲击时会发出沉闷的金属声"
-			                        }
+			BlackHammer: {
+				Tooltip: 沉甸甸的锻造工具，敲击时会发出沉闷的金属声
+				DisplayName: 黑铁重锤
+			}
 
-			                        Nightmaresummon: {
-			                                DisplayName: "噩梦召唤物"
-			                                Tooltip: "用于召唤黑暗存在的危险物品，使用时请保持警惕"
-			                        }
+			Nightmaresummon: {
+				Tooltip: 用于召唤黑暗存在的危险物品，使用时请保持警惕
+				DisplayName: 噩梦召唤物
+			}
 
-			                        Nightmareessence: {
-			                                DisplayName: "噩梦精华"
-			                                Tooltip: "浓缩的黑暗能量液体，装在瓶子里会不安分地晃动"
-			                        }
+			Nightmareessence: {
+				Tooltip: 浓缩的黑暗能量液体，装在瓶子里会不安分地晃动
+				DisplayName: 噩梦精华
+			}
 
-			                        MeatminCeshell: {
-			                                DisplayName: "血肉甲壳"
-			                                Tooltip: "由压缩腐肉构成的活体护甲，表面不断渗出暗绿色液体"
-			                        }
+			MeatminCeshell: {
+				DisplayName: 血肉甲壳
+				Tooltip: 由压缩腐肉构成的活体护甲，表面不断渗出暗绿色液体
+			}
 
-			                        ReasonTrappedDreams: {
-			                                DisplayName: "被困的理性"
-			                                Tooltip: "被囚禁的理性，能听到微弱的求救声"
-			                        }
+			ReasonTrappedDreams: {
+				DisplayName: 被困的理性
+				Tooltip: 被囚禁的理性，能听到微弱的求救声
+			}
 
-			                        Rottencrystals: {
-			                                DisplayName: "腐化晶簇"
-			                                Tooltip: "散发着令人不安的能量波动，晶体表面布满紫色裂纹"
-			                        }
+			Rottencrystals: {
+				DisplayName: 腐化晶簇
+				Tooltip: 散发着令人不安的能量波动，晶体表面布满紫色裂纹
+			}
 
-			                        RottingToxin: {
-			                                DisplayName: "腐败毒素"
-			                                Tooltip: "从腐化之王体内提取的剧毒物质，是制作毒系装备的核心材料"
-			                        }
+			RottingToxin: {
+				DisplayName: 腐败毒素
+				Tooltip: 从腐化之王体内提取的剧毒物质，是制作毒系装备的核心材料
+			}
 
-			                        SwordContract: {
-			                                DisplayName: "剑之契约"
-			                                Tooltip: "以生命为代价换取力量的古老契约，使用时请三思"
-			                        }
+			SwordContract: {
+				DisplayName: 剑之契约
+				Tooltip: 以生命为代价换取力量的古老契约，使用时请三思
+			}
 
-			                        AshPortal: {
-			                                DisplayName: "灰烬传送门"
-			                                Tooltip: "由古老灰烬构成的空间通道，散发着微弱的热浪"
-			                        }
+			AshPortal: {
+				DisplayName: 灰烬传送门
+				Tooltip: 由古老灰烬构成的空间通道，散发着微弱的热浪
+			}
 
-			                        DeepLightTower: {
-			                                DisplayName: "深光之塔"
-			                                Tooltip: "从深渊中升起的光明建筑，散发着穿透黑暗的纯净光芒"
-			                        }
+			DeepLightTower: {
+				DisplayName: 深光之塔
+				Tooltip: 从深渊中升起的光明建筑，散发着穿透黑暗的纯净光芒
+			}
 
 			IceDagger: {
-				DisplayName: "寒霜之吻"
-				Tooltip: "刀刃凝结着永不融化的霜华，轻轻一触便能冻结灵魂"
+				DisplayName: 寒霜之吻
+				Tooltip: 刀刃凝结着永不融化的霜华，轻轻一触便能冻结灵魂
 			}
 
 			Lostancientpendant: {
-				DisplayName: "失落古坠"
-				Tooltip: "时光长河中遗落的信物，承载着被遗忘的誓言"
+				DisplayName: 失落古坠
+				Tooltip: 时光长河中遗落的信物，承载着被遗忘的誓言
 			}
 
 			Storyfragments: {
-				DisplayName: "记忆残片"
-				Tooltip: 
+				DisplayName: 记忆残片
+				Tooltip:
 					'''
 					散落的记忆碎片
 					触碰时能听到模糊的耳语
@@ -461,8 +460,8 @@ Mods: {
 			}
 
 			AlloyRipper: {
-				DisplayName: "合金撕裂者"
-				Tooltip: 
+				DisplayName: 合金撕裂者
+				Tooltip:
 					'''
 					[c/FF4500:【炽热剑刃】]刀刃持续散发高温
 					[c/FF0000:【撕裂效果】]攻击造成深度伤口
@@ -474,8 +473,8 @@ Mods: {
 			}
 
 			Quenchedalloypickaxe: {
-				DisplayName: "淬火合金镐"
-				Tooltip: 
+				DisplayName: 淬火合金镐
+				Tooltip:
 					'''
 					[c/FF8C00:【高温合金】]融合了淬火石矿与黑铁的特殊工具
 					[c/00BFFF:【高效开采】]挖掘速度提升35%
@@ -488,8 +487,8 @@ Mods: {
 			}
 
 			QuenchedIngot: {
-				DisplayName: "淬火合金锭"
-				Tooltip: 
+				DisplayName: 淬火合金锭
+				Tooltip:
 					'''
 					[c/FF8C00:【高温锻造】]经过特殊淬火工艺处理的合金
 					[c/1E90FF:【能量传导】]完美传导魔法与物理能量
@@ -501,39 +500,13 @@ Mods: {
 			}
 
 			NonferrousMetals: {
-				DisplayName: "异色金属"
-				Tooltip: "闪烁着不寻常光泽的神秘合金，蕴含着未知的能量"
+				DisplayName: 异色金属
+				Tooltip: 闪烁着不寻常光泽的神秘合金，蕴含着未知的能量
 			}
 
 			SkeletonSight: {
-				DisplayName: "骸骨之瞳"
-				Tooltip: "透过亡者的眼睛窥视世界的另一面"
-			}
-
-			Encyclopedia: {
-				DisplayName: "远古知识典籍"
-				Tooltip: 
-					'''
-					[c/FFA500:记载着失落文明的智慧结晶]
-					书页边缘泛着温暖的橙色微光
-					[c/FF8C00:【知识启迪】]携带时获得经验加成
-					触碰时能感受到知识的脉动
-					书脊上刻有古老的符文
-					在黑暗中会发出柔和的橙光
-					'''
-			}
-
-			ScienceTechnologyANDInnovation: {
-				DisplayName: "科技革新蓝图"
-				Tooltip: 
-					'''
-					[c/00BFFF:未来科技的精密设计图]
-					图纸上流动着天蓝色的能量纹路
-					[c/1E90FF:【创新思维】]提升工作台制作效率
-					能听到微弱的机械运转声
-					边缘标注着复杂的计算公式
-					在月光下会显现隐藏的图纸
-					'''
+				DisplayName: 骸骨之瞳
+				Tooltip: 透过亡者的眼睛窥视世界的另一面
 			}
 
 			Encyclopedia: {
@@ -575,6 +548,11 @@ Mods: {
 					内页记满了实用的生存笔记
 					'''
 			}
+
+			SourceSpiritBow: {
+				// DisplayName: Source Spirit Bow
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -602,6 +580,7 @@ Mods: {
 
 			// Guard.DisplayName: Guard
 			// LightEclipseEye.DisplayName: Light Eclipse Eye
+			// Spy.DisplayName: Spy
 		}
 
 		Tiles: {
@@ -618,6 +597,7 @@ Mods: {
 			CorruptedOrb.DisplayName: Corrupted Orb
 			// GoldenLaser.DisplayName: Golden Laser
 			// LightEclipseBolt.DisplayName: Light Eclipse Bolt
+			// SourceSpiritArrow.DisplayName: Source Spirit Arrow
 		}
 	}
 }
