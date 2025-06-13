@@ -1,0 +1,46 @@
+Content: {
+	NPCs: {
+		NightmareCorruption: {
+			NightmareCorruption: {
+				DisplayName: 腐烂噩梦
+				Description: 腐烂噩梦王
+			}
+
+			NightmareSummon: {
+				DisplayName: 噩梦召唤宝珠
+				Tooltip: 召唤腐烂噩梦\n只能在腐化之地使用
+			}
+
+			NightmareEssence: {
+				DisplayName: 腐化精华
+				Tooltip: 来自腐烂噩梦的纯净腐化能量
+			}
+
+			NightmareCorruptionCorpse.DisplayName: 腐烂噩梦残骸
+			GraspOfTrance.DisplayName: 恍惚之握
+			NightmarePhantom.DisplayName: 噩梦幻影
+			NightmareTrident.DisplayName: 噩梦三叉戟
+			NightmareSpike.DisplayName: 噩梦尖刺
+			NightmareBeam.DisplayName: 噩梦光束
+
+			Dialogue: {
+				Summoned: 腐烂王启动！
+				Phase2: 我是腐烂王
+				Defeated: 腐烂王被打败！
+			}
+		}
+	}
+}
+
+Items: {
+	NightmareEssence: {
+	}
+
+	NightmareSummon: {
+	}
+}
+
+NPCs: {
+}
+
+Projectiles.NightmareTrident.DisplayName: 噩梦三叉戟
