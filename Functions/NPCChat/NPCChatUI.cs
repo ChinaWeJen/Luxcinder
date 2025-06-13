@@ -113,7 +113,7 @@ namespace Luxcinder.Functions.NPCChat
             string relativePath = AssetExtensions.GetModRelativePathFull<NPCChatUI>();
             _texture_聊天栏 = ModContent.Request<Texture2D>($"{relativePath}/Images/聊天栏");
             _texture_宝石 = ModContent.Request<Texture2D>($"{relativePath}/Images/宝石");
-            _texture_下一步 = ModContent.Request<Texture2D>($"{relativePath}/Images/下一步");
+            _texture_下一步 = ModContent.Request<Texture2D>($"{relativePath}/Images/NextStep");
             _texture_下一步_Hover = ModContent.Request<Texture2D>($"{relativePath}/Images/NextStep_Hover");
             _sound_打字声 = new SoundStyle($"{relativePath}/Sounds/对话音效")
             {

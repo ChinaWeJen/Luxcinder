@@ -42,9 +42,12 @@ internal class ExampleUIState : LuxUIState
 
 			grid.Top.Set(0, 0);
 			grid.Left.Set(0, 0);
-			panel.AddChild(grid);
 
-			grid.AddChild(marginContainer);
+			LuxUIImage image = new LuxUIImage(this.RequestModRelativeTexture("UIViewer"));
+            marginContainer.AddChild(image);
+            grid.AddChild(marginContainer);
+            panel.AddChild(grid);
+
         }
 
 		LuxUIPanel panel2 = new LuxUIPanel(_backgroundTexture, 32, 32, 32, 32);
