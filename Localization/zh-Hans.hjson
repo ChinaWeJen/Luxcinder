@@ -581,6 +581,7 @@ Mods: {
 			// Guard.DisplayName: Guard
 			// LightEclipseEye.DisplayName: Light Eclipse Eye
 			// Spy.DisplayName: Spy
+			// HolyRelicDome.DisplayName: Holy Relic Dome
 		}
 
 		Tiles: {
