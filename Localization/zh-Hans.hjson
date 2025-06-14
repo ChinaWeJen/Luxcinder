@@ -509,8 +509,48 @@ Mods: {
 				Tooltip: 透过亡者的眼睛窥视世界的另一面
 			}
 
-			UIViewer: {
-				// DisplayName: U I Viewer
+			Encyclopedia: {
+				DisplayName: 远古知识典籍
+				Tooltip:
+					'''
+					[c/FFA500:记载着失落文明的智慧结晶]
+					书页边缘泛着温暖的橙色微光
+					[c/FF8C00:【知识启迪】]携带时获得经验加成
+					触碰时能感受到知识的脉动
+					书脊上刻有古老的符文
+					在黑暗中会发出柔和的橙光
+					'''
+			}
+
+			ScienceTechnologyANDInnovation: {
+				DisplayName: 科技革新蓝图
+				Tooltip:
+					'''
+					[c/00BFFF:未来科技的精密设计图]
+					图纸上流动着天蓝色的能量纹路
+					[c/1E90FF:【创新思维】]提升工作台制作效率
+					能听到微弱的机械运转声
+					边缘标注着复杂的计算公式
+					在月光下会显现隐藏的图纸
+					'''
+			}
+
+			SurvivalGuide: {
+				DisplayName: 生存指南手册
+				Tooltip:
+					'''
+					[c/32CD32:冒险者必备的实用指南]
+					封面散发着生机勃勃的绿光
+					[c/7CFC00:【生存技巧】]降低环境伤害
+					书页间夹着各种植物标本
+					能闻到淡淡的草药香气
+					在危机时刻会微微发热
+					内页记满了实用的生存笔记
+					'''
+			}
+
+			SourceSpiritBow: {
+				// DisplayName: Source Spirit Bow
 				// Tooltip: ""
 			}
 		}
@@ -540,6 +580,8 @@ Mods: {
 
 			// Guard.DisplayName: Guard
 			// LightEclipseEye.DisplayName: Light Eclipse Eye
+			// Spy.DisplayName: Spy
+			// HolyRelicDome.DisplayName: Holy Relic Dome
 		}
 
 		Tiles: {
@@ -547,6 +589,8 @@ Mods: {
 			Ash_Portal.MapEntry: Ash_Portal
 			// QuenchedTile.MapEntry: Quenched Tile
 			// AshPortal.MapEntry: Ash Portal
+			// DeepLightTower.MapEntry: Deep Light Tower
+			// GiantStoneBlastFurnace.MapEntry: Giant Stone Blast Furnace
 		}
 
 		Projectiles: {
@@ -554,6 +598,7 @@ Mods: {
 			CorruptedOrb.DisplayName: Corrupted Orb
 			// GoldenLaser.DisplayName: Golden Laser
 			// LightEclipseBolt.DisplayName: Light Eclipse Bolt
+			// SourceSpiritArrow.DisplayName: Source Spirit Arrow
 		}
 	}
 }

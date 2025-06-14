@@ -4,6 +4,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 
 namespace Luxcinder.Content.NPCs.GoldenGuards
 {
@@ -18,13 +19,13 @@ namespace Luxcinder.Content.NPCs.GoldenGuards
         {
             NPC.width = 58;
             NPC.height = 52;
-            NPC.lifeMax = 300;
-            NPC.damage = 30;
-            NPC.defense = 15;
+            NPC.lifeMax = 200;
+            NPC.damage = 10;
+            NPC.defense = 8;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.DD2_KoboldExplosion;
             NPC.value = 500f;
-            NPC.knockBackResist = 0.3f;
+            NPC.knockBackResist = 0.5f;
             NPC.aiStyle = -1; // 自定义AI
         }
 
@@ -179,40 +180,15 @@ namespace Luxcinder.Content.NPCs.GoldenGuards
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return spawnInfo.Player.ZoneDungeon ? 0.1f : 0f;
+            // 返回0因为我们使用GoldenGuardsSpawnSystem控制生成
+            return 0f;
         }
 
-public override void HitEffect(NPC.HitInfo hit) {
-            if (NPC.life <= 0)
-            {
-                try 
-                {
-                    // 生成5个死亡碎块(带错误处理)
-                    for (int i = 1; i <= 5; i++)
-                    {
-                        string gorePath = $"Luxcinder/Content/NPCs/GoldenGuards/NPC_Death_Fragments/{i}";
-                        if (Mod.TryFind<ModGore>(gorePath, out var modGore))
-                        {
-                            // 计算更自然的随机速度和方向
-                            Vector2 velocity = new Vector2(
-                                Main.rand.NextFloat(-4f, 4f), 
-                                Main.rand.NextFloat(-8f, -2f));
-                            
-                            // 从中心位置生成碎块
-                            Gore.NewGore(
-                                NPC.GetSource_Death(),
-                                NPC.Center,
-                                velocity,
-                                modGore.Type,
-                                1f); // 添加缩放参数
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Mod.Logger.Warn($"生成死亡碎块失败: {ex.Message}");
-                }
-            }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            // 掉落3个NonferrousMetals，100%几率
+
         }
     }
 }
+            

@@ -1,9 +1,5 @@
-using System;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -13,16 +9,11 @@ namespace Luxcinder.Content.Tiles.Building
     {
         public override void SetStaticDefaults()
         {
-            // 基本设置
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;
-            Main.tileSolid[Type] = false; // 非实心
-            Main.tileSolidTop[Type] = true;
-            Main.tileTable[Type] = true;
-
-            // 设置Tile的尺寸为22x12
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
+            
+            // 设置建筑尺寸 (22x12 tiles)
             TileObjectData.newTile.Width = 22;
             TileObjectData.newTile.Height = 12;
             TileObjectData.newTile.CoordinateHeights = new int[12];
@@ -30,27 +21,30 @@ namespace Luxcinder.Content.Tiles.Building
             {
                 TileObjectData.newTile.CoordinateHeights[i] = 16;
             }
+            
+            TileObjectData.newTile.UsesCustomCanPlace = true;
+            TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
-            TileObjectData.newTile.Origin = new Point16(9, 18);
-
-            // 放置条件：只需要下方有方块
-            TileObjectData.newTile.AnchorBottom = new AnchorData(
-                AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
-
+            TileObjectData.newTile.Origin = new Terraria.DataStructures.Point16(11, 11); // 中心点
+            
+            // 允许玩家穿过建筑
+            Main.tileSolid[Type] = false;
+            Main.tileSolidTop[Type] = false;
+            Main.tileBlockLight[Type] = false;
+            
             TileObjectData.addTile(Type);
 
-            // 设置名称和图鉴信息
-            AddMapEntry(new Color(200, 200, 200), CreateMapEntryName());
-        }
+LocalizedText name = CreateMapEntryName();
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            // 破坏时掉落物品
+            AddMapEntry(new Microsoft.Xna.Framework.Color(150, 150, 150), name);
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
         }
+
+
+        
     }
 }
