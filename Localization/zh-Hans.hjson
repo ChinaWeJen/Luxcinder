@@ -9,6 +9,11 @@ Mods: {
 					攻击附带燃烧伤害
 					'''
 			}
+
+			Frostbite: {
+				// DisplayName: Frostbite
+				// Description: Mods.Luxcinder.Buffs.Frostbite.Description
+			}
 		}
 
 		Items: {
@@ -553,6 +558,91 @@ Mods: {
 				// DisplayName: Source Spirit Bow
 				// Tooltip: ""
 			}
+
+			LamentStorm: {
+				// DisplayName: Lament Storm
+				// Tooltip: ""
+			}
+
+			BlazingGold: {
+				// DisplayName: Blazing Gold
+				// Tooltip: ""
+			}
+
+			CornerGrass: {
+				// DisplayName: Corner Grass
+				// Tooltip: ""
+			}
+
+			CorrosionNecklace: {
+				// DisplayName: Corrosion Necklace
+				// Tooltip: ""
+			}
+
+			DiamondTitaniumPlate: {
+				// DisplayName: Diamond Titanium Plate
+				// Tooltip: ""
+			}
+
+			GoldenGuardian: {
+				// DisplayName: Golden Guardian
+				// Tooltip: ""
+			}
+
+			GuardianShield: {
+				// DisplayName: Guardian Shield
+				// Tooltip: ""
+			}
+
+			LifePendant: {
+				// DisplayName: Life Pendant
+				// Tooltip: ""
+			}
+
+			LightEnforcer: {
+				// DisplayName: Light Enforcer
+				// Tooltip: ""
+			}
+
+			OmniMedal: {
+				// DisplayName: Omni Medal
+				// Tooltip: ""
+			}
+
+			PlantHabitat: {
+				// DisplayName: Plant Habitat
+				// Tooltip: ""
+			}
+
+			SacredDeer: {
+				// DisplayName: Sacred Deer
+				// Tooltip: ""
+			}
+
+			SwiftBladeShield: {
+				// DisplayName: Swift Blade Shield
+				// Tooltip: ""
+			}
+
+			TartarusShield: {
+				// DisplayName: Tartarus Shield
+				// Tooltip: ""
+			}
+
+			WorldShaker: {
+				// DisplayName: World Shaker
+				// Tooltip: ""
+			}
+
+			AncientSoul: {
+				// DisplayName: Ancient Soul
+				// Tooltip: ""
+			}
+
+			SearingLight: {
+				// DisplayName: Searing Light
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -582,6 +672,7 @@ Mods: {
 			// LightEclipseEye.DisplayName: Light Eclipse Eye
 			// Spy.DisplayName: Spy
 			// HolyRelicDome.DisplayName: Holy Relic Dome
+			// GoddessDimLight.DisplayName: Goddess Dim Light
 		}
 
 		Tiles: {
@@ -599,6 +690,10 @@ Mods: {
 			// GoldenLaser.DisplayName: Golden Laser
 			// LightEclipseBolt.DisplayName: Light Eclipse Bolt
 			// SourceSpiritArrow.DisplayName: Source Spirit Arrow
+			// LamentStormHoming.DisplayName: Lament Storm Homing
+			// LamentStormP.DisplayName: Lament Storm P
+			// LamentStormVortex.DisplayName: Lament Storm Vortex
+			// GoddessDimLightAttack.DisplayName: Goddess Dim Light Attack
 		}
 	}
 }

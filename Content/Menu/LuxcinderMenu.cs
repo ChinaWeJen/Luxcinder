@@ -9,10 +9,14 @@ using ReLogic.Content;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
+using Terraria.GameContent;
+using ReLogic.Graphics;
+using Terraria.UI;
+using Terraria.GameContent.UI.Elements;
 
 namespace Luxcinder.Content.Menu
 {
-
+    [Autoload(true)]
     public class LuxcinderModMenu : ModMenu
     {
         // 新增：记录上一帧的鼠标位置
@@ -86,7 +90,7 @@ namespace Luxcinder.Content.Menu
             Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Zombie93); // 选择了这个ModMenu之后播放一个打雷音效
         }
             
-		public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sound/Music/ZCD/ZCDYY");
+		public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/ZCD/MainMenuBackgroundMusic");
         
 
         // 设置音乐音量 (1.0f是最大音量)
@@ -357,7 +361,91 @@ namespace Luxcinder.Content.Menu
                 Main.UIScaleMatrix
             );
 
+            // 在左上角添加自定义文本
+            // 多行文本内容
+            string[] lines = new string[]
+            {
+                "感谢支持Luxcinder模组",
+                "感兴趣可以进QQ群了解更多实况和更新动态",
+                "我们正在努力变得更好！",
+                "---Luxcinder制作组"
+            };
+            
+            Vector2 basePosition = new Vector2(20, 20);
+            float lineHeight = FontAssets.MouseText.Value.MeasureString("A").Y * 1.5f;
+            
+            // 动态彩色效果 - 随时间变化的颜色
+            float hue = (float)(Main.timeForVisualEffects * 0.01 % 1.0);
+            Color dynamicColor = Main.hslToRgb(hue, 1f, 0.75f);
+            
+            // 绘制每行文本
+            for (int i = 0; i < lines.Length; i++)
+            {
+                Vector2 position = basePosition + new Vector2(0, lineHeight * i);
+                Color textColor = i == lines.Length - 1 ? dynamicColor : Color.White;
+                
+                // 添加轻微的动态偏移效果
+                if (i == lines.Length - 1)
+                {
+                    float offset = (float)Math.Sin(Main.timeForVisualEffects * 0.05) * 3f;
+                    position.X += offset;
+                    
+                    // 为最后一行添加粒子光晕效果
+                    if (Main.rand.NextBool(3)) // 控制粒子生成频率
+                    {
+                        Vector2 particlePos = position + new Vector2(
+                            Main.rand.NextFloat(-50, 50),
+                            Main.rand.NextFloat(-10, 10));
+                        
+                        Dust dust = Dust.NewDustPerfect(
+                            particlePos,
+                            DustID.GemSapphire, // 使用蓝宝石色粒子
+                            Vector2.Zero,
+                            0, dynamicColor, 1.5f);
+                        
+                        dust.noGravity = true;
+                        dust.fadeIn = 1f;
+                        
+                        // 根据动态颜色调整粒子颜色
+                        dust.color = dynamicColor * 0.7f;
+                    }
+                }
+                
+                spriteBatch.DrawString(FontAssets.MouseText.Value, lines[i], position, textColor);
+            }
+
+            // 在右上角绘制QQ群号
+            string qqText = "Luxcinder开发交流群号:646872537";
+            Vector2 qqSize = FontAssets.MouseText.Value.MeasureString(qqText);
+            Vector2 qqPos = new Vector2(Main.screenWidth - qqSize.X - 20, 20);
+            Color qqColor = Color.HotPink;
+            
+            // 绘制文本
+            spriteBatch.DrawString(FontAssets.MouseText.Value, qqText, qqPos, qqColor);
+            
+            // 生成粉色粒子效果
+            if (Main.rand.NextBool(3)) {
+                Vector2 particlePos = qqPos + new Vector2(
+                    Main.rand.NextFloat(0, qqSize.X * 2),  // 向右移动一整个效果图距离
+                    Main.rand.NextFloat(0, qqSize.Y));
+                
+                int lifetime = Main.rand.Next(30, 60);
+                float depth = Main.rand.NextFloat(1f, 2f);
+                Vector2 velocity = new Vector2(
+                    Main.rand.NextFloat(-1f, 1f), 
+                    Main.rand.NextFloat(-1f, 1f));
+                
+                // 使用粉色粒子，带透明度变化
+                Color particleColor = Color.Lerp(Color.HotPink, Color.White, Main.rand.NextFloat(0.3f));
+                particleColor *= 0.8f;
+                
+                Cinders.Add(new Cinder(lifetime, Cinders.Count, depth, particleColor, particlePos, velocity));
+            }
+
             return false;
         }
     }
+
+
+
 }
