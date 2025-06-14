@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Luxcinder.Functions.UISystem.UICore;
 
 namespace Luxcinder.Functions.UISystem.UINodes.Flex;
-public class LuxUISplit4Container : LuxcinderUIBase
+public class LuxUISplit4Container : LuxUIContainer
 {
 	public override void InitializeDependencies()
 	{

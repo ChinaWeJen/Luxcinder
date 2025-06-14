@@ -9,7 +9,7 @@ using ReLogic.Content;
 using Terraria.UI;
 
 namespace Luxcinder.Functions.UISystem.UINodes;
-public class LuxUIPanel : LuxcinderUIBase
+public class LuxUIPanel : LuxUIContainer
 {
     private int _cornerTop = 12;
     private int _cornerLeft = 12;

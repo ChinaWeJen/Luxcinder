@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria.UI;
 
 namespace Luxcinder.Functions.UISystem.UICore;
-public class LuxUIState : LuxcinderUIBase
+public class LuxUIState : LuxUIContainer
 {
 	public LuxUIState()
 	{

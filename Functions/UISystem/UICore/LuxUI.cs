@@ -11,14 +11,14 @@ using Terraria.UI;
 namespace Luxcinder.Functions.UISystem.UICore;
 public class LuxUI
 {
-	private delegate void LuxMouseElementEvent(LuxcinderUIBase element, LuxUIMouseEvent evt);
+	private delegate void LuxMouseElementEvent(LuxUIContainer element, LuxUIMouseEvent evt);
 
 	private class InputPointerCache
 	{
 		public double LastTimeDown;
 		public bool WasDown;
-		public LuxcinderUIBase LastDown;
-		public LuxcinderUIBase LastClicked;
+		public LuxUIContainer LastDown;
+		public LuxUIContainer LastClicked;
 		public LuxMouseElementEvent MouseDownEvent;
 		public LuxMouseElementEvent MouseUpEvent;
 		public LuxMouseElementEvent ClickEvent;
@@ -40,36 +40,36 @@ public class LuxUI
 	private List<LuxUIState> _history = new List<LuxUIState>();
 	private InputPointerCache LeftMouse = new InputPointerCache
 	{
-		MouseDownEvent = delegate (LuxcinderUIBase element, LuxUIMouseEvent evt) {
+		MouseDownEvent = delegate (LuxUIContainer element, LuxUIMouseEvent evt) {
 			element.LeftMouseDown(evt);
 		},
-		MouseUpEvent = delegate (LuxcinderUIBase element, LuxUIMouseEvent evt) {
+		MouseUpEvent = delegate (LuxUIContainer element, LuxUIMouseEvent evt) {
 			element.LeftMouseUp(evt);
 		},
-		ClickEvent = delegate (LuxcinderUIBase element, LuxUIMouseEvent evt) {
+		ClickEvent = delegate (LuxUIContainer element, LuxUIMouseEvent evt) {
 			element.LeftClick(evt);
 		},
-		DoubleClickEvent = delegate (LuxcinderUIBase element, LuxUIMouseEvent evt) {
+		DoubleClickEvent = delegate (LuxUIContainer element, LuxUIMouseEvent evt) {
 			element.LeftDoubleClick(evt);
 		}
 	};
 	private InputPointerCache RightMouse = new InputPointerCache
 	{
-		MouseDownEvent = delegate (LuxcinderUIBase element, LuxUIMouseEvent evt) {
+		MouseDownEvent = delegate (LuxUIContainer element, LuxUIMouseEvent evt) {
 			element.RightMouseDown(evt);
 		},
-		MouseUpEvent = delegate (LuxcinderUIBase element, LuxUIMouseEvent evt) {
+		MouseUpEvent = delegate (LuxUIContainer element, LuxUIMouseEvent evt) {
 			element.RightMouseUp(evt);
 		},
-		ClickEvent = delegate (LuxcinderUIBase element, LuxUIMouseEvent evt) {
+		ClickEvent = delegate (LuxUIContainer element, LuxUIMouseEvent evt) {
 			element.RightClick(evt);
 		},
-		DoubleClickEvent = delegate (LuxcinderUIBase element, LuxUIMouseEvent evt) {
+		DoubleClickEvent = delegate (LuxUIContainer element, LuxUIMouseEvent evt) {
 			element.RightDoubleClick(evt);
 		}
 	};
 	public Vector2 MousePosition;
-	private LuxcinderUIBase _lastElementHover;
+	private LuxUIContainer _lastElementHover;
 	private double _clickDisabledTimeRemaining;
 	private bool _isStateDirty;
 	public bool IsVisible;
@@ -133,12 +133,14 @@ public class LuxUI
 
 		ClearPointers();
 		_lastElementHover = null;
-		_clickDisabledTimeRemaining = Math.Max(_clickDisabledTimeRemaining, 200.0);
+		_clickDisabledTimeRemaining = Math.Max(_clickDisabledTimeRemaining, 20.0);
 	}
 
 	private void GetMousePosition()
 	{
+		PlayerInput.SetZoom_UI();
 		MousePosition = new Vector2(Main.mouseX, Main.mouseY);
+		PlayerInput.SetZoom_MouseInWorld();
 	}
 
 	public void Update(GameTime time)
@@ -147,8 +149,8 @@ public class LuxUI
 			return;
 
 		GetMousePosition();
-		LuxcinderUIBase uIElement = (Main.hasFocus ? _currentState.GetElementAt(MousePosition) : null);
-		_clickDisabledTimeRemaining = Math.Max(0.0, _clickDisabledTimeRemaining - time.ElapsedGameTime.TotalMilliseconds);
+		LuxUIContainer uIElement = (Main.hasFocus ? _currentState.GetElementAt(MousePosition) : null);
+		_clickDisabledTimeRemaining = Math.Max(0.0, _clickDisabledTimeRemaining - 1);
 		bool num = _clickDisabledTimeRemaining > 0.0;
 
         _currentState.InitializeDependencies();
@@ -170,7 +172,7 @@ public class LuxUI
 	}
 
 	// A split to add a try-catch-finally block without indentation issues.
-	private void Update_Inner(GameTime time, LuxcinderUIBase uIElement, ref bool num)
+	private void Update_Inner(GameTime time, LuxUIContainer uIElement, ref bool num)
 	{
 		if (uIElement != _lastElementHover)
 		{
@@ -205,7 +207,7 @@ public class LuxUI
 	}
 
 
-	private void HandleClick(InputPointerCache cache, GameTime time, bool isDown, LuxcinderUIBase mouseElement)
+	private void HandleClick(InputPointerCache cache, GameTime time, bool isDown, LuxUIContainer mouseElement)
 	{
 		if (isDown && !cache.WasDown && mouseElement != null)
 		{
@@ -221,7 +223,7 @@ public class LuxUI
 		}
 		else if (!isDown && cache.WasDown && cache.LastDown != null)
 		{
-			LuxcinderUIBase lastDown = cache.LastDown;
+			LuxUIContainer lastDown = cache.LastDown;
 			if (lastDown.ContainsPoint(MousePosition))
 			{
 				cache.ClickEvent(lastDown, new LuxUIMouseEvent(lastDown, MousePosition));
@@ -326,7 +328,7 @@ public class LuxUI
 	public bool IsElementUnderMouse()
 	{
 		if (IsVisible && _lastElementHover != null)
-			return !(_lastElementHover is LuxcinderUIBase);
+			return !(_lastElementHover is LuxUIContainer);
 
 		return false;
 	}

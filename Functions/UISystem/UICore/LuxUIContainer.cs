@@ -7,10 +7,18 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Luxcinder.Core.Renderer;
 using ReLogic.Graphics;
+using Spine;
 using Terraria.UI;
 
 namespace Luxcinder.Functions.UISystem.UICore;
 
+
+public enum TextLayout
+{
+	Inline,
+	Block,
+	AutoWrap
+}
 
 /// <summary>
 /// Represents a dimension, either an absolute pixel size, a percentage of the available space, or a combination of both.
@@ -23,27 +31,33 @@ public struct StyleDimension
     public static StyleDimension Empty = new StyleDimension(0f, 0f);
     public float Pixels;
     public float Precent;
+	public bool AutoGrow = false;
 
     // Added by TML.
     public float Percent
     {
         get => Precent;
         set => Precent = value;
-    }
+	}
 
-    public StyleDimension(float pixels, float precent)
-    {
-        Pixels = pixels;
-        Precent = precent;
-    }
+	public StyleDimension(float pixels, float precent)
+	{
+		Pixels = pixels;
+		Precent = precent;
+	}
 
-    /// <summary>
-    /// Sets the values for this StyleDimension.
-    /// <para/> <b>StyleDimension documentation:</b><br/><inheritdoc cref="StyleDimension"/>
-    /// </summary>
-    /// <param name="pixels"></param>
-    /// <param name="precent"></param>
-    public void Set(float pixels, float precent)
+	public void SetAuto(bool autoGrow)
+	{
+		AutoGrow = autoGrow;
+	}
+
+	/// <summary>
+	/// Sets the values for this StyleDimension.
+	/// <para/> <b>StyleDimension documentation:</b><br/><inheritdoc cref="StyleDimension"/>
+	/// </summary>
+	/// <param name="pixels"></param>
+	/// <param name="precent"></param>
+	public void Set(float pixels, float precent)
     {
         Pixels = pixels;
         Precent = precent;
@@ -55,11 +69,11 @@ public struct StyleDimension
     public static StyleDimension FromPixelsAndPercent(float pixels, float percent) => new StyleDimension(pixels, percent);
 }
 
-public class LuxcinderUIBase
+public class LuxUIContainer
 {
-	public delegate void MouseEvent(LuxUIMouseEvent evt, LuxcinderUIBase listeningElement);
+	public delegate void MouseEvent(LuxUIMouseEvent evt, LuxUIContainer listeningElement);
 
-	public delegate void ScrollWheelEvent(LuxUIScrollWheelEvent evt, LuxcinderUIBase listeningElement);
+	public delegate void ScrollWheelEvent(LuxUIScrollWheelEvent evt, LuxUIContainer listeningElement);
 
 	/// <summary> How far down from the top edge of the <see cref="Parent"/> element's <see cref="GetInnerDimensions"/> that this element will be positioned. See also <see cref="HAlign"/> for another positioning option. </summary>
 	public StyleDimension Top;
@@ -70,22 +84,71 @@ public class LuxcinderUIBase
 	/// <summary> How tall this element intends to be. The calculated height will be clamped between <see cref="MinHeight"/> and <see cref="MaxHeight"/> according to the <see cref="GetInnerDimensions"/> of the parent element. </summary>
 	public StyleDimension Height;
 
-	private CalculatedStyle _dimensions;
+    /// <summary> The minimum width of this element. Defaults to no width. </summary>
+    public StyleDimension MinWidth = StyleDimension.Empty;
+    /// <summary> The maximum width of this element. Defaults to no height. </summary>
+    public StyleDimension MinHeight = StyleDimension.Empty;
+    /// <summary> The maximum width of this element. Defaults to the full width. </summary>
+    public StyleDimension MaxWidth = StyleDimension.Fill;
+    /// <summary> The maximum height of this element. Defaults to the full height. </summary>
+    public StyleDimension MaxHeight = StyleDimension.Fill;
 
-	/// <summary>
-	/// The dimensions of the area covered by this element. This is the area of this element interactible by the mouse.
-	/// <para/> The width and height are derived from the <see cref="Width"/> and <see cref="Height"/> values of this element and will be limited by <see cref="MinWidth"/>/MaxWidth/MinHeight/MaxHeight as well as the <see cref="GetInnerDimensions"/> of the parent element.
-	/// <para/> The position is derived from the <see cref="Top"/>, <see cref="Left"/>, <see cref="HAlign"/>, <see cref="VAlign"/>, and <see cref="MarginLeft"/>/Right/Top/Bottom values of this element as well as the <see cref="GetInnerDimensions"/> of the parent element.
-	/// </summary>
-	public CalculatedStyle GetDimensions() => _dimensions;
+    /// <summary>
+    /// The dimensions of the area covered by this element. This is the area of this element interactible by the mouse.
+    /// <para/> The width and height are derived from the <see cref="Width"/> and <see cref="Height"/> values of this element and will be limited by <see cref="MinWidth"/>/MaxWidth/MinHeight/MaxHeight as well as the <see cref="GetInnerDimensions"/> of the parent element.
+    /// <para/> The position is derived from the <see cref="Top"/>, <see cref="Left"/>, <see cref="HAlign"/>, <see cref="VAlign"/>, and <see cref="MarginLeft"/>/Right/Top/Bottom values of this element as well as the <see cref="GetInnerDimensions"/> of the parent element.
+    /// </summary>
+    public CalculatedStyle GetDimensions()
+	{
+		return new CalculatedStyle(ResolvedLeft, ResolvedTop, ResolvedWidth, ResolvedHeight);
+	}
 
-	// 核心布局属性
-	protected DependencyProperty<float> _top = new();
+    public CalculatedStyle GetInnerDimensions()
+    {
+        return new CalculatedStyle(ResolvedInnerLeft, ResolvedInnerTop, ResolvedInnerWidth, ResolvedInnerHeight);
+    }
+
+    public CalculatedStyle GetOuterDimensions()
+    {
+        return new CalculatedStyle(ResolvedOuterLeft, ResolvedOuterTop, ResolvedOuterWidth, ResolvedOuterHeight);
+    }
+
+    // 核心布局属性
+    protected DependencyProperty<float> _top = new();
     protected DependencyProperty<float> _left = new();
     protected DependencyProperty<float> _width  = new();
     protected DependencyProperty<float> _height = new();
+    //protected DependencyProperty<float> _minHeight = new();
+    //protected DependencyProperty<float> _maxHeight = new();
+    //protected DependencyProperty<float> _minWidth = new();
+    //protected DependencyProperty<float> _maxWidth = new();
 
-	public event MouseEvent OnLeftMouseDown;
+    public float ResolvedTop => ResolvedOuterTop + MarginTop;
+	public float ResolvedLeft => ResolvedOuterLeft + MarginLeft;
+	public float ResolvedWidth => ResolvedOuterWidth - MarginLeft - MarginRight;
+	public float ResolvedHeight => ResolvedOuterHeight - MarginTop - MarginBottom;
+
+    public float ResolvedInnerTop => ResolvedTop + PaddingTop;
+    public float ResolvedInnerLeft => ResolvedLeft + PaddingLeft;
+    public float ResolvedInnerWidth => ResolvedWidth - PaddingLeft - PaddingRight;
+    public float ResolvedInnerHeight => ResolvedHeight - PaddingTop - PaddingBottom;
+
+    public float ResolvedOuterTop => _top.TypedValue ;
+    public float ResolvedOuterLeft => _left.TypedValue ;
+    public float ResolvedOuterWidth => _width.TypedValue ;
+    public float ResolvedOuterHeight => _height.TypedValue ;
+
+    public float MarginLeft = 0;
+    public float MarginRight = 0;
+    public float MarginTop = 0;
+    public float MarginBottom = 0;
+
+    public float PaddingLeft = 0;
+    public float PaddingRight = 0;
+    public float PaddingTop = 0;
+    public float PaddingBottom = 0;
+
+    public event MouseEvent OnLeftMouseDown;
 	public event MouseEvent OnLeftMouseUp;
 	public event MouseEvent OnLeftClick;
 	public event MouseEvent OnLeftDoubleClick;
@@ -101,11 +164,16 @@ public class LuxcinderUIBase
 
 	public bool IsMouseHovering { get; private set; }
 
-	public bool OverflowHidden;
+	public bool OverflowHidden
+	{
+		get;
+		set;
+	} = false;
+
 	private bool _isInitialized;
 
 	// 子元素
-	public List<LuxcinderUIBase> Children { get; } = new();
+	public List<LuxUIContainer> Children { get; } = new();
 
 	private static readonly RasterizerState OverflowHiddenRasterizerState = new RasterizerState
 	{
@@ -114,63 +182,93 @@ public class LuxcinderUIBase
 	};
 
 	// 父节点
-	public LuxcinderUIBase Parent
+	public LuxUIContainer Parent
 	{
 		get; set;
 	}
 	public bool IgnoresMouseInteraction { get; set; }
 
 
-	protected virtual float BindTop(CalculatedStyle topMostDimensions)
+	protected virtual float ResolveTop(CalculatedStyle topMostDimensions)
 	{
-        float height = topMostDimensions.Height;
-        if (Parent != null)
-        {
-            if (Top.Percent > 0f)
-            {
-                height = Parent._height.TypedValue;
-            }
+		float height = topMostDimensions.Height;
+		if (Parent != null)
+		{
+			if (Top.Percent > 0f)
+			{
+				height = Parent.ResolvedInnerHeight;
+			}
+			topMostDimensions.Y = Parent.ResolvedInnerTop;
         }
-        return Top.Pixels + Top.Percent * height;
-    }
+		return topMostDimensions.Y + Top.Pixels + Top.Percent * height ;
+	}
 
-    protected virtual float BindLeft(CalculatedStyle topMostDimensions)
+    protected virtual float ResolveLeft(CalculatedStyle topMostDimensions)
     {
         float width = topMostDimensions.Width;
         if (Parent != null)
         {
             if (Left.Percent > 0f)
             {
-                width = Parent._width.TypedValue;
+                width = Parent.ResolvedInnerWidth;
             }
+            topMostDimensions.X = Parent.ResolvedInnerLeft;
         }
-        return Left.Pixels + Left.Percent * width;
+        return topMostDimensions.X + Left.Pixels + Left.Percent * width;
     }
 
-    protected virtual float BindWidth(CalculatedStyle topMostDimensions)
+    protected virtual float ResolveWidth(CalculatedStyle topMostDimensions)
     {
         float width = topMostDimensions.Width;
         if (Parent != null)
         {
             if (Width.Percent > 0f)
             {
-                width = Parent._width.TypedValue;
+                width = Parent.ResolvedInnerWidth;
             }
         }
-        return Width.Pixels + Width.Percent * width;
+        float maxWidth = MaxWidth.GetValue(width);
+		float minWidth = MinWidth.GetValue(width);
+        if (Width.AutoGrow)
+		{
+			width = 0;
+			foreach (var child in Children)
+			{
+				width += child.ResolvedOuterWidth;
+			}
+			return MathHelper.Clamp(width + PaddingLeft + PaddingRight, minWidth, maxWidth);
+		}
+		else
+		{
+			return MathHelper.Clamp(Width.Pixels + Width.Percent * width, minWidth, maxWidth);
+		}
     }
 
-    protected virtual float BindHeight(CalculatedStyle topMostDimensions)
-    {	
-		float height = topMostDimensions.Height;
+    protected virtual float ResolveHeight(CalculatedStyle topMostDimensions)
+    {
+        float height = topMostDimensions.Height;
         if (Parent != null)
         {
             if (Height.Percent > 0f)
             {
-                height = Parent._height.TypedValue;
+                height = Parent.ResolvedInnerHeight;
             }
         }
-        return Height.Pixels + Height.Percent * height;
+        float maxHeight = MaxHeight.GetValue(height);
+        float minHeight = MinHeight.GetValue(height);
+        if (Height.AutoGrow)
+		{
+			height = 0;
+			foreach (var child in Children)
+			{
+                height += child.ResolvedOuterHeight;
+			}
+			return MathHelper.Clamp(height + PaddingTop + PaddingBottom, minHeight, maxHeight);
+		}
+		else
+		{
+			return MathHelper.Clamp(Height.Pixels + Height.Percent * height, minHeight, maxHeight);
+		}
     }
 
     // 初始化依赖关系
@@ -181,19 +279,19 @@ public class LuxcinderUIBase
         CalculatedStyle topMostDimensions = LuxUI.ActiveInstance.GetDimensions();
         _top.Bind(() =>
 		{
-			return BindTop(topMostDimensions);
+			return ResolveTop(topMostDimensions);
         });
         _left.Bind(() =>
         {
-            return BindLeft(topMostDimensions);
+            return ResolveLeft(topMostDimensions);
         });
         _width.Bind(() =>
 		{
-			return BindWidth(topMostDimensions);
+			return ResolveWidth(topMostDimensions);
 		});
 		_height.Bind(() =>
 		{
-			return BindHeight(topMostDimensions);
+			return ResolveHeight(topMostDimensions);
         });
 
         foreach (var child in Children)
@@ -230,18 +328,18 @@ public class LuxcinderUIBase
 
 	public void Recalculate()
 	{
-        CalculatedStyle parentDimensions = Parent == null ? LuxUI.ActiveInstance.GetDimensions() : Parent.GetDimensions();
+		//      CalculatedStyle parentDimensions = Parent == null ? LuxUI.ActiveInstance.GetDimensions() : Parent.GetDimensions();
 
-        CalculatedStyle result = default;
-		result.X = _left.TypedValue + parentDimensions.X;
-		result.Y = _top.TypedValue + parentDimensions.Y;
-		result.Width = _width.TypedValue;
-		result.Height = _height.TypedValue;
+		//      CalculatedStyle result = default;
+		//result.X = _left.TypedValue + parentDimensions.X;
+		//result.Y = _top.TypedValue + parentDimensions.Y;
+		//result.Width = _width.TypedValue;
+		//result.Height = _height.TypedValue;
 
-		_dimensions = result;
+		//_dimensions = result;
 
-        // 更新子元素的布局
-        RecalculateChildren();
+		// 更新子元素的布局
+		RecalculateChildren();
 	}
 
 	public virtual void RecalculateChildren()
@@ -253,7 +351,7 @@ public class LuxcinderUIBase
 	}
 
 	// 添加子节点
-	public void AddChild(LuxcinderUIBase child)
+	public void AddChild(LuxUIContainer child)
 	{
 		child.Parent = this;
 		Children.Add(child);
@@ -267,23 +365,29 @@ public class LuxcinderUIBase
 
 	private void _drawDebugHitbox(BasicDebugDrawer drawer, bool drawChildren, int level)
 	{
-		Color color = Color.White;
+		Color color = Color.Yellow * 0.66f;
 		if (level % 3 == 1)
 		{
-			color = Color.Yellow;
+			color = Color.Cyan * 0.66f;
 		}
 		else if(level % 3 == 2)
 		{
-			color = Color.Lime;
+			color = Color.Pink * 0.66f;
         }
+		
 		CalculatedStyle dimensions = GetDimensions();
-		drawer.DrawLine(dimensions.Position(), dimensions.Position() + new Vector2(dimensions.Width, 0f), 2f, color);
-		drawer.DrawLine(dimensions.Position() + new Vector2(dimensions.Width, 0f), dimensions.Position() + new Vector2(dimensions.Width, dimensions.Height), 2f, color);
-		drawer.DrawLine(dimensions.Position() + new Vector2(dimensions.Width, dimensions.Height), dimensions.Position() + new Vector2(0f, dimensions.Height), 2f, color);
-		drawer.DrawLine(dimensions.Position() + new Vector2(0f, dimensions.Height), dimensions.Position(), 2f, color);
+		drawer.DrawLine(dimensions.Position(), dimensions.Position() + new Vector2(dimensions.Width, 0f), 1f, color);
+		drawer.DrawLine(dimensions.Position() + new Vector2(dimensions.Width, 0f), dimensions.Position() + new Vector2(dimensions.Width, dimensions.Height), 1f, color);
+		drawer.DrawLine(dimensions.Position() + new Vector2(dimensions.Width, dimensions.Height), dimensions.Position() + new Vector2(0f, dimensions.Height), 1f, color);
+		drawer.DrawLine(dimensions.Position() + new Vector2(0f, dimensions.Height), dimensions.Position(), 1f, color);
 
+        CalculatedStyle innerDimensions = GetInnerDimensions();
+        drawer.DrawLine(innerDimensions.Position(), innerDimensions.Position() + new Vector2(innerDimensions.Width, 0f), 1f, color);
+        drawer.DrawLine(innerDimensions.Position() + new Vector2(innerDimensions.Width, 0f), innerDimensions.Position() + new Vector2(innerDimensions.Width, innerDimensions.Height), 1f, color);
+        drawer.DrawLine(innerDimensions.Position() + new Vector2(innerDimensions.Width, innerDimensions.Height), innerDimensions.Position() + new Vector2(0f, innerDimensions.Height), 1f, color);
+        drawer.DrawLine(innerDimensions.Position() + new Vector2(0f, innerDimensions.Height), innerDimensions.Position(), 1f, color);
 
-		if (drawChildren)
+        if (drawChildren)
 		{
 			foreach (var child in Children)
 			{
@@ -403,12 +507,12 @@ public class LuxcinderUIBase
 			Parent.ScrollWheel(evt);
 	}
 
-	public LuxcinderUIBase GetElementAt(Vector2 point)
+	public LuxUIContainer GetElementAt(Vector2 point)
 	{
-		LuxcinderUIBase uIElement = null;
+		LuxUIContainer uIElement = null;
 		for (int num = Children.Count - 1; num >= 0; num--)
 		{
-			LuxcinderUIBase uIElement2 = Children[num];
+			LuxUIContainer uIElement2 = Children[num];
 			if (!uIElement2.IgnoresMouseInteraction && uIElement2.ContainsPoint(point))
 			{
 				uIElement = uIElement2;
@@ -423,22 +527,28 @@ public class LuxcinderUIBase
 			return null;
 
 		if (ContainsPoint(point))
-			return this;
+        {
+            if (this is not LuxUIState)
+            {
+                return this;
+            }
+            return this;
+        }
 
-		return null;
+        return null;
 	}
 
 	public virtual bool ContainsPoint(Vector2 point)
 	{
-		if (point.X > _dimensions.X && point.Y > _dimensions.Y && point.X < _dimensions.X + _dimensions.Width)
-			return point.Y < _dimensions.Y + _dimensions.Height;
-
+		var dimensions = GetDimensions();
+		if (point.X > dimensions.X && point.Y > dimensions.Y && point.X < dimensions.X + dimensions.Width)
+			return point.Y < dimensions.Y + dimensions.Height;
 		return false;
 	}
 
 	public virtual void Update(GameTime gameTime)
 	{
-		foreach (LuxcinderUIBase element in Children)
+		foreach (LuxUIContainer element in Children)
 		{
 			element.Update(gameTime);
 		}
@@ -448,12 +558,10 @@ public class LuxcinderUIBase
 	{
 		bool overflowHidden = OverflowHidden;
 		bool useImmediateMode = false;
-		RasterizerState rasterizerState = spriteBatch.GraphicsDevice.RasterizerState;
-		Rectangle scissorRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
 		SamplerState anisotropicClamp = SamplerState.AnisotropicClamp;
 		if (useImmediateMode)
 		{
-			spriteBatch.Push(SpriteSortMode.Immediate, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);		
+			spriteBatch.Push(SpriteSortMode.Immediate, BlendState.NonPremultiplied, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);		
 			DrawSelf(spriteBatch);
 			spriteBatch.Pop();
         }
@@ -464,16 +572,16 @@ public class LuxcinderUIBase
 
 		if (overflowHidden)
 		{
-            Rectangle clippingRectangle = GetClippingRectangle(spriteBatch);
-            Rectangle adjustedClippingRectangle = Rectangle.Intersect(clippingRectangle, spriteBatch.GraphicsDevice.ScissorRectangle);
-            spriteBatch.Push(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix, adjustedClippingRectangle);
-        }
-
-		DrawChildren(spriteBatch);
-		if (overflowHidden)
-		{
+			Rectangle clippingRectangle = GetClippingRectangle(spriteBatch);
+			Rectangle adjustedClippingRectangle = Rectangle.Intersect(clippingRectangle, spriteBatch.GraphicsDevice.ScissorRectangle);
+			spriteBatch.Push(SpriteSortMode.Deferred, BlendState.NonPremultiplied, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix, adjustedClippingRectangle);
+			DrawChildren(spriteBatch);
 			spriteBatch.Pop();
 		}
+		else
+		{
+            DrawChildren(spriteBatch);
+        }
 	}
 
 
@@ -483,7 +591,7 @@ public class LuxcinderUIBase
 
 	protected virtual void DrawChildren(SpriteBatchX spriteBatch)
 	{
-		foreach (LuxcinderUIBase element in Children)
+		foreach (LuxUIContainer element in Children)
 		{
 			element.Draw(spriteBatch);
 		}
@@ -491,8 +599,9 @@ public class LuxcinderUIBase
 
 	public Rectangle GetClippingRectangle(SpriteBatchX spriteBatch)
 	{
-		Vector2 vector = new Vector2(_dimensions.X, _dimensions.Y);
-		Vector2 position = new Vector2(_dimensions.Width, _dimensions.Height) + vector;
+        var dimensions = GetDimensions();
+        Vector2 vector = new Vector2(dimensions.X, dimensions.Y);
+		Vector2 position = new Vector2(dimensions.Width, dimensions.Height) + vector;
 		vector = Vector2.Transform(vector, Main.UIScaleMatrix);
 		position = Vector2.Transform(position, Main.UIScaleMatrix);
 		Rectangle rectangle = new Rectangle((int)vector.X, (int)vector.Y, (int)(position.X - vector.X), (int)(position.Y - vector.Y));
@@ -530,7 +639,7 @@ public class LuxcinderUIBase
 			Initialize();
 
 		OnActivate();
-		foreach (LuxcinderUIBase element in Children)
+		foreach (LuxUIContainer element in Children)
 		{
 			element.Activate();
 		}
@@ -545,7 +654,7 @@ public class LuxcinderUIBase
 	public void Deactivate()
 	{
 		OnDeactivate();
-		foreach (LuxcinderUIBase element in Children)
+		foreach (LuxUIContainer element in Children)
 		{
 			element.Deactivate();
 		}

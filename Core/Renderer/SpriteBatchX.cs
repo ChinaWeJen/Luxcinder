@@ -14,8 +14,8 @@ public struct SpriteBatchXState
 	public DepthStencilState DepthStencilState;
 	public RasterizerState RasterizerState;
 	public Effect Effect;
-	public Matrix? TransformMatrix;
-	public Rectangle? ScissorRectangle; 
+	public Matrix TransformMatrix;
+	public Rectangle ScissorRectangle; 
 }
 
 /// <summary>
@@ -31,6 +31,9 @@ public class SpriteBatchX
 
 	public GraphicsDevice GraphicsDevice => _graphicsDevice;
 	public SpriteBatch WrappedSpriteBatch => _wrappedSpriteBatch;
+
+	private Matrix _lastTransformMatrix = Matrix.Identity;
+	private Rectangle _lastScissorRectangle = Rectangle.Empty;
 
 	// 辅助方法，用于通过反射获取私有字段的值
 	private T GetPrivateFieldValue<T>(object obj, string fieldName)
@@ -89,6 +92,8 @@ public class SpriteBatchX
                     ScissorRectangle = _graphicsDevice.ScissorRectangle // ScissorRectangle直接从GraphicsDevice获取
                 }
 			};
+		_lastScissorRectangle = _graphicsDevice.ScissorRectangle;
+		_lastTransformMatrix = GetPrivateFieldValue<Matrix>(_wrappedSpriteBatch, "transformMatrix");
 	}
 
 	private void RecordGraphicsStates(SpriteSortMode sortMode,
@@ -97,8 +102,8 @@ public class SpriteBatchX
 		DepthStencilState depthStencilState,
 		RasterizerState rasterizerState,
 		Effect effect,
-		Matrix? transformMatrix,
-		Rectangle? scissorRectangle)
+		Matrix transformMatrix,
+		Rectangle scissorRectangle)
 	{
 		SpriteBatchXState state = new SpriteBatchXState
 		{
@@ -132,12 +137,26 @@ public class SpriteBatchX
 		Rectangle? scissorRectangle = null)
 	{
 		_wrappedSpriteBatch.End();
-		RecordGraphicsStates(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, transformMatrix, scissorRectangle);
-		if (scissorRectangle != null)
+		if (scissorRectangle.HasValue)
 		{
 			_wrappedSpriteBatch.GraphicsDevice.ScissorRectangle = scissorRectangle.Value;
+			_lastScissorRectangle = scissorRectangle.Value;
 		}
-		_wrappedSpriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, transformMatrix ?? Matrix.Identity);
+		else
+		{
+			scissorRectangle = _lastScissorRectangle;
+		}
+		if (transformMatrix.HasValue)
+		{
+			_lastTransformMatrix = transformMatrix.Value;
+		}
+		else
+		{
+			transformMatrix = _lastTransformMatrix;
+		}
+		RecordGraphicsStates(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, transformMatrix.Value, scissorRectangle.Value);
+
+		_wrappedSpriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, transformMatrix.Value);
 	}
 
 	// Simplified Begin for common Terraria UI usage
@@ -153,10 +172,9 @@ public class SpriteBatchX
 		if(_spriteBatchStates != null && _spriteBatchStates.Count != 0)
 		{
 			var state = RestoreGraphicsStates();
-			if (state.ScissorRectangle.HasValue)
-			{ // 恢复之前的ScissorRectangle
-				_graphicsDevice.ScissorRectangle = state.ScissorRectangle.Value;
-			}
+
+			_graphicsDevice.ScissorRectangle = state.ScissorRectangle;
+			
 			_wrappedSpriteBatch.Begin(
 				state.SpriteSortMode,
 				state.BlendState,
@@ -164,7 +182,7 @@ public class SpriteBatchX
 				state.DepthStencilState,
 				state.RasterizerState,
 				state.Effect,
-				state.TransformMatrix ?? Matrix.Identity);
+				state.TransformMatrix);
 		}
 		else
 		{

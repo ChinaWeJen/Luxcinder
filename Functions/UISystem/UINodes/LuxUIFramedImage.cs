@@ -10,25 +10,10 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
 namespace Luxcinder.Functions.UISystem.UINodes;
-public class LuxUIImage : LuxUIContainer
+public class LuxUIFramedImage : LuxUIContainer
 {
     private Asset<Texture2D> _texture;
     public float ImageScale
-    {
-        get;
-        set;
-    }
-    public float Rotation
-    {
-        get;
-        set;
-    }
-    public bool ScaleToFit
-    {
-        get;
-        set;
-    }
-    public bool AllowResizingDimensions
     {
         get;
         set;
@@ -40,21 +25,31 @@ public class LuxUIImage : LuxUIContainer
         set;
     }
 
-    public bool RemoveFloatingPointsFromDrawPosition
+    public int Frames
     {
-        get;
-        set;
+        get => _frames;
+        set
+        {
+            if (value > 0)
+            {
+                _frames = value;
+                _currentFrame = 0; // Reset to first frame when changing frames
+            }
+        }
     }
 
-    public LuxUIImage(Asset<Texture2D> texture)
+    private int _frames;
+    private int _frameTime;
+    private int _currentFrame = 0;
+    private int _frameCounter = 0;
+
+    public LuxUIFramedImage(Asset<Texture2D> texture, int frames, int frameTime)
     {
         SetImage(texture);
         NormalizedOrigin = Vector2.One;
-        AllowResizingDimensions = true;
-        ScaleToFit = false;
         ImageScale = 1f;
-        Rotation = 0f;
-        RemoveFloatingPointsFromDrawPosition = false;
+        _frames = frames;
+        _frameTime = frameTime; 
     }
 
     public void SetImage(Asset<Texture2D> texture)
@@ -64,20 +59,29 @@ public class LuxUIImage : LuxUIContainer
 
     protected override float ResolveWidth(CalculatedStyle topMostDimensions)
     {
-        if (AllowResizingDimensions)
-        {
-            return _texture.Value.Width;
-        }
-        return base.ResolveWidth(topMostDimensions);
+        return _texture.Value.Frame(1, _frames, 0, _currentFrame).Width;
     }
 
     protected override float ResolveHeight(CalculatedStyle topMostDimensions)
     {
-        if (AllowResizingDimensions)
+        return _texture.Value.Frame(1, _frames, 0, _currentFrame).Height;
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+
+        base.Update(gameTime);
+        if (_frameTime > 0)
         {
-            return _texture.Value.Height;
+            _frameCounter++;
+            if(_frameCounter >= _frameTime)
+            {
+                _frameCounter = 0;
+                _currentFrame++;
+                if (_currentFrame >= _frames)
+                    _currentFrame = 0;
+            }
         }
-        return base.ResolveHeight(topMostDimensions);
     }
 
     protected override void DrawSelf(SpriteBatchX spriteBatch)
@@ -87,17 +91,10 @@ public class LuxUIImage : LuxUIContainer
         if (_texture != null)
             texture2D = _texture.Value;
 
-        if (ScaleToFit)
-        {
-            spriteBatch.Draw(texture2D, dimensions.ToRectangle(), Color);
-            return;
-        }
 
         Vector2 vector = texture2D.Size();
         Vector2 vector2 = dimensions.Position() + vector * (1f - ImageScale) / 2f + vector * NormalizedOrigin;
-        if (RemoveFloatingPointsFromDrawPosition)
-            vector2 = vector2.Floor();
 
-        spriteBatch.Draw(texture2D, vector2, null, Color, Rotation, vector * NormalizedOrigin, ImageScale, SpriteEffects.None, 0f);
+        spriteBatch.Draw(texture2D, vector2, texture2D.Frame(1, _frames, 0, _currentFrame), Color, 0f, vector * NormalizedOrigin, ImageScale, SpriteEffects.None, 0f);
     }
 }
