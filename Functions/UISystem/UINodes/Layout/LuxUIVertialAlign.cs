@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,5 +27,14 @@ public class LuxUIVertialAlign : LuxUIContainer
             curHeight += child.ResolvedOuterHeight;
         }
         base.RecalculateChildren();
+	}
+
+	public void ClearChildren()
+	{
+		foreach(var child in Children)
+		{
+			child.Parent = null;
+		}
+		Children.Clear();
 	}
 }

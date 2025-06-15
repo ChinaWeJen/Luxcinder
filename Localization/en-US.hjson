@@ -1,5 +1,11 @@
 Mods: {
 	Luxcinder: {
+		Tiles: {
+			QuenchedTile.MapEntry: Quenched Tile
+			AshPortal.MapEntry: Ash Portal
+			DeepLightTower.MapEntry: Deep Light Tower
+		}
+
 		Buffs: {
 			Alloy_Ripper_Buff: {
 				DisplayName: Alloy_ Ripper_ Buff
@@ -8,198 +14,58 @@ Mods: {
 		}
 
 		Items: {
-			Black_Hammer: {
-				DisplayName: Black_ Hammer
+			BlackHammer: {
+				DisplayName: Black Hammer
 				Tooltip: ""
 			}
 
-			Black_Iron_Axe: {
-				DisplayName: Black_ Iron_ Axe
+			BlackIronAxe: {
+				DisplayName: Black Iron Axe
 				Tooltip: ""
 			}
 
-			Black_iron_ingot: {
-				DisplayName: Black_iron_ingot
+			BlackIronIngot: {
+				DisplayName: Black Iron Ingot
 				Tooltip: ""
 			}
 
-			Black_iron_pickaxe: {
-				DisplayName: Black_iron_pickaxe
+			BlackIronPickAxe: {
+				DisplayName: Black Iron Pick Axe
 				Tooltip: ""
 			}
 
-			Black_iron_sword: {
-				DisplayName: Black_iron_sword
+			BlackIronShield: {
+				DisplayName: Black Iron Shield
 				Tooltip: ""
 			}
 
-			Decayed_crystal: {
-				DisplayName: Decayed_crystal
+			BlackIronSword: {
+				DisplayName: Black Iron Sword
 				Tooltip: ""
 			}
 
-			Decayed_fragments: {
-				DisplayName: Decayed_fragments
+			Decayedcrystal: {
+				DisplayName: Decayedcrystal
 				Tooltip: ""
 			}
 
-			Decayed_Night_Eye: {
-				DisplayName: Decayed_ Night_ Eye
+			DecayedFragments: {
+				DisplayName: Decayed Fragments
 				Tooltip: ""
 			}
 
-			Meat_mince_shell: {
-				DisplayName: Meat_mince_shell
+			DecayedNightEye: {
+				DisplayName: Decayed Night Eye
+				Tooltip: ""
+			}
+
+			MeatminCeshell: {
+				DisplayName: Meatmin Ceshell
 				Tooltip: ""
 			}
 
 			Nightmare: {
 				DisplayName: Nightmare
-				Tooltip: ""
-			}
-
-			Reason_Trapped_Dreams: {
-				DisplayName: Reason_ Trapped_ Dreams
-				Tooltip: ""
-			}
-
-			Rotten_crystals: {
-				DisplayName: Rotten_crystals
-				Tooltip: ""
-			}
-
-			Rotting_toxin: {
-				DisplayName: Rotting_toxin
-				Tooltip: ""
-			}
-
-			Sword_Contract: {
-				DisplayName: Sword_ Contract
-				Tooltip: ""
-			}
-
-			Ash_Portal: {
-				DisplayName: Ash_ Portal
-				Tooltip: ""
-			}
-
-			Deep_Light_Tower: {
-				DisplayName: Deep_ Light_ Tower
-				Tooltip: ""
-			}
-
-			GiantStoneBlastFurnace: {
-				DisplayName: Giant Stone Blast Furnace
-				Tooltip: ""
-			}
-
-			Ice_dagger: {
-				DisplayName: Ice_dagger
-				Tooltip: ""
-			}
-
-			Lost_ancient_pendant: {
-				DisplayName: Lost_ancient_pendant
-				Tooltip: ""
-			}
-
-			Story_fragments: {
-				DisplayName: Story_fragments
-				Tooltip: ""
-			}
-
-			Vowrose: {
-				DisplayName: Vowrose
-				Tooltip: ""
-			}
-
-			Alloy_Ripper: {
-				DisplayName: Alloy_ Ripper
-				Tooltip: ""
-			}
-
-			Quenched: {
-				DisplayName: Quenched
-				Tooltip: ""
-			}
-
-			Quenched_alloy_pickaxe: {
-				DisplayName: Quenched_alloy_pickaxe
-				Tooltip: ""
-			}
-
-			Quenched_Ingot: {
-				DisplayName: Quenched_ Ingot
-				Tooltip: ""
-			}
-
-			NightmareEssence: {
-				DisplayName: Nightmare Essence
-				Tooltip: ""
-			}
-
-			NightmareSummon: {
-				DisplayName: Nightmare Summon
-				Tooltip: ""
-			}
-
-			DecayedNightEye: {
-				Tooltip: ""
-				DisplayName: Decayed Night Eye
-			}
-
-			DecayedFragments: {
-				Tooltip: ""
-				DisplayName: Decayed Fragments
-			}
-
-			Decayedcrystal: {
-				Tooltip: ""
-				DisplayName: Decayedcrystal
-			}
-
-			BlackIronSword: {
-				Tooltip: ""
-				DisplayName: Black Iron Sword
-			}
-
-			BlackIronShield: {
-				Tooltip: ""
-				DisplayName: Black Iron Shield
-			}
-
-			BlackIronPickAxe: {
-				Tooltip: ""
-				DisplayName: Black Iron Pick Axe
-			}
-
-			BlackIronIngot: {
-				Tooltip: ""
-				DisplayName: Black Iron Ingot
-			}
-
-			BlackIronAxe: {
-				Tooltip: ""
-				DisplayName: Black Iron Axe
-			}
-
-			BlackHammer: {
-				Tooltip: ""
-				DisplayName: Black Hammer
-			}
-
-			Nightmaresummon: {
-				Tooltip: ""
-				DisplayName: Nightmaresummon
-			}
-
-			Nightmareessence: {
-				Tooltip: ""
-				DisplayName: Nightmareessence
-			}
-
-			MeatminCeshell: {
-				DisplayName: Meatmin Ceshell
 				Tooltip: ""
 			}
 
@@ -223,6 +89,31 @@ Mods: {
 				Tooltip: ""
 			}
 
+			NightmareEssence: {
+				DisplayName: Nightmare Essence
+				Tooltip: ""
+			}
+
+			NonferrousMetals: {
+				DisplayName: Nonferrous Metals
+				Tooltip: ""
+			}
+
+			Encyclopedia: {
+				DisplayName: Encyclopedia
+				Tooltip: ""
+			}
+
+			ScienceTechnologyANDInnovation: {
+				DisplayName: Science Technology A N D Innovation
+				Tooltip: ""
+			}
+
+			SurvivalGuide: {
+				DisplayName: Survival Guide
+				Tooltip: ""
+			}
+
 			AshPortal: {
 				DisplayName: Ash Portal
 				Tooltip: ""
@@ -230,6 +121,11 @@ Mods: {
 
 			DeepLightTower: {
 				DisplayName: Deep Light Tower
+				Tooltip: ""
+			}
+
+			GiantStoneBlastFurnace: {
+				DisplayName: Giant Stone Blast Furnace
 				Tooltip: ""
 			}
 
@@ -243,13 +139,28 @@ Mods: {
 				Tooltip: ""
 			}
 
+			SourceSpiritBow: {
+				DisplayName: Source Spirit Bow
+				Tooltip: ""
+			}
+
 			Storyfragments: {
 				DisplayName: Storyfragments
 				Tooltip: ""
 			}
 
+			Vowrose: {
+				DisplayName: Vowrose
+				Tooltip: ""
+			}
+
 			AlloyRipper: {
 				DisplayName: Alloy Ripper
+				Tooltip: ""
+			}
+
+			Quenched: {
+				DisplayName: Quenched
 				Tooltip: ""
 			}
 
@@ -263,18 +174,13 @@ Mods: {
 				Tooltip: ""
 			}
 
-			NonferrousMetals: {
-				DisplayName: Nonferrous Metals
+			Nightmaresummon: {
+				DisplayName: Nightmaresummon
 				Tooltip: ""
 			}
 
 			SkeletonSight: {
 				DisplayName: Skeleton Sight
-				Tooltip: ""
-			}
-
-			Encyclopedia: {
-				DisplayName: Encyclopedia
 				Tooltip: ""
 			}
 
@@ -284,29 +190,17 @@ Mods: {
 			}
 		}
 
-			ScienceTechnologyANDInnovation: {
-				DisplayName: Science Technology A N D Innovation
-				Tooltip: ""
-			}
-
-			SurvivalGuide: {
-				DisplayName: Survival Guide
-				Tooltip: ""
-			}
-
-			SourceSpiritBow: {
-				DisplayName: Source Spirit Bow
-				Tooltip: ""
-			}
-		}
-
 		NPCs: {
 			CorruptedMaster.DisplayName: Corrupted Master
 			CorruptedMasterShadow.DisplayName: Corrupted Master Shadow
+			LightEclipseEye.DisplayName: Light Eclipse Eye
 			GraspOfTrance.DisplayName: Grasp Of Trance
 			NightmareCorruption.DisplayName: Nightmare Corruption
 			NightmareCorruptionCorpse.DisplayName: Nightmare Corruption Corpse
 			NightmarePhantom.DisplayName: Nightmare Phantom
+			Guard.DisplayName: Guard
+			HolyRelicDome.DisplayName: Holy Relic Dome
+			Spy.DisplayName: Spy
 
 			Sylvia: {
 				DisplayName: Sylvia
@@ -322,28 +216,14 @@ Mods: {
 					Princess_LovesNPC: 我喜欢 {NPCName}。
 				}
 			}
-
-			Guard.DisplayName: Guard
-			LightEclipseEye.DisplayName: Light Eclipse Eye
-			Spy.DisplayName: Spy
-			HolyRelicDome.DisplayName: Holy Relic Dome
-		}
-
-		Tiles: {
-			Quenched_Tile.MapEntry: Quenched_ Tile
-			Ash_Portal.MapEntry: Ash_ Portal
-			QuenchedTile.MapEntry: Quenched Tile
-			AshPortal.MapEntry: Ash Portal
-			DeepLightTower.MapEntry: Deep Light Tower
-			GiantStoneBlastFurnace.MapEntry: Giant Stone Blast Furnace
 		}
 
 		Projectiles: {
+			SourceSpiritArrow.DisplayName: Source Spirit Arrow
 			AlloyFire.DisplayName: Alloy Fire
 			CorruptedOrb.DisplayName: Corrupted Orb
 			GoldenLaser.DisplayName: Golden Laser
 			LightEclipseBolt.DisplayName: Light Eclipse Bolt
-			SourceSpiritArrow.DisplayName: Source Spirit Arrow
 		}
 	}
 }

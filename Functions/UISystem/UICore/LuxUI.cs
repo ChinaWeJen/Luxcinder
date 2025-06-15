@@ -140,7 +140,7 @@ public class LuxUI
 	{
 		PlayerInput.SetZoom_UI();
 		MousePosition = new Vector2(Main.mouseX, Main.mouseY);
-		PlayerInput.SetZoom_MouseInWorld();
+		PlayerInput.SetZoom_Context();
 	}
 
 	public void Update(GameTime time)

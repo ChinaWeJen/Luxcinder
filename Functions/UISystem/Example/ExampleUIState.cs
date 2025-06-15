@@ -73,11 +73,11 @@ internal class ExampleUIState : LuxUIState
 
 	
 
-        LuxUIText text = new LuxUIText("ÄÇ¸ö...ÎÒµÚÒ»´ÎÀ´µ½Õâ¸öµØ·½");
+        LuxUIText text = new LuxUIText("é‚£ä¸ª...æˆ‘ç¬¬ä¸€æ¬¡æ¥åˆ°è¿™ä¸ªåœ°æ–¹");
 		text.TextLayout = TextLayout.AutoWrap;
 		text.Width.Set(0, 1);
 
-        LuxUIText text2 = new LuxUIText("Ñ¡Ïî1£¬Ñ¡Ïî2£¬Ñ¡Ïî3");
+        LuxUIText text2 = new LuxUIText("é€‰é¡¹1ï¼Œé€‰é¡¹2ï¼Œé€‰é¡¹3");
         text2.TextLayout = TextLayout.AutoWrap;
         text2.Width.Set(0, 1);
         luxUIVertialAlign.AddChild(text);
@@ -93,14 +93,15 @@ internal class ExampleUIState : LuxUIState
 
 		for (int i = 0; i < 3; i++)
 		{
-            LuxUIText textOpt = new LuxUIText("Ñ¡Ïî1£¬324423423423423424234221434324324");
+            LuxUIText textOpt = new LuxUIText("é€‰é¡¹1ï¼Œ324423423423423424234221434324324");
             textOpt.TextLayout = TextLayout.AutoWrap;
             textOpt.Width.Set(0, 1);
 			luxUIVertialAlign2.AddChild(textOpt);
         }
 
-		var anchor = new LuxUIAnchor();
+
         var centerIcon = new LuxUIFramedImage(this.RequestModRelativeTexture("NextStep"), 1, 6);
+		var anchor = new LuxUIAnchor(centerIcon, Vector2.One * 0.5f, Vector2.One * 0.5f);
 		centerIcon.NormalizedOrigin = Vector2.One * 0.5f;
 		centerIcon.OnMouseOver += (sender, args) =>
 		{
@@ -112,7 +113,6 @@ internal class ExampleUIState : LuxUIState
             centerIcon.SetImage(this.RequestModRelativeTexture("NextStep"));
             centerIcon.Frames = 1; 
 		};
-        anchor.AddChild(centerIcon);
         LuxUIHorizontalSplit luxUIHorizontalSplit = new LuxUIHorizontalSplit(0.8f, null, anchor);
 		luxUIHorizontalSplit.Height.Set(35, 0);
 		luxUIHorizontalSplit.Width.Set(0, 1);

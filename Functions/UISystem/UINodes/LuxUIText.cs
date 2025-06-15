@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +19,7 @@ public class LuxUIText : LuxUIContainer
     private string _text = "";
     private string _visibleText = "";
     private float _textScale = 1f;
-    private Vector2 _textSize = Vector2.Zero;
+	private Vector2 _gfxOffset;
     private bool _isLarge;
     private Color _color = Color.White;
     private Color _shadowColor = Color.Black;
@@ -70,7 +70,14 @@ public class LuxUIText : LuxUIContainer
         }
     }
 
-    public event Action OnInternalTextChange;
+	public Vector2 GfxOffset
+	{
+		get => _gfxOffset;
+		set => _gfxOffset = value;
+	}
+
+
+	public event Action OnInternalTextChange;
 
     public LuxUIText(string text, float textScale = 1f, bool large = false)
     {
@@ -169,7 +176,7 @@ public class LuxUIText : LuxUIContainer
     protected override void DrawSelf(SpriteBatchX spriteBatch)
     {
         CalculatedStyle dimension = GetDimensions();
-        Vector2 position = dimension.Position();
+        Vector2 position = dimension.Position() + _gfxOffset;
 
         DynamicSpriteFont font = (_isLarge ? FontAssets.DeathText : FontAssets.MouseText).Value;
         Color shadowColor = new Color(0, 0, 0, _color.A);
