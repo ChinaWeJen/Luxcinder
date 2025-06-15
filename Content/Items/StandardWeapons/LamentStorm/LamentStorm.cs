@@ -94,6 +94,14 @@ namespace Luxcinder.Content.Items.StandardWeapons.LamentStorm
         }
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			if (player.altFunctionUse == 2)
+			{
+				player.GetModPlayer<LamentStormPlayer>().LamentStormAttackMode = LamentStormAttackType.Charge;
+			}
+			else
+			{
+				player.GetModPlayer<LamentStormPlayer>().LamentStormAttackMode = attackMode ? LamentStormAttackType.Fall : LamentStormAttackType.Normal;
+			}
 			Projectile.NewProjectile(player.GetSource_ItemUse(Item, null), player.Center, Vector2.Zero, Item.shoot, damage, knockback, player.whoAmI, 0f, 0f, 0f);
 			return false;
 		}

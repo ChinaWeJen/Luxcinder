@@ -11,7 +11,7 @@ public enum LamentStormAttackType
 {
 	Normal, //平射
 	Fall, // 从天而降
-
+	Charge // 蓄力
 }
 public class LamentStormPlayer : ModPlayer
 {

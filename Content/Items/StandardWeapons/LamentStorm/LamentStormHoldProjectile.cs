@@ -2,20 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Luxcinder.Content.Items.StandardWeapons.LamentStorm.Projectiles;
 using Mono.Cecil;
+using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Luxcinder.Content.Items.StandardWeapons.LamentStorm;
 public class LamentStormHoldProjectile : ModProjectile
 {
 	// 蓄力相关参数
-	private const int MaxChargeTime = 60; // 最大蓄力帧数（1秒）
+	private const int MaxChargeTime = 150; // 最大蓄力帧数（1秒）
 	private const int MinChargeTime = 10; // 最小蓄力帧数
 	private const float MinVelocity = 8f;
 	private const float MaxVelocity = 20f;
@@ -23,10 +24,12 @@ public class LamentStormHoldProjectile : ModProjectile
 	private const float MaxDamageScale = 2.0f;
 	private List<Vector2> _relativeArrows = new List<Vector2>();
 	private float _currentBowStretchLength;
+	private Asset<Texture2D> _textureGlow;
 
 	public override void SetStaticDefaults()
 	{
 		// 设置弹幕的显示名称和描述
+		Main.projFrames[Projectile.type] = 4;
 	}
 
 	public override void SetDefaults()
@@ -61,152 +64,212 @@ public class LamentStormHoldProjectile : ModProjectile
 		float rot = toMouse.ToRotation();
 		Projectile.rotation = rot;
 
-		// 记录蓄力时间
-		if (Projectile.localAI[0] < MaxChargeTime)
-			Projectile.localAI[0]++;
-
-		// 播放拉弓动画
-		player.itemTime = 2;
-		player.itemAnimation = 2;
-		player.heldProj = Projectile.whoAmI;
-		player.itemRotation = (float)System.Math.Atan2(toMouse.Y * player.direction, toMouse.X * player.direction);
-		player.ChangeDir((Main.MouseWorld.X > player.Center.X) ? 1 : -1);
-
-		Player.CompositeArmStretchAmount armStretchAmount = Player.CompositeArmStretchAmount.Full;
-		if (Projectile.localAI[1] > player.itemAnimationMax + 5)
+		if ((player.channel || (lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Charge && Main.mouseRight)) 
+			&& !player.noItems && !player.CCed)
 		{
-			armStretchAmount = Player.CompositeArmStretchAmount.Full;
-		}
-		else if (Projectile.localAI[1] > player.itemAnimationMax)
-		{
-			armStretchAmount = Player.CompositeArmStretchAmount.Quarter;
-		}
-		else if (Projectile.localAI[1] > player.itemAnimationMax * 0.75f)
-		{
-			armStretchAmount = Player.CompositeArmStretchAmount.None;
-		}
-		else if (Projectile.localAI[1] > player.itemAnimationMax * 0.5f)
-		{
-			armStretchAmount = Player.CompositeArmStretchAmount.Quarter;
-		}
-		else if (Projectile.localAI[1] > player.itemAnimationMax * 0.25f)
-		{
-			armStretchAmount = Player.CompositeArmStretchAmount.ThreeQuarters;
-		}
-		player.SetCompositeArmFront(true, armStretchAmount, rot - 1.5707964f);
-        switch (armStretchAmount)
-        {
-            case Player.CompositeArmStretchAmount.Full:
-				_currentBowStretchLength = 8f;
-                break;
-            case Player.CompositeArmStretchAmount.None:
-				_currentBowStretchLength = 18f;
-
-				break;
-            case Player.CompositeArmStretchAmount.Quarter:
-				_currentBowStretchLength = 14f;
-				break;
-            case Player.CompositeArmStretchAmount.ThreeQuarters:
-				_currentBowStretchLength = 10f;
-				break;
-            default:
-                break;
-        }
-
-		if (Projectile.localAI[1] == 0)
-		{
-			_relativeArrows.Clear();
-			// 平射模式 - 3-5只箭散射
-			// 从天而降模式 4-8只
-			int arrowCount = lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Fall ? Main.rand.Next(4, 9) : Main.rand.Next(3, 6);
-			for (int i = 0; i < arrowCount; i++)
+			if (lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Charge)
 			{
-				float scatterRange = lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Fall ? 20 : 45;
-				Vector2 points = Vector2.UnitX.RotatedByRandom(MathHelper.ToRadians(scatterRange)) * 8f;
-				_relativeArrows.Add(points);
-			}
-		}
-		Projectile.localAI[1]++;
-		if (Projectile.localAI[1] == player.itemAnimationMax)
-		{
-			if (lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Fall)
-			{
-				// 发射虚假的箭矢弹幕
-				Vector2 shootVel = toMouse.SafeNormalize(Vector2.UnitX) * 10;
-
-				for (int i = 0; i < _relativeArrows.Count; i++)
+				if (Projectile.localAI[0] == 0)
 				{
-					Vector2 perturbedSpeed = ((_relativeArrows[i] - new Vector2(-_currentBowStretchLength, 0)).ToRotation() + rot).ToRotationVector2();
-					perturbedSpeed *= Main.rand.NextFloat(0.8f, 1.2f) * 24;
+					_relativeArrows.Clear();
+				}
+				// 记录蓄力时间
+				Projectile.localAI[0]++;
+			}
 
-					var proj = Projectile.NewProjectile(
-						Projectile.GetSource_FromThis(),
-						Projectile.Center,
-						perturbedSpeed,
-						ModContent.ProjectileType<LamentStormPDummy>(),
-						Projectile.damage * 2,
-						Projectile.knockBack,
-						Projectile.owner
-					);
-					Main.projectile[proj].ai[0] = Main.MouseWorld.X;
-					Main.projectile[proj].ai[1] = Main.MouseWorld.Y;
+			// 播放拉弓动画
+			player.itemTime = 2;
+			player.itemAnimation = 2;
+			player.heldProj = Projectile.whoAmI;
+			player.itemRotation = (float)System.Math.Atan2(toMouse.Y * player.direction, toMouse.X * player.direction);
+			player.ChangeDir((Main.MouseWorld.X > player.Center.X) ? 1 : -1);
+
+			Player.CompositeArmStretchAmount armStretchAmount = Player.CompositeArmStretchAmount.Full;
+			Projectile.frame = 0;
+
+			if (lamentStormPlayer.LamentStormAttackMode != LamentStormAttackType.Charge)
+			{
+				if (Projectile.localAI[1] > player.itemAnimationMax + 5)
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.Full;
+					Projectile.frame = 0;
+				}
+				else if (Projectile.localAI[1] > player.itemAnimationMax)
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.Quarter;
+					Projectile.frame = 2;
+				}
+				else if (Projectile.localAI[1] > player.itemAnimationMax * 0.75f)
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.None;
+					Projectile.frame = 3;
+				}
+				else if (Projectile.localAI[1] > player.itemAnimationMax * 0.5f)
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.Quarter;
+					Projectile.frame = 2;
+				}
+				else if (Projectile.localAI[1] > player.itemAnimationMax * 0.25f)
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.ThreeQuarters;
+					Projectile.frame = 1;
+				}
+
+				if (Projectile.localAI[1] == 0)
+				{
+					_relativeArrows.Clear();
+					// 平射模式 - 3-5只箭散射
+					// 从天而降模式 4-8只
+					int arrowCount = lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Fall ? Main.rand.Next(4, 9) : Main.rand.Next(3, 6);
+					for (int i = 0; i < arrowCount; i++)
+					{
+						float scatterRange = lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Fall ? 20 : 45;
+						Vector2 points = Vector2.UnitX.RotatedByRandom(MathHelper.ToRadians(scatterRange)) * 8f;
+						_relativeArrows.Add(points);
+					}
+				}
+				Projectile.localAI[1]++;
+				if (Projectile.localAI[1] == player.itemAnimationMax)
+				{
+					if (lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Fall)
+					{
+						// 发射虚假的箭矢弹幕
+						Vector2 shootVel = toMouse.SafeNormalize(Vector2.UnitX) * 10;
+
+						for (int i = 0; i < _relativeArrows.Count; i++)
+						{
+							Vector2 perturbedSpeed = ((_relativeArrows[i] - new Vector2(-_currentBowStretchLength, 0)).ToRotation() + rot).ToRotationVector2();
+							perturbedSpeed *= Main.rand.NextFloat(0.8f, 1.2f) * 24;
+
+							var proj = Projectile.NewProjectile(
+								Projectile.GetSource_FromThis(),
+								Projectile.Center,
+								perturbedSpeed,
+								ModContent.ProjectileType<LamentStormPDummy>(),
+								Projectile.damage * 2,
+								Projectile.knockBack,
+								Projectile.owner
+							);
+							Main.projectile[proj].ai[0] = Main.MouseWorld.X;
+							Main.projectile[proj].ai[1] = Main.MouseWorld.Y;
+						}
+					}
+					else
+					{
+						// 发射真正的箭矢弹幕
+						Vector2 shootVel = toMouse.SafeNormalize(Vector2.UnitX) * 10;
+
+						for (int i = 0; i < _relativeArrows.Count; i++)
+						{
+							Vector2 perturbedSpeed = ((_relativeArrows[i] - new Vector2(-_currentBowStretchLength, 0)).ToRotation() + rot).ToRotationVector2();
+							perturbedSpeed *= Main.rand.NextFloat(0.8f, 1.2f) * 18;
+
+							Projectile.NewProjectile(
+								Projectile.GetSource_FromThis(),
+								Projectile.Center,
+								perturbedSpeed,
+								ModContent.ProjectileType<LamentStormP>(),
+								Projectile.damage * 2,
+								Projectile.knockBack,
+								Projectile.owner
+							);
+						}
+					}
+				}
+				else if (Projectile.localAI[1] > player.itemAnimationMax && Projectile.localAI[1] < player.itemAnimationMax + 20)
+				{
+
+				}
+				else if (Projectile.localAI[1] >= player.itemAnimationMax + 20)
+				{
+					Projectile.localAI[1] = 0;
 				}
 			}
 			else
 			{
-				// 发射真正的箭矢弹幕
-				Vector2 shootVel = toMouse.SafeNormalize(Vector2.UnitX) * 10;
+				if (Projectile.localAI[0] > MaxChargeTime * 0.75)
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.None;
+					Projectile.frame = 3;
+				}
+				else if (Projectile.localAI[0] > MaxChargeTime * 0.5f)
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.Quarter;
+					Projectile.frame = 2;
+				}
+				else if (Projectile.localAI[0] > MaxChargeTime * 0.25f)
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.ThreeQuarters;
+					Projectile.frame = 1;
+				}
+				else
+				{
+					armStretchAmount = Player.CompositeArmStretchAmount.Full;
+					Projectile.frame = 0;
+				}
 
+				if (Projectile.localAI[0] == 1)
+				{
+					for (int i = 0; i < 5; i++)
+					{
+						Vector2 points = Vector2.UnitX.RotatedByRandom(MathHelper.ToRadians(45)) * 8f;
+						_relativeArrows.Add(points);
+					}
+				}
+
+				if (Projectile.localAI[0] % 15 == 0 && _relativeArrows.Count < 15)
+				{
+					Vector2 points = Vector2.UnitX.RotatedByRandom(MathHelper.ToRadians(45)) * 8f;
+					_relativeArrows.Add(points);
+				}
+			}
+			player.SetCompositeArmFront(true, armStretchAmount, rot - 1.5707964f);
+			switch (armStretchAmount)
+			{
+				case Player.CompositeArmStretchAmount.Full:
+					_currentBowStretchLength = 8f;
+					break;
+				case Player.CompositeArmStretchAmount.None:
+					_currentBowStretchLength = 18f;
+
+					break;
+				case Player.CompositeArmStretchAmount.Quarter:
+					_currentBowStretchLength = 14f;
+					break;
+				case Player.CompositeArmStretchAmount.ThreeQuarters:
+					_currentBowStretchLength = 10f;
+					break;
+				default:
+					break;
+			}
+		}
+		else
+		{
+			if (lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Charge)
+			{
+				// 松开鼠标时发射
+				int charge = (int)Projectile.localAI[0];
+				float chargePercent = Utils.Clamp(charge / (float)MaxChargeTime, 0f, 1f);
+
+				float velocity = MathHelper.Lerp(MinVelocity, MaxVelocity, chargePercent);
+				float damageScale = MathHelper.Lerp(MinDamageScale, MaxDamageScale, chargePercent);
+
+				// 发射真正的箭矢弹幕
 				for (int i = 0; i < _relativeArrows.Count; i++)
 				{
 					Vector2 perturbedSpeed = ((_relativeArrows[i] - new Vector2(-_currentBowStretchLength, 0)).ToRotation() + rot).ToRotationVector2();
-					perturbedSpeed *= Main.rand.NextFloat(0.8f, 1.2f) * 18;
+					perturbedSpeed *= Main.rand.NextFloat(0.8f, 1.2f) * velocity;
 
 					Projectile.NewProjectile(
 						Projectile.GetSource_FromThis(),
 						Projectile.Center,
 						perturbedSpeed,
-						ModContent.ProjectileType<LamentStormP>(),
-						Projectile.damage * 2,
+						ModContent.ProjectileType<LamentStormHoming>(),
+						(int)(Projectile.damage * damageScale),
 						Projectile.knockBack,
 						Projectile.owner
 					);
 				}
-			}
-		}
-		else if (Projectile.localAI[1] > player.itemAnimationMax && Projectile.localAI[1] < player.itemAnimationMax + 20)
-		{
-			
-		}
-		else if (Projectile.localAI[1] >= player.itemAnimationMax + 20)
-		{
-			Projectile.localAI[1] = 0;
-		}
-
-
-		// 松开鼠标左键时发射
-		if (!player.channel)
-		{
-			int charge = (int)Projectile.localAI[0];
-			float chargePercent = Utils.Clamp(charge / (float)MaxChargeTime, 0f, 1f);
-
-			float velocity = MathHelper.Lerp(MinVelocity, MaxVelocity, chargePercent);
-			float damageScale = MathHelper.Lerp(MinDamageScale, MaxDamageScale, chargePercent);
-
-			if (charge >= MinChargeTime)
-			{
-				// 发射真正的箭矢弹幕
-				Vector2 shootVel = toMouse.SafeNormalize(Vector2.UnitX) * velocity;
-				int proj = Projectile.NewProjectile(
-					Projectile.GetSource_FromThis(),
-					Projectile.Center,
-					shootVel,
-					ModContent.ProjectileType<LamentStormP>(), // 你需要实现这个实际箭矢弹幕
-					(int)(Projectile.damage * damageScale),
-					Projectile.knockBack,
-					Projectile.owner
-				);
-				Main.projectile[proj].netUpdate = true;
 			}
 
 			Projectile.Kill(); // 蓄力弹幕消失
@@ -227,23 +290,32 @@ public class LamentStormHoldProjectile : ModProjectile
 	{
 		Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 		Texture2D textureWoodArrow = TextureAssets.Projectile[ModContent.ProjectileType<LamentStormP>()].Value;
+		Texture2D textureGlow = this.RequestModRelativeTexture("WeaponGlow").Value;
 		var player = Main.player[Projectile.owner];
 		LamentStormPlayer lamentStormPlayer = player.GetModPlayer<LamentStormPlayer>();
 
 		Vector2 drawPos = Projectile.Center - Main.screenPosition;
 		float rot = Projectile.rotation;
 		int textureHeight = texture.Height / Main.projFrames[Type];
-		//Rectangle frame = new Rectangle(0, textureHeight * (int)(*this.charge), texture.Width, textureHeight);
+		Rectangle frame = texture.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
 		SpriteEffects flip = (player.direction == 1) ? SpriteEffects.None : SpriteEffects.FlipVertically;
 		Vector2 offset = new Vector2(20, 0).RotatedBy(rot);
-		Main.EntitySpriteDraw(texture, drawPos + offset, null, lightColor, rot, new Vector2((float)(texture.Width / 2), (float)(texture.Height / 2)), base.Projectile.scale, flip, 0f);
+		Main.EntitySpriteDraw(texture, drawPos + offset, frame, lightColor, rot, new Vector2((float)(frame.Width / 2), (float)(frame.Height / 2)), base.Projectile.scale, flip, 0f);
 
+		float chargePercent = 0;
+		if (lamentStormPlayer.LamentStormAttackMode == LamentStormAttackType.Charge)
+		{
+			chargePercent = Utils.Clamp(Projectile.localAI[0] / MaxChargeTime, 0f, 1f);
+			int frameGlow = (int)((Projectile.localAI[0] % 15) / 8);
+			Rectangle frameGlowRect = textureGlow.Frame(1, 2, 0, frameGlow);
+			Main.EntitySpriteDraw(textureGlow, drawPos + offset, frameGlowRect, Color.White * chargePercent, rot, new Vector2((float)(frameGlowRect.Width / 2), (float)(frameGlowRect.Height / 2)), Projectile.scale, flip, 0f);
+		}
 		if (Projectile.localAI[1] < player.itemAnimationMax)
 		{
 			foreach (var point in _relativeArrows)
 			{
 				float rotArrow = (point - new Vector2(-_currentBowStretchLength, 0)).ToRotation() + rot;
-				Main.EntitySpriteDraw(textureWoodArrow, drawPos + offset - new Vector2(_currentBowStretchLength, 0).RotatedBy(rot), null, lightColor, rotArrow, new Vector2(0, textureWoodArrow.Height / 2f), Projectile.scale, SpriteEffects.None, 0f);
+				Main.EntitySpriteDraw(textureWoodArrow, drawPos + offset - new Vector2(_currentBowStretchLength, 0).RotatedBy(rot), null, lightColor, rotArrow, new Vector2(0, textureWoodArrow.Height / 2f), Projectile.scale * MathHelper.Lerp(1, 1.23f, chargePercent), SpriteEffects.None, 0f);
 			}
 		}
 
