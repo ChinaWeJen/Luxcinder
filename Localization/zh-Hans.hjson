@@ -1,5 +1,14 @@
 Mods: {
 	Luxcinder: {
+		Tiles: {
+			Quenched_Tile.MapEntry: 淬火砖块(装饰)
+			Ash_Portal.MapEntry: Ash_Portal
+			// QuenchedTile.MapEntry: Quenched Tile
+			// AshPortal.MapEntry: Ash Portal
+			// DeepLightTower.MapEntry: Deep Light Tower
+			// GiantStoneBlastFurnace.MapEntry: Giant Stone Blast Furnace
+		}
+
 		Buffs: {
 			Alloy_Ripper_Buff: {
 				DisplayName: 合金撕裂者增益
@@ -21,41 +30,51 @@ Mods: {
 		}
 
 		Items: {
-			Black_Hammer: {
+			BlackHammer: {
 				DisplayName: 黑铁重锤
+				Tooltip: 沉甸甸的锻造工具，敲击时会发出沉闷的金属声
+			}
+
+			BlackIronAxe: {
+				DisplayName: 黑铁伐木斧
 				Tooltip:
 					'''
-					[c/666666:沉重的黑铁锻造工具]
-					可用于建造和拆除
-					锤头刻有防滑纹路
+					[c/666666:专为伐木设计的重型工具]
+					斧刃经过特殊平衡处理
+					[c/8B4513:【高效砍伐】]木材掉落量增加15%
+					[c/FFD700:【精准劈砍】]有几率获得双倍木材
+					握柄采用防震设计
+					斧面刻有林业符文
 					'''
 			}
 
-			Black_Iron_Axe: {
-				DisplayName: 黑铁战斧
-				Tooltip:
-					'''
-					[c/666666:性价比的黑铁工具]
-					斧刃经过特殊淬火处理
-					'''
-			}
-
-			Black_iron_ingot: {
+			BlackIronIngot: {
 				DisplayName: 黑铁锭
+				Tooltip: 经过精炼的黑铁金属块，表面有独特的暗色纹路
+			}
+
+			BlackIronPickAxe: {
+				DisplayName: 黑铁矿镐
 				Tooltip:
 					'''
-					由黑铁矿石冶炼而成
-					用于制作黑铁装备
+					[c/666666:坚固耐用的采矿工具]
+					镐头经过特殊淬火处理
+					[c/8B4513:【高效开采】]挖掘速度提升20%
+					[c/FFD700:【矿脉感知】]小概率发现隐藏矿脉
+					握柄包裹着防滑皮革
+					在黑暗中会发出微弱的金属光泽
 					'''
 			}
 
-			Black_iron_pickaxe: {
-				DisplayName: 黑铁镐
+			BlackIronShield: {
+				DisplayName: 黑铁圣盾
 				Tooltip:
 					'''
-					[c/666666:标准的黑铁采矿工具]
-					坚固耐用且维护简单
-					适合开采大多数矿石
+					[c/666666:由黑铁与神圣合金打造的防御装备]
+					盾面刻有守护符文
+
+					表面有古老的战斗痕迹
+					在危急时刻会发出金色微光
 					'''
 			}
 
@@ -63,12 +82,12 @@ Mods: {
 				DisplayName: [c/FFF700:皇家黑铁剑]
 				Tooltip:
 					'''
-					[c/FFD700:你愿意为这把武器献出虔诚吗]
-					剑身刻有古老的皇家纹章
-					显然这把武器不是靠锋利而是靠虔诚
-					[c/FF0000:【虔诚】]25%几率造成26伤害
-					[c/FF00FF:【恩赐】]3%几率造成40伤害
-					剑刃在月光下会泛出幽蓝色的光芒
+					[c/666666:由古老黑铁锻造的仪式武器]
+					剑身刻有神秘的符文
+					[c/8B4513:【圣铁之力】]攻击时有15%几率造成额外伤害
+					[c/FFD700:【神圣祝福】]生命值低于30%时获得防御加成
+					握持时能感受到金属的低鸣
+					在月光下会显现隐藏的铭文
 					'''
 			}
 
@@ -96,45 +115,19 @@ Mods: {
 					'''
 			}
 
-			Decayed_fragments: {
+			DecayedFragments: {
 				DisplayName: 腐化碎片
-				Tooltip:
-					'''
-					从腐化之王身上掉落的黑暗结晶
-					[c/800080:【腐化精华】]制作腐化装备的核心材料
-					表面有微弱的紫色能量脉动
-					触碰时会感到轻微的刺痛感
-					在黑暗中会发出微弱的紫色光芒
-					能感受到其中蕴含的不稳定能量
-					'''
+				Tooltip: 从腐化生物身上掉落的黑暗结晶，散发着不祥的能量
 			}
 
-			Decayed_Night_Eye: {
+			DecayedNightEye: {
 				DisplayName: 腐化夜瞳
-				Tooltip:
-					'''
-					一颗在黑暗中发光的变异眼球
-					[c/800080:【腐化之视】]+10%远程伤害和5%暴击率
-					视野中会出现诡异的紫色光晕
-					[c/FF0000:【腐化代价】]-20%生命回复速度
-					耳边萦绕着低语声
-					瞳孔中闪烁着不自然的紫光
-					眼球表面布满血丝
-					佩戴时会感到轻微的刺痛
-					黑暗中会发出微弱的紫光
-					'''
+				Tooltip: 一颗在黑暗中发光的变异眼球，佩戴时会感到不适
 			}
 
-			Meat_mince_shell: {
+			MeatminCeshell: {
 				DisplayName: 血肉甲壳
-				Tooltip:
-					'''
-					由压缩血肉构成的活体护甲
-					由无数腐化生物的血肉熔铸而成
-					表面不断渗出暗绿色的液体
-					能感受到血肉的蠕动和脉动
-					耳边萦绕着微弱的咀嚼声
-					'''
+				Tooltip: 由压缩腐肉构成的活体护甲，表面不断渗出暗绿色液体
 			}
 
 			Nightmare: {
@@ -510,10 +503,14 @@ Mods: {
 		NPCs: {
 			CorruptedMaster.DisplayName: Corrupted Master
 			CorruptedMasterShadow.DisplayName: Corrupted Master Shadow
+			// LightEclipseEye.DisplayName: Light Eclipse Eye
 			GraspOfTrance.DisplayName: 迷幻爪
 			NightmareCorruption.DisplayName: 腐烂噩梦
 			NightmareCorruptionCorpse.DisplayName: 腐烂噩梦尸体
 			NightmarePhantom.DisplayName: 噩梦幽灵
+			// Guard.DisplayName: Guard
+			// HolyRelicDome.DisplayName: Holy Relic Dome
+			// Spy.DisplayName: Spy
 
 			Sylvia: {
 				DisplayName: Sylvia
@@ -530,32 +527,21 @@ Mods: {
 				}
 			}
 
-			// Guard.DisplayName: Guard
-			// LightEclipseEye.DisplayName: Light Eclipse Eye
-			// Spy.DisplayName: Spy
-			// HolyRelicDome.DisplayName: Holy Relic Dome
 			// GoddessDimLight.DisplayName: Goddess Dim Light
 		}
 
-		Tiles: {
-			Quenched_Tile.MapEntry: 淬火砖块(装饰)
-			Ash_Portal.MapEntry: Ash_Portal
-			// QuenchedTile.MapEntry: Quenched Tile
-			// AshPortal.MapEntry: Ash Portal
-			// DeepLightTower.MapEntry: Deep Light Tower
-			// GiantStoneBlastFurnace.MapEntry: Giant Stone Blast Furnace
-		}
-
 		Projectiles: {
+			// SourceSpiritArrow.DisplayName: Source Spirit Arrow
 			AlloyFire.DisplayName: Alloy Fire
 			CorruptedOrb.DisplayName: Corrupted Orb
 			// GoldenLaser.DisplayName: Golden Laser
 			// LightEclipseBolt.DisplayName: Light Eclipse Bolt
-			// SourceSpiritArrow.DisplayName: Source Spirit Arrow
 			// LamentStormHoming.DisplayName: Lament Storm Homing
 			// LamentStormP.DisplayName: Lament Storm P
 			// LamentStormVortex.DisplayName: Lament Storm Vortex
 			// GoddessDimLightAttack.DisplayName: Goddess Dim Light Attack
+			// LamentStormHoldProjectile.DisplayName: Lament Storm Hold Projectile
+			// LamentStormPDummy.DisplayName: Lament Storm P Dummy
 		}
 	}
 }

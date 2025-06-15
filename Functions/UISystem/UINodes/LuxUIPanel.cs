@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luxcinder.Core.Renderer;
+using Luxcinder.Functions.UISystem.UICore;
 using ReLogic.Content;
 using Terraria.UI;
 
 namespace Luxcinder.Functions.UISystem.UINodes;
-public class LuxcinderUIPanel : LuxcinderUIElement
+public class LuxUIPanel : LuxUIContainer
 {
     private int _cornerTop = 12;
     private int _cornerLeft = 12;
@@ -15,34 +17,24 @@ public class LuxcinderUIPanel : LuxcinderUIElement
     private int _cornerBottom = 12;
 
     private Asset<Texture2D> _panel9GridTexture;
-    public Color BorderColor = Color.Black;
-    public Color BackgroundColor = new Color(63, 82, 151) * 0.7f;
-
-
-    private void SetPaddings()
+    public Color Color
     {
-        PaddingTop = _cornerTop;
-        PaddingLeft = _cornerLeft;
-        PaddingRight = _cornerRight;
-        PaddingBottom = _cornerBottom;  
+        get;
+        set;
     }
 
-    public LuxcinderUIPanel()
-    {
-        SetPaddings();
-    }
 
-    public LuxcinderUIPanel(Asset<Texture2D> panel9GridTexture, int cornerSizeTop = 12, int cornerSizeLeft = 12, int cornerSizeRight = 12, int cornerSizeBottom = 12)
+    public LuxUIPanel(Asset<Texture2D> panel9GridTexture, int cornerSizeTop = 12, int cornerSizeLeft = 12, int cornerSizeRight = 12, int cornerSizeBottom = 12)
     {
+        Color = Color.White;
         _panel9GridTexture = panel9GridTexture;
         _cornerTop = cornerSizeTop;
         _cornerLeft = cornerSizeLeft;
         _cornerRight = cornerSizeRight;
         _cornerBottom = cornerSizeBottom;
-        SetPaddings();
     }
 
-    private void DrawPanel(SpriteBatch spriteBatch, Texture2D texture, Color color)
+    private void DrawPanel(SpriteBatchX spriteBatch, Texture2D texture, Color color)
     {
         CalculatedStyle dimensions = GetDimensions();
         Point point = new Point((int)dimensions.X, (int)dimensions.Y);
@@ -64,9 +56,9 @@ public class LuxcinderUIPanel : LuxcinderUIElement
         spriteBatch.Draw(texture, new Rectangle(point.X + _cornerLeft, point.Y + _cornerTop, width, height), new Rectangle(_cornerLeft, _cornerTop, texture.Width - _cornerLeft - _cornerRight, texture.Height - _cornerTop - _cornerBottom), color);
     }
 
-    protected override void DrawSelf(SpriteBatch spriteBatch)
+    protected override void DrawSelf(SpriteBatchX spriteBatch)
     {
         if (_panel9GridTexture != null)
-            DrawPanel(spriteBatch, _panel9GridTexture.Value, BorderColor);
+            DrawPanel(spriteBatch, _panel9GridTexture.Value, Color);
     }
 }

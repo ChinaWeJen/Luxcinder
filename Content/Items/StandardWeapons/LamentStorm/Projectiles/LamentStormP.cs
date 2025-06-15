@@ -4,11 +4,11 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Biomes;
 using System;
-using Luxcinder.Content.Items.StandardWeapons;
 using Luxcinder.Content.Buffs;
 using Terraria.Audio;
+using Luxcinder.Content.Items.StandardWeapons.LamentStorm;
 
-namespace Luxcinder.Content.Projectiles.StandardWeaponsProjectiles
+namespace Luxcinder.Content.Items.StandardWeapons.LamentStorm.Projectiles
 {
     public class LamentStormP : ModProjectile
     {
@@ -40,15 +40,15 @@ namespace Luxcinder.Content.Projectiles.StandardWeaponsProjectiles
             Lighting.AddLight(Projectile.Center, 0.1f, 0.4f, 0.8f);
             
             // 旋转效果
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.rotation = Projectile.velocity.ToRotation();
             
             // 抛物线效果 - 添加重力
-            Projectile.velocity.Y += 0.2f; // 重力加速度
+            Projectile.velocity.Y += 0.14f; // 重力加速度
             
             // 拖尾粒子
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.Cloud, Vector2.Zero, 0, default, 1.5f);
+                var dust = Dust.NewDustPerfect(Projectile.Center, DustID.Cloud, Vector2.Zero, 0, default, 1.5f);
                 dust.noGravity = true;
                 dust.velocity = Projectile.velocity * 0.2f;
             }
@@ -59,13 +59,13 @@ namespace Luxcinder.Content.Projectiles.StandardWeaponsProjectiles
             int arrowCount = Main.rand.Next(3, 6); // 3-5只箭
             for (int i = 0; i < arrowCount; i++)
             {
-                Vector2 velocity = new Vector2(
+                var velocity = new Vector2(
                     Main.rand.NextFloat(-2f, 2f), // 水平散射
                     Main.rand.NextFloat(5f, 8f)   // 下落速度
                 );
                 
                 Projectile.NewProjectile(
-                    Projectile.GetSource_NaturalSpawn(),
+                    Terraria.Entity.GetSource_NaturalSpawn(),
                     new Vector2(targetPosition.X + Main.rand.Next(-50, 50), targetPosition.Y - 600),
                     velocity,
                     ModContent.ProjectileType<LamentStormP>(),
@@ -168,7 +168,7 @@ namespace Luxcinder.Content.Projectiles.StandardWeaponsProjectiles
             // 漩涡效果
             for (int i = 0; i < 3; i++)
             {
-                Dust dust = Dust.NewDustPerfect(
+                var dust = Dust.NewDustPerfect(
                     Projectile.Center + Main.rand.NextVector2Circular(40, 40),
                     DustID.Cloud,
                     Vector2.Zero,

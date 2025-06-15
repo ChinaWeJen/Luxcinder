@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace Luxcinder.Functions.UISystem;
-internal abstract class LuxcinderUI : ILoadable
+public abstract class LuxcinderUILayer : ILoadable
 {
     public Mod Mod { get; private set; }
 

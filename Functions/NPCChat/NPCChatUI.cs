@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luxcinder.Core.Renderer;
 using Luxcinder.Functions.NPCChat.Nodes;
+using Luxcinder.Functions.UISystem.UICore;
 using Luxcinder.Functions.UISystem.UINodes;
+using Luxcinder.Functions.UISystem.UINodes.Layout;
 using Luxcinder.Functions.UISystem.Utils;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.Xna.Framework;
@@ -25,82 +28,123 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Luxcinder.Functions.NPCChat
 {
-    public enum NPCChatUIState
-    {
-        CLOSED,
-        ACTIVE
-    }
+	public enum NPCChatUIState
+	{
+		CLOSED,
+		ACTIVE
+	}
 
-    public class NPCDiaglogUI : UIState
-    {
-        private LuxcinderUIPanel _backgroundPanel;
-        private LuxcinderUIImageButton _nextStepButton;
-        private UIList _listOptions;
+	public class NPCDiaglogUI : LuxUIState
+	{
+		private LuxUIPanel _backgroundPanel;
+		private LuxUIFramedImage _nextStepButton;
+		private LuxUIText _mainTextUI;
+		private LuxUIVertialAlign _optionsHanger;
+		private LuxUIHorizontalSplit _nextStepBar;
 
-        private Asset<Texture2D> _texture_聊天栏;
-        private Asset<Texture2D> _texture_宝石;
-        private Asset<Texture2D> _texture_下一步;
-        private Asset<Texture2D> _texture_下一步_Hover;
-        private SoundStyle _sound_打字声;
+		private Asset<Texture2D> _texture_聊天栏;
+		private Asset<Texture2D> _texture_宝石;
+		private Asset<Texture2D> _texture_下一步;
+		private Asset<Texture2D> _texture_下一步_Hover;
+		private SoundStyle _sound_打字声;
 
-        private int _typewriterCharCount = 0;
-        private int _updateCounter = 0;
-        private string _lastText = "";
-        private string _currentText = "";
-        private List<string> _options = new List<string>();
-        private bool _isActive;
-        private NPC _targetNPC;
-        private int _chosenOption;
+		private int _typewriterCharCount = 0;
+		private int _updateCounter = 0;
+		private string _lastText = "";
+		private string _currentText = "";
+		private List<string> _options = new List<string>();
+		private bool _isActive;
+		private NPC _targetNPC;
+		private int _chosenOption;
 
-        private int _typingInterval;
-        private List<string> _warppedText = new List<string>();
+		private int _typingInterval;
+		private List<string> _warppedText = new List<string>();
+		private BasicDebugDrawer _debugDrawer;
+
+		public NPC TargetNPC
+		{
+			get => _targetNPC;
+			set => _targetNPC = value;
+		}
+		public bool IsReady
+		{
+			get
+			{
+				return _typewriterCharCount >= _currentText.Length;
+			}
+		}
+
+		public int GetAndClearChosenOption()
+		{
+			int result = _chosenOption;
+			_chosenOption = -1;
+			return result;
+		}
+
+		public override void OnInitialize()
+		{
+			//Main.QueueMainThreadAction(() =>
+			//{
+			//	_debugDrawer = new BasicDebugDrawer(Main.graphics.GraphicsDevice);
+			//});
+			InitializeResources();
+
+			_backgroundPanel = new LuxUIPanel(this.RequestModRelativeTexture("Images/TextBackground"), 32, 32, 32, 32);
+			_backgroundPanel.PaddingTop = 32;
+			_backgroundPanel.PaddingBottom = 32;
+			_backgroundPanel.PaddingLeft = 32;
+			_backgroundPanel.PaddingRight = 32;
+			_backgroundPanel.MinHeight.Set(200, 0);
+			_backgroundPanel.Height.SetAuto(true);
+
+			LuxUIVertialAlign luxUIVertialAlign = new LuxUIVertialAlign();
+			luxUIVertialAlign.Width.Set(0, 1f);
+			luxUIVertialAlign.Height.SetAuto(true);
+			_backgroundPanel.AddChild(luxUIVertialAlign);
 
 
-        public NPC TargetNPC
-        {
-            get => _targetNPC;
-            set => _targetNPC = value;
-        }
-        public bool IsReady
-        {
-            get
-            {
-                return _typewriterCharCount >= _currentText.Length;
-            }
-        }
-
-        public int GetAndClearChosenOption()
-        {
-            int result = _chosenOption;
-            _chosenOption = -1;
-            return result;
-        }
-
-        public override void OnInitialize()
-        {
-            InitializeResources();
-
-            var textureBackground = this.RequestModRelativeTexture("Images/TextBackground");
-            _backgroundPanel = new LuxcinderUIPanel(textureBackground, 32, 32, 32, 32);
-            _backgroundPanel.BackgroundColor = Color.White;
-            _backgroundPanel.BorderColor = Color.White;
-
-            _nextStepButton = new LuxcinderUIImageButton(_texture_下一步);
-            _nextStepButton.SetHoverImage(_texture_下一步_Hover);
-            _nextStepButton.Width.Set(68, 0);
-            _nextStepButton.Height.Set(22, 0);
+			_nextStepButton = new LuxUIFramedImage(_texture_下一步, 1, 6);
+			_nextStepButton.NormalizedOrigin = Vector2.One * 0.5f;
+			_nextStepButton.OnMouseOver += _nextStepButton_OnMouseOver;
+			_nextStepButton.OnMouseOut += _nextStepButton_OnMouseOut;
 			_nextStepButton.OnLeftClick += _nextStepButton_OnLeftClick;
-            _nextStepButton.SetVisibility(1.0f, 0.5f);
 
-            _listOptions = new UIList();
 
-            _backgroundPanel.Append(_listOptions);
-            _backgroundPanel.Append(_nextStepButton);
+			_mainTextUI = new LuxUIText("");
+			_mainTextUI.TextLayout = TextLayout.AutoWrap;
+			_mainTextUI.Width.Set(0, 1);
+			luxUIVertialAlign.AddChild(_mainTextUI);
 
-            base.Append(_backgroundPanel);
-        }
+			_optionsHanger = new LuxUIVertialAlign();
+			_optionsHanger.Width.Set(0, 1f);
+			_optionsHanger.Height.SetAuto(true);
+			_optionsHanger.MarginTop = 20;
+			luxUIVertialAlign.AddChild(_optionsHanger);
 
-        private void _nextStepButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
+
+			var anchor = new LuxUIAnchor(_nextStepButton, Vector2.One * 0.5f, Vector2.One * 0.5f);
+			_nextStepBar = new LuxUIHorizontalSplit(0.8f, null, anchor);
+			_nextStepBar.Height.Set(35, 0);
+			_nextStepBar.Width.Set(0, 1);
+
+			luxUIVertialAlign.AddChild(_nextStepBar);
+
+			base.AddChild(_backgroundPanel);
+		}
+
+		private void _nextStepButton_OnMouseOut(LuxUIMouseEvent evt, LuxUIContainer listeningElement)
+		{
+			_nextStepButton.SetImage(_texture_下一步);
+			_nextStepButton.Frames = 1;
+		}
+
+	private void _nextStepButton_OnMouseOver(LuxUIMouseEvent evt, LuxUIContainer listeningElement)
+		{
+			_nextStepButton.SetImage(_texture_下一步_Hover);
+			_nextStepButton.Frames = 7;
+		}
+
+		private void _nextStepButton_OnLeftClick(LuxUIMouseEvent evt, LuxUIContainer listeningElement)
         {
             if (IsReady)
             {
@@ -113,7 +157,7 @@ namespace Luxcinder.Functions.NPCChat
             string relativePath = AssetExtensions.GetModRelativePathFull<NPCChatUI>();
             _texture_聊天栏 = ModContent.Request<Texture2D>($"{relativePath}/Images/聊天栏");
             _texture_宝石 = ModContent.Request<Texture2D>($"{relativePath}/Images/宝石");
-            _texture_下一步 = ModContent.Request<Texture2D>($"{relativePath}/Images/下一步");
+            _texture_下一步 = ModContent.Request<Texture2D>($"{relativePath}/Images/NextStep");
             _texture_下一步_Hover = ModContent.Request<Texture2D>($"{relativePath}/Images/NextStep_Hover");
             _sound_打字声 = new SoundStyle($"{relativePath}/Sounds/对话音效")
             {
@@ -162,11 +206,19 @@ namespace Luxcinder.Functions.NPCChat
                 _backgroundPanel.Top.Set(npcUIPos.Y + 46, 0f);
 
 
-                _nextStepButton.Top.Set(-30, 1);
-                _nextStepButton.Left.Set(-60, 1);
-                _nextStepButton.IsActive = IsReady && _options.Count == 0;
+				bool canShowNextStep = IsReady && _options.Count == 0;
+				if (canShowNextStep)
+				{
+					_nextStepBar.Height.Set(35, 0);
+				}
+				else
+				{
+					_nextStepBar.Height.Set(0, 0);
+				}
+				_nextStepButton.Visible = canShowNextStep;
+				_nextStepButton.IgnoresMouseInteraction = !(canShowNextStep);
 
-                if (_backgroundPanel.IsMouseHovering)
+				if (_backgroundPanel.IsMouseHovering)
                 {
                     Main.LocalPlayer.mouseInterface = true;
                 }
@@ -186,40 +238,19 @@ namespace Luxcinder.Functions.NPCChat
                     SoundEngine.PlaySound(_sound_打字声, _targetNPC.Center);
                 }
             }
-        }
 
-        public override void Draw(SpriteBatch spriteBatch)
+			// 更新主文本UI
+			_mainTextUI.SetText(_currentText.Substring(0, Math.Min(_typewriterCharCount, _currentText.Length)));
+		}
+
+		public override void Draw(SpriteBatchX spriteBatch)
         {
-            spriteBatch.End();
-            {
+			base.Draw(spriteBatch);
 
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Main.UIScaleMatrix);
-
-                base.Draw(spriteBatch);
-
-                spriteBatch.End();
-            }
-
-            {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Main.UIScaleMatrix);
-
-                float x = (_backgroundPanel.Left.Pixels);
-                float y = (_backgroundPanel.Top.Pixels);
-
-                string showText = _currentText.Substring(0, Math.Min(_typewriterCharCount, _currentText.Length));
-                var innerDimension = _backgroundPanel.GetInnerDimensions();
-                _warppedText = UIUtils.WrapText(showText, FontAssets.MouseText.Value, innerDimension.Width);
-
-                int lineNum = 0;
-                foreach (var line in _warppedText)
-                {
-                    Terraria.Utils.DrawBorderString(spriteBatch, line, new Vector2(innerDimension.X , innerDimension.Y  + 30 * lineNum), Color.White, 1f);
-                    lineNum++;
-                }
-                spriteBatch.End();
-            }
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
-        }
+			//_debugDrawer.Begin(Main.UIScaleMatrix);
+			//DrawDebugHitbox(_debugDrawer, true);
+			//_debugDrawer.End();
+		}
 
 
         public void SetPage(NPCChatPage page)
@@ -254,56 +285,45 @@ namespace Luxcinder.Functions.NPCChat
 
         private void ResetOptionsUI()
         {
-            _listOptions.Clear();
+			_optionsHanger.ClearChildren();
 
             if (_options.Count == 0)
-                return;
+			{
+
+				return;
+			}
 
             int index = 0;
             foreach (var option in _options)
             {
-                var alignBox = new LuxcinderUIHorizontalAlign();
-                var uiIcon = new UIImage(_texture_宝石);
-                uiIcon.Width.Set(16, 0);
-                uiIcon.Height.Set(16, 0);
-                uiIcon.MarginRight = 16f;
-                var uiText = new LuxcinderUIText(option);
-                uiText.TextScale = 1f;
-				uiText.OnMouseOver += UiText_OnMouseOver;
-				uiText.OnMouseOut += UiText_OnMouseOut;
-
-                int capturedIndex = index;
+                var uiIcon = new LuxUIImage(_texture_宝石);
+                var uiText = new LuxUIText(option);
+				uiText.GfxOffset = new Vector2(0, 4f);
+				uiText.TextLayout = TextLayout.Inline;
+				int capturedIndex = index;
                 uiText.OnLeftClick += (evt, ui) =>
                 {
                     _chosenOption = capturedIndex;
                 };
+				uiText.OnMouseOver += (evt, ui) =>
+				{
+					uiText.TextColor = Color.Yellow;
+				};
+				uiText.OnMouseOut += (evt, ui) =>
+				{
+					uiText.TextColor = Color.White;
+				};
 
-                alignBox.Append(uiIcon);
-                alignBox.Append(uiText);
-                _listOptions.Add(alignBox);
+				var alignBox = new LuxUIHorizontalSplit(0.1f, new LuxUIAnchor(uiIcon, Vector2.One * 0.5f, Vector2.One * 0.5f), 
+					new LuxUIAnchor(uiText, new Vector2(0, 0.5f), new Vector2(0, 0.5f)));
+				alignBox.Height.Set(30, 0);
+				alignBox.Width.Set(0, 1);
+				_optionsHanger.AddChild(alignBox);
                 index++;
             }
-            int textHeight = 30 * _warppedText.Count;
-
-            var bgDimension = _backgroundPanel.GetInnerDimensions();
-            _listOptions.Width.Set(bgDimension.Width, 0);
-            _listOptions.Height.Set(100, 0);
-            _listOptions.Top.Set(textHeight + 5, 0);
         }
 
-		private void UiText_OnMouseOut(UIMouseEvent evt, UIElement listeningElement)
-        {
-            LuxcinderUIText uiText = (LuxcinderUIText)listeningElement;
-            uiText.TextScale = 1f;
-            uiText.TextColor = Color.White;
-        }
-
-		private void UiText_OnMouseOver(UIMouseEvent evt, UIElement listeningElement)
-        {
-            LuxcinderUIText uiText = (LuxcinderUIText)listeningElement;
-            uiText.TextColor = Color.Yellow;
-        }
-
+		private void UiText_OnMouseOver(LuxUIMouseEvent evt, LuxUIContainer listeningElement) => throw new NotImplementedException();
 
 		public void Reset()
         {
@@ -315,17 +335,15 @@ namespace Luxcinder.Functions.NPCChat
 
     public class NPCChatUI
     {
-        private UserInterface _userInterface;
+        private LuxUI _userInterface;
         private NPCDiaglogUI _npcChatUI;
 
         public NPCChatUI()
         {
-            _userInterface = new UserInterface();
+            _userInterface = new LuxUI();
             _npcChatUI = new NPCDiaglogUI();
             _npcChatUI.Initialize();
         }
-
-
 
         public void Activate(NPC npc)
         {
@@ -347,7 +365,8 @@ namespace Luxcinder.Functions.NPCChat
         public void Draw(SpriteBatch spriteBatch)
         {
             _userInterface.Draw(spriteBatch, Main._drawInterfaceGameTime);
-        }
+
+		}
 
         public void SetPage(NPCChatPage pageInfo)
         {
