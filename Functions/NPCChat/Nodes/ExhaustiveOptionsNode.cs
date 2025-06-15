@@ -28,14 +28,20 @@ internal class ExhaustiveOptionsNode : NPCChatNode
     private List<(Func<string>, NPCChatNode)> _options = new List<(Func<string>, NPCChatNode)>();
     private bool _canMoveNext = false;
     private NPCChatNode _currentNode = null;
+	private List<(Func<string>, NPCChatNode)> list;
 
-    public ExhaustiveOptionsNode(Func<string> text, List<(Func<string>, NPCChatNode)> options)
+	public ExhaustiveOptionsNode(Func<string> text, List<(Func<string>, NPCChatNode)> options)
     {
         _text = text;
         _options = options;
     }
 
-    public override bool CanMoveNext
+	public ExhaustiveOptionsNode(List<(Func<string>, NPCChatNode)> list)
+	{
+		this.list = list;
+	}
+
+	public override bool CanMoveNext
     {
         get
         {

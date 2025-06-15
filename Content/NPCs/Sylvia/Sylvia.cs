@@ -95,107 +95,14 @@ namespace Luxcinder.Content.NPCs.Sylvia
             return true;
         }
 
-        public override string GetChat()
-        {
-            isTyping = true;
-            textTimer = 0;
-            displayedText = "";
-            currentTextIndex = 0;
-
-            List<string> dialogues = new List<string>();
-
-            dialogues.AddRange(new[]
-            {
-                "你注意到了吗？这片土地正在慢慢消逝...就像被什么东西吞噬着。",
-                "每当我闭上眼睛，就能听到低语...它们说着'它要来了'。",
-                "我的研究显示，侵蚀现象在月圆之夜会加剧。你有观察到什么异常吗？",
-                "这些天我总做同一个梦...一片灰烬之海，和一双注视着的眼睛。",
-                "你相信命运吗？我觉得我们在这里相遇不是巧合。"
-            });
-
-            if (NPC.downedBoss1)
-            {
-                dialogues.AddRange(new[]
-                {
-                    "击败那个怪物后，侵蚀似乎暂停了...但只是暂时的。",
-                    "我看到你战胜了那个生物。但这只是开始，更大的威胁还在后面。",
-                    "我的仪器显示地下的能量读数仍然不稳定..."
-                });
-            }
-
-            if (Main.hardMode)
-            {
-                dialogues.AddRange(new[]
-                {
-                    "世界正在撕裂...我能感觉到那股力量在增强。",
-                    "你有没有发现，最近怪物的眼睛都泛着不自然的红光？",
-                    "这不是普通的侵蚀...世界正在被重新塑造！"
-                });
-            }
-
-            if (Main.bloodMoon)
-            {
-                dialogues.Add("血月之夜要格外小心！侵蚀速度会达到平时的5倍！");
-            }
-
-            if (Main.eclipse)
-            {
-                dialogues.Add("日食现象...我的研究表明这与侵蚀现象有直接关联！");
-            }
-
-            fullText = dialogues[Main.rand.Next(dialogues.Count)];
-            return fullText;
-        }
-
-        public override void SetChatButtons(ref string button, ref string button2)
-        {
-            button = "交谈";
-            button2 = "研究笔记";
-        }
-
-
-
-        private string GetDialogue()
-        {
-            return GetChat();
-        }
-
-        private string GetResearchNotes()
-        {
-            var notes = new System.Text.StringBuilder();
-            notes.AppendLine("这是我的研究笔记...\n\n");
-
-            if (!NPC.downedBoss1)
-            {
-                notes.AppendLine("【初步观察记录】\n" +
-                    "1. 侵蚀现象与月相变化相关\n" +
-                    "2. 受影响区域会出现灰烬状物质\n" +
-                    "3. 生物被侵蚀后会变异为攻击性形态");
-            }
-            else if (!Main.hardMode)
-            {
-                notes.AppendLine("【中期研究报告】\n" +
-                    "1. 击败特定生物可暂时抑制侵蚀\n" +
-                    "2. 地下深处检测到未知能量源\n" +
-                    "3. 侵蚀速度与玩家进度成正比");
-            }
-            else
-            {
-                notes.AppendLine("【最终研究结论】\n" +
-                    "1. 侵蚀是更高维度存在的转化过程\n" +
-                    "2. 世界正在被重塑为某种容器\n" +
-                    "3. 唯一阻止方法可能是...（笔记残缺）");
-            }
-
-            return notes.ToString();
-        }
-
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (Main.LocalPlayer.talkNPC == NPC.whoAmI)
             {
                 Texture2D chatUI = ModContent.Request<Texture2D>("Luxcinder/Content/NPCs/Sylvia/DHK").Value;
-                Vector2 drawPos = new Vector2(Main.screenWidth / 2 - chatUI.Width / 2, Main.screenHeight - chatUI.Height - 50);
+                Vector2 drawPos = new Vector2(
+                    Main.screenWidth / 2 - chatUI.Width / 2 - chatUI.Width,  // 向左移动1个贴图宽度
+                    Main.screenHeight - chatUI.Height - 50 - chatUI.Height * 11);  // 向上移动11个贴图高度
                 spriteBatch.Draw(chatUI, drawPos, Color.White);
 
                 string npcName = NPC.GivenOrTypeName;

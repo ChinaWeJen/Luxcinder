@@ -1,9 +1,12 @@
 Mods: {
 	Luxcinder: {
 		Tiles: {
+			Quenched_Tile.MapEntry: Quenched_ Tile
+			Ash_Portal.MapEntry: Ash_ Portal
 			QuenchedTile.MapEntry: Quenched Tile
 			AshPortal.MapEntry: Ash Portal
 			DeepLightTower.MapEntry: Deep Light Tower
+			GiantStoneBlastFurnace.MapEntry: Giant Stone Blast Furnace
 		}
 
 		Buffs: {
@@ -307,20 +310,7 @@ Mods: {
 				}
 			}
 
-			Guard.DisplayName: Guard
-			LightEclipseEye.DisplayName: Light Eclipse Eye
-			Spy.DisplayName: Spy
-			HolyRelicDome.DisplayName: Holy Relic Dome
 			GoddessDimLight.DisplayName: Goddess Dim Light
-		}
-
-		Tiles: {
-			Quenched_Tile.MapEntry: Quenched_ Tile
-			Ash_Portal.MapEntry: Ash_ Portal
-			QuenchedTile.MapEntry: Quenched Tile
-			AshPortal.MapEntry: Ash Portal
-			DeepLightTower.MapEntry: Deep Light Tower
-			GiantStoneBlastFurnace.MapEntry: Giant Stone Blast Furnace
 		}
 
 		Projectiles: {
@@ -329,7 +319,6 @@ Mods: {
 			CorruptedOrb.DisplayName: Corrupted Orb
 			GoldenLaser.DisplayName: Golden Laser
 			LightEclipseBolt.DisplayName: Light Eclipse Bolt
-			SourceSpiritArrow.DisplayName: Source Spirit Arrow
 			LamentStormHoming.DisplayName: Lament Storm Homing
 			LamentStormP.DisplayName: Lament Storm P
 			LamentStormVortex.DisplayName: Lament Storm Vortex
