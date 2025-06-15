@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 
-namespace LuxCinder.Content.NPCs.GoldenGuards
+namespace Luxcinder.Content.NPCs.GoldenGuards
 {
     public class Spy : ModNPC
     {
@@ -21,13 +21,13 @@ namespace LuxCinder.Content.NPCs.GoldenGuards
         {
             NPC.width = 32;
             NPC.height = 32;
-            NPC.damage = 20;
+            NPC.damage = 35;
             NPC.defense = 8;
-            NPC.lifeMax = 80;
+            NPC.lifeMax = 120;
             NPC.HitSound = SoundID.Item62 with { Pitch = -0.2f }; // 金属撞击声
             NPC.DeathSound = SoundID.Item14 with { Volume = 0.7f }; // 小型爆炸声
-            NPC.value = 150f;
-            NPC.knockBackResist = 0.5f;
+            NPC.value = 750f;
+            NPC.knockBackResist = 0.3f;
             NPC.aiStyle = -1; // 自定义AI
             NPC.noGravity = true;
             NPC.noTileCollide = false;
@@ -184,10 +184,17 @@ namespace LuxCinder.Content.NPCs.GoldenGuards
 
 
 
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            // 返回0因为我们使用GoldenGuardsSpawnSystem控制生成
+            return 0f;
+        }
+
+			// 掉落3个NonferrousMetals，100%几率
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 5, 1, 2));
-            npcLoot.Add(ItemDropRule.Common(ItemID.SuspiciousLookingEye, 20));
+            // 掉落3个NonferrousMetals，100%几率
+
+        }
         }
     }
-}

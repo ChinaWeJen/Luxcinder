@@ -34,6 +34,17 @@ MusicLoader.GetMusicSlot(this, "Assets/Music/Boss/SGZY/ZYKK.ogg");
                 Logger.Error($"Failed to load music: {ex.Message}");
                 // 可以在这里添加备用音乐或空处理
             }
+
+            // 菜单系统已通过Autoload自动加载
+            Logger.Info("Menu systems initialized");
+
+            // 使用Autoload方式自动加载ModMenu
+            // 确保LuxcinderMenu.cs类有[Autoload]属性
+
+            // 暂时注释掉自定义主菜单设置
+            // ModLoader.TryGetMod("Luxcinder", out Mod luxcinderMod);
+            // Main.MenuUI.SetState(new UI.LuxcinderMainMenu(luxcinderMod));
+            // Logger.Info("LuxcinderMenu initialized");
         }
 
         public override void Unload()
