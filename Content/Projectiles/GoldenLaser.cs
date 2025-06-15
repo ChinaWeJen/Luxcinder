@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -38,7 +38,7 @@ namespace Luxcinder.Content.Projectiles
         }
 
         [System.Obsolete]
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             // 死亡时产生金色爆炸效果
             for (int i = 0; i < 10; i++)
