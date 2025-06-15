@@ -21,7 +21,7 @@ Mods: {
 
 			Frostbite: {
 				DisplayName: 霜冻增益
-				Description: 
+				Description:
 					'''
 					获得冰霜剑刃效果
 					攻击附带冰冻伤害
@@ -30,6 +30,327 @@ Mods: {
 		}
 
 		Items: {
+			Black_Hammer: {
+				// DisplayName: Black Iron Hammer
+				/* Tooltip:
+					'''
+					[c/666666:Heavy black iron forging tool]
+					Can be used for construction and demolition
+					Hammer head engraved with anti-slip pattern
+					''' */
+			}
+
+			Black_Iron_Axe: {
+				// DisplayName: Black Iron Axe
+				/* Tooltip:
+					'''
+					[c/666666:Cost-effective black iron tool]
+					Axe blade treated with special quenching process
+					''' */
+			}
+
+			Black_iron_ingot: {
+				// DisplayName: Black Iron Ingot
+				/* Tooltip:
+					'''
+					Smelted from black iron ore
+					Can be used for craft black iron equipment
+					''' */
+			}
+
+			Black_iron_pickaxe: {
+				// DisplayName: Black Iron Pickaxe
+				/* Tooltip:
+					'''
+					[c/666666:Standard black iron mining tool]
+					Durable and easy to maintain
+					Suitable for mining most ores
+					''' */
+			}
+
+			Black_iron_sword: {
+				DisplayName: 皇家黑铁剑
+				Tooltip:
+					'''
+					[c/666666:由古老黑铁锻造的仪式武器]
+					剑身刻有神秘的符文
+					[c/8B4513:【圣铁之力】]攻击时有15%几率造成额外伤害
+					[c/FFD700:【神圣祝福】]生命值低于30%时获得防御加成
+					握持时能感受到金属的低鸣
+					在月光下会显现隐藏的铭文
+					'''
+			}
+
+			Decayed_crystal: {
+				DisplayName: 腐化结晶
+				Tooltip:
+					'''
+					这颗被腐化能量侵蚀的结晶散发着不祥的紫光
+					[c/800080:【腐化之力】]+12%魔法伤害和8%暴击率
+					[c/FF0000:【腐化代价】]每秒损失5点生命值
+					握持时会感到能量在血管中灼烧
+					耳边萦绕着低沉的耳语声
+					'''
+			}
+
+			Decayedcrystal: {
+				// DisplayName: Decayedcrystal
+				// Tooltip: ""
+			}
+
+			DecayedFragments: {
+				DisplayName: 腐化碎片
+				Tooltip: 从腐化生物身上掉落的黑暗结晶，散发着不祥的能量
+			}
+
+			DecayedNightEye: {
+				DisplayName: 腐化夜瞳
+				Tooltip: 一颗在黑暗中发光的变异眼球，佩戴时会感到不适
+			}
+
+			MeatminCeshell: {
+				DisplayName: 血肉甲壳
+				Tooltip: 由压缩腐肉构成的活体护甲，表面不断渗出暗绿色液体
+			}
+
+			Nightmare: {
+				DisplayName: 梦魇宝袋
+				Tooltip:
+					'''
+					腐化之王的宝藏袋
+					[c/FFA500:【专家专属】]击败专家模式下的梦魇核心获得
+					[c/FF0000:【提示】]右键点击打开
+					袋体散发着不祥的紫色光芒
+					能感受到内部物品的脉动
+					偶尔会传出低沉的呻吟声
+					'''
+			}
+
+			ReasonTrappedDreams: {
+				// DisplayName: Reason Trapped Dreams
+				// Tooltip: ""
+			}
+
+			Rottencrystals: {
+				// DisplayName: Rottencrystals
+				// Tooltip: ""
+			}
+
+			RottingToxin: {
+				// DisplayName: Rotting Toxin
+				// Tooltip: ""
+			}
+
+			SwordContract: {
+				// DisplayName: Sword Contract
+				// Tooltip: ""
+			}
+
+			NightmareEssence: {
+				// DisplayName: Nightmare Essence
+				// Tooltip: ""
+			}
+
+			NonferrousMetals: {
+				// DisplayName: Nonferrous Metals
+				// Tooltip: ""
+			}
+
+			Encyclopedia: {
+				DisplayName: 远古知识典籍
+				Tooltip:
+					'''
+					[c/FFA500:记载着失落文明的智慧结晶]
+					书页边缘泛着温暖的橙色微光
+					[c/FF8C00:【知识启迪】]携带时获得经验加成
+					触碰时能感受到知识的脉动
+					书脊上刻有古老的符文
+					在黑暗中会发出柔和的橙光
+					'''
+			}
+
+			ScienceTechnologyANDInnovation: {
+				// DisplayName: Science Technology A N D Innovation
+				// Tooltip: ""
+			}
+
+			SurvivalGuide: {
+				// DisplayName: Survival Guide
+				// Tooltip: ""
+			}
+
+			AshPortal: {
+				// DisplayName: Ash Portal
+				// Tooltip: ""
+			}
+
+			DeepLightTower: {
+				// DisplayName: Deep Light Tower
+				// Tooltip: ""
+			}
+
+			GiantStoneBlastFurnace: {
+				// DisplayName: Giant Stone Blast Furnace
+				// Tooltip: ""
+			}
+
+			IceDagger: {
+				// DisplayName: Ice Dagger
+				// Tooltip: ""
+			}
+
+			Lostancientpendant: {
+				// DisplayName: Lostancientpendant
+				// Tooltip: ""
+			}
+
+			SourceSpiritBow: {
+				// DisplayName: Source Spirit Bow
+				// Tooltip: ""
+			}
+
+			Storyfragments: {
+				// DisplayName: Storyfragments
+				// Tooltip: ""
+			}
+
+			Vowrose: {
+				DisplayName: 誓约玫瑰
+				Tooltip:
+					'''
+					[c/FF69B4:被永恒誓约祝福的花朵]
+					花瓣上刻有古老的符文
+					[c/9370DB:【神圣庇护】]携带时用有10%的抗性
+					在月光下会发出柔和的粉光
+					'''
+			}
+
+			AlloyRipper: {
+				// DisplayName: Alloy Ripper
+				// Tooltip: ""
+			}
+
+			Quenched: {
+				DisplayName: 淬炼石矿
+				Tooltip:
+					'''
+					[c/FF8C00: 【残响】蒸发余烬只留下纯粹的金属本源]
+					一块表面流淌着液态火焰纹路的神秘矿石
+					能感受到远古熔炉的脉动
+					与腐化或光明的能量碰撞时会产生诡异的共鸣	
+					'''
+			}
+
+			Quenchedalloypickaxe: {
+				// DisplayName: Quenchedalloypickaxe
+				// Tooltip: ""
+			}
+
+			QuenchedIngot: {
+				// DisplayName: Quenched Ingot
+				// Tooltip: ""
+			}
+
+			Nightmaresummon: {
+				// DisplayName: Nightmaresummon
+				// Tooltip: ""
+			}
+
+			SkeletonSight: {
+				// DisplayName: Skeleton Sight
+				// Tooltip: ""
+			}
+
+			UIViewer: {
+				// DisplayName: U I Viewer
+				// Tooltip: ""
+			}
+
+			LamentStorm: {
+				// DisplayName: Lament Storm
+				// Tooltip: ""
+			}
+
+			BlazingGold: {
+				// DisplayName: Blazing Gold
+				// Tooltip: ""
+			}
+
+			CornerGrass: {
+				// DisplayName: Corner Grass
+				// Tooltip: ""
+			}
+
+			CorrosionNecklace: {
+				// DisplayName: Corrosion Necklace
+				// Tooltip: ""
+			}
+
+			DiamondTitaniumPlate: {
+				// DisplayName: Diamond Titanium Plate
+				// Tooltip: ""
+			}
+
+			GoldenGuardian: {
+				// DisplayName: Golden Guardian
+				// Tooltip: ""
+			}
+
+			GuardianShield: {
+				// DisplayName: Guardian Shield
+				// Tooltip: ""
+			}
+
+			LifePendant: {
+				// DisplayName: Life Pendant
+				// Tooltip: ""
+			}
+
+			LightEnforcer: {
+				// DisplayName: Light Enforcer
+				// Tooltip: ""
+			}
+
+			OmniMedal: {
+				// DisplayName: Omni Medal
+				// Tooltip: ""
+			}
+
+			PlantHabitat: {
+				// DisplayName: Plant Habitat
+				// Tooltip: ""
+			}
+
+			SacredDeer: {
+				// DisplayName: Sacred Deer
+				// Tooltip: ""
+			}
+
+			SwiftBladeShield: {
+				// DisplayName: Swift Blade Shield
+				// Tooltip: ""
+			}
+
+			TartarusShield: {
+				// DisplayName: Tartarus Shield
+				// Tooltip: ""
+			}
+
+			WorldShaker: {
+				// DisplayName: World Shaker
+				// Tooltip: ""
+			}
+
+			AncientSoul: {
+				// DisplayName: Ancient Soul
+				// Tooltip: ""
+			}
+
+			SearingLight: {
+				// DisplayName: Searing Light
+				// Tooltip: ""
+			}
+
 			BlackHammer: {
 				DisplayName: 黑铁重锤
 				Tooltip: 沉甸甸的锻造工具，敲击时会发出沉闷的金属声
@@ -78,425 +399,9 @@ Mods: {
 					'''
 			}
 
-			Black_iron_sword: {
-				DisplayName: [c/FFF700:皇家黑铁剑]
-				Tooltip:
-					'''
-					[c/666666:由古老黑铁锻造的仪式武器]
-					剑身刻有神秘的符文
-					[c/8B4513:【圣铁之力】]攻击时有15%几率造成额外伤害
-					[c/FFD700:【神圣祝福】]生命值低于30%时获得防御加成
-					握持时能感受到金属的低鸣
-					在月光下会显现隐藏的铭文
-					'''
-			}
-
-			Black_Iron_Shield: {
-				DisplayName: 黑铁圣盾
-				Tooltip:
-					'''
-					[c/666666:由黑铁与神圣合金打造的防御装备]
-					[c/FF0000:【神圣】]防御力小于20时，额外增加3点防御
-					盾面刻有守护符文
-					表面有古老的战斗痕迹
-					在危急时刻会发出金色微光
-					'''
-			}
-
-			Decayed_crystal: {
-				DisplayName: 腐化结晶
-				Tooltip:
-					'''
-					这颗被腐化能量侵蚀的结晶散发着不祥的紫光
-					[c/800080:【腐化之力】]+12%魔法伤害和8%暴击率
-					[c/FF0000:【腐化代价】]每秒损失5点生命值
-					握持时会感到能量在血管中灼烧
-					耳边萦绕着低沉的耳语声
-					'''
-			}
-
-			DecayedFragments: {
-				DisplayName: 腐化碎片
-				Tooltip: 从腐化生物身上掉落的黑暗结晶，散发着不祥的能量
-			}
-
-			DecayedNightEye: {
-				DisplayName: 腐化夜瞳
-				Tooltip: 一颗在黑暗中发光的变异眼球，佩戴时会感到不适
-			}
-
-			MeatminCeshell: {
-				DisplayName: 血肉甲壳
-				Tooltip: 由压缩腐肉构成的活体护甲，表面不断渗出暗绿色液体
-			}
-
-			Nightmare: {
-				DisplayName: 梦魇宝袋
-				Tooltip:
-					'''
-					腐化之王的宝藏袋
-					[c/FFA500:【专家专属】]击败专家模式下的梦魇核心获得
-					[c/FF0000:【提示】]右键点击打开
-					袋体散发着不祥的紫色光芒
-					能感受到内部物品的脉动
-					偶尔会传出低沉的呻吟声
-					'''
-			}
-
-			Reason_Trapped_Dreams: {
-				DisplayName: 残梦虚识
-				Tooltip:
-					'''
-					被囚禁的
-					         理性
-					能听到微弱的求救声
-					'''
-			}
-
-			Rotten_crystals: {
-				DisplayName: 腐化晶簇
-				Tooltip:
-					'''
-					腐化晶簇 - 召唤腐化之王
-					散发着令人不安的能量波动
-					[c/800080:【腐化仪式】]使用时会产生紫色粒子效果
-					[c/FF0000:【警告】]确保做好战斗准备
-					结晶表面布满裂痕和紫色能量脉动
-					握持时会感到轻微的能量刺痛
-					能听到来自深渊的低语声
-					在黑暗中会发出不祥的紫光
-					'''
-			}
-
-			Rotting_toxin: {
-				DisplayName: 腐化毒素
-				Tooltip:
-					'''
-					从腐化之王体内提取的剧毒物质
-					[c/00FF00:【腐化精华】]制作毒系装备的核心材料
-					散发着令人作呕的腐败气味
-					表面覆盖着黏稠的绿色液体
-					触碰时会腐蚀皮肤
-					在黑暗中发出微弱的荧光
-					能听到液体沸腾的嘶嘶声
-					'''
-			}
-
-			Sword_Contract: {
-				DisplayName: 祭献契约
-				Tooltip:
-					'''
-					右键单击消耗30%的最大HP
-					伤害增加50%
-					再次右键单击以还原
-					[c/FF0000：警告]：需要足够的健康
-					以生命为代价换取力量的古老契约，使用时请三思
-					'''
-			}
-
-			Ash_Portal: {
-				DisplayName: 灰烬传送门
-				Tooltip:
-					'''
-					[c/808080:由古老灰烬构成的空间通道]
-					表面飘散着永不熄灭的火星
-					能感受到微弱的热浪扑面而来
-					通道中隐约可见燃烧的余烬飘舞
-					使用时能听到火焰的嘶嘶声
-					在黑暗中会发出橙红色的微光
-					'''
-			}
-
-			Deep_Light_Tower: {
-				DisplayName: 深光之塔
-				Tooltip:
-					'''
-					[c/1E90FF:从深渊中升起的光明建筑]
-					塔身刻有古老的净化符文
-					[c/00BFFF:【深渊之光】]驱散周围的黑暗
-					能听到微弱的圣歌回响
-					表面流动着纯净的蓝色能量
-					在黑夜中如同灯塔般明亮
-					'''
-			}
-
-			Giant_Stone_Blast_Furnace: {
-				DisplayName: 巨型石制高炉
-				Tooltip:
-					'''
-					古老的冶炼设备
-					能熔炼特殊矿石
-					'''
-			}
-
-			Ice_dagger: {
-				DisplayName: 星霜冰诺
-				Tooltip:
-					'''
-					[c/ADD8E6:幽光月族传承的冰晶武器]
-					刀身由永恒寒冰雕琢而成
-					刀刃凝结着永不融化的霜华，轻轻一触便能冻结灵魂
-					[c/00FFFF:【极寒之触】]攻击有20%几率冻结敌人
-					[c/4169E1:【冰晶弹幕】]可发射寒冰碎石
-					握持时寒气会形成美丽的冰霜花纹
-					'''
-			}
-
-			Lost_ancient_pendant: {
-				DisplayName: 失落古坠
-				Tooltip:
-					'''
-					来自远古且似乎是神圣般的文明饰品
-					看上去很破旧且很肮脏
-					边缘刻有模糊不清且无法解读的文字
-					承载着被遗忘的誓言
-					'''
-			}
-
-			Story_fragments: {
-				DisplayName: 记忆碎片
-				Tooltip:
-					'''
-					散落的记忆碎片
-					触碰时能听到模糊的耳语
-					表面有微弱的光芒闪烁
-					似乎记录着某个被遗忘的故事
-					'''
-			}
-
-			Vowrose: {
-				DisplayName: 誓约玫瑰
-				Tooltip:
-					'''
-					[c/FF69B4:被永恒誓约祝福的花朵]
-					花瓣上刻有古老的符文
-					[c/9370DB:【神圣庇护】]携带时用有10%的抗性
-					在月光下会发出柔和的粉光
-					'''
-			}
-
-			Quenched: {
-				DisplayName: 淬炼石矿
-				Tooltip:
-					'''
-					[c/FF8C00: 【残响】蒸发余烬只留下纯粹的金属本源]
-					一块表面流淌着液态火焰纹路的神秘矿石
-					能感受到远古熔炉的脉动
-					与腐化或光明的能量碰撞时会产生诡异的共鸣	
-					'''
-			}
-
-			Quenched_Ingot: {
-				DisplayName: 淬火合金锭
-				Tooltip:
-					'''
-					似乎并不属于泰拉大陆的锻造工艺
-					[c/FF8C00:【高温锻造】]经过特殊淬火工艺处理的合金
-					[c/1E90FF:【能量传导】]完美传导魔法与物理能量
-					表面有流动的火焰纹路
-					触碰时能感受到微弱的热量
-					是制作高级装备的核心材料
-					在黑暗中会发出橙红色微光
-					'''
-			}
-
-			Alloy_Ripper: {
-				DisplayName: 合金撕裂者
-				Tooltip:
-					'''
-					"一把由残骸锻造工艺的武器，用它的炽热刺穿每一个挡路的"
-					握柄带有散热鳍片设计
-					使用时能听到金属的嘶鸣声
-					刀身会随着战斗逐渐发红
-					[c/FF8C00: 【高温剑刃】]烈焰似乎在手里流淌，对敌人造成6秒燃烧效果
-					[c/FF6347: 【勇气】]更能放手一搏，当你手持该武器的防御力小于35便获得100的生命力上限加成
-					'''
-			}
-
-			Quenched_alloy_pickaxe: {
-				DisplayName: 淬火合金镐
-				Tooltip:
-					'''
-					[c/FF8C00:融合了淬火石矿与黑铁的特殊工具]
-					挖掘时会产生高温火花
-					[c/00BFFF:【烈焰瑰宝】]小概率挖掘产生15-50的铜币，且挖掘大量方块后获得铁皮特性
-					表面有流动的火焰纹路
-					'''
-			}
-
-			Nightmare_Essence: {
-				DisplayName: 噩梦精华
-				Tooltip:
-					'''
-					这是从腐化之王体内提取的诡异液体
-					装在瓶子里会自己蠕动，像有生命一样
-					制作强力腐化装备的关键材料
-					打开瓶盖会冒出黑烟，还能听到怪声
-					摸起来冰凉刺骨，让人不舒服
-					晚上会发出吓人的紫色微光
-					'''
-			}
-
-			Nightmare_Summon: {
-				DisplayName: 噩梦仪式核心
-				Tooltip:
-					'''
-					这是个危险的召唤装置
-					上面刻满了看不懂的古老符文
-					使用时会冒出诡异的紫色漩涡
-					最好别随便碰这东西
-					拿在手里能感觉到它在跳动
-					仔细听好像有人在耳边说话
-					晚上亮得跟个小灯泡似的
-					碰一下就觉得浑身不对劲
-					'''
-			}
-
-			Nonferrous_Metals: {
-				DisplayName: 异色金属
-				Tooltip: 
-				'''
-				闪烁着不寻常光泽的神秘合金
-				蕴含着未知的能量
-				'''
-			}
-
-			Skeleton_Sight: {
-				DisplayName: 骸骨之瞳
-				Tooltip: 
-				'''
-				透过亡者的眼睛窥视世界的另一面
-				'''
-			}
-
-			Encyclopedia: {
-				DisplayName: 远古知识典籍
-				Tooltip:
-					'''
-					[c/FFA500:记载着失落文明的智慧结晶]
-					书页边缘泛着温暖的橙色微光
-					[c/FF8C00:【知识启迪】]携带时获得经验加成
-					触碰时能感受到知识的脉动
-					书脊上刻有古老的符文
-					在黑暗中会发出柔和的橙光
-					'''
-			}
-
-			Science_Technology_AND_Innovation: {
-				DisplayName: 科技革新蓝图
-				Tooltip:
-					'''
-					[c/00BFFF:未来科技的精密设计图]
-					图纸上流动着天蓝色的能量纹路
-					[c/1E90FF:【创新思维】]提升工作台制作效率
-					能听到微弱的机械运转声
-					边缘标注着复杂的计算公式
-					在月光下会显现隐藏的图纸
-					'''
-			}
-
-			Survival_Guide: {
-				DisplayName: 生存指南手册
-				Tooltip:
-					'''
-					[c/32CD32:冒险者必备的实用指南]
-					封面散发着生机勃勃的绿光
-					[c/7CFC00:【生存技巧】]降低环境伤害
-					书页间夹着各种植物标本
-					能闻到淡淡的草药香气
-					在危机时刻会微微发热
-					内页记满了实用的生存笔记
-					'''
-			}
-
-			Source_Spirit_Bow: {
-				DisplayName: 幽源之弓
-				Tooltip: ""
-			}
-
-			Lament_Storm: {
-				DisplayName: 哀恸风暴
-				Tooltip: ""
-			}
-
-			Blazing_Gold: {
-				DisplayName: 炽金之辉
-				Tooltip: ""
-			}
-
-			Corner_Grass: {
-				DisplayName: 隅灵草
-				Tooltip: ""
-			}
-
-			Corrosion_Necklace: {
-				DisplayName: 蚀骨项链
-				Tooltip: ""
-			}
-
-			Diamond_Titanium_Plate: {
-				DisplayName: 晶钛护甲
-				Tooltip: ""
-			}
-
-			Golden_Guardian: {
-				DisplayName: 鎏金守卫
-				Tooltip: ""
-			}
-
-			Guardian_Shield: {
-				DisplayName: 守望者之盾
-				Tooltip: ""
-			}
-
-			Life_Pendant: {
-				DisplayName: 生命吊坠
-				Tooltip: ""
-			}
-
-			Light_Enforcer: {
-				DisplayName: 辉光执法者
-				Tooltip: ""
-			}
-
-			Omni_Medal: {
-				DisplayName: 全能勋章
-				Tooltip: ""
-			}
-
-			Plant_Habitat: {
-				DisplayName: 植生栖境
-				Tooltip: ""
-			}
-
-			Sacred_Deer: {
-				DisplayName: 圣鹿
-				Tooltip: ""
-			}
-
-			Swift_Blade_Shield: {
-				DisplayName: 迅刃之盾
-				Tooltip: ""
-			}
-
-			Tartarus_Shield: {
-				DisplayName: 塔尔塔罗斯之盾
-				Tooltip: ""
-			}
-
-			World_Shaker: {
-				DisplayName: 震世者
-				Tooltip: ""
-			}
-
-			Ancient_Soul: {
-				DisplayName: 远古之魂
-				Tooltip: ""
-			}
-
-			Searing_Light: {
-				DisplayName: 炽烈之光
-				Tooltip: ""
+			BlackIronSword: {
+				// DisplayName: Black Iron Sword
+				// Tooltip: ""
 			}
 		}
 

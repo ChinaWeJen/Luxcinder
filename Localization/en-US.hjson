@@ -12,7 +12,7 @@ Mods: {
 		Buffs: {
 			Alloy_Ripper_Buff: {
 				DisplayName: Alloy Ripper
-				Description: 
+				Description:
 					'''
 					Obtain the Blazing Blade effect
 					Attacks deal burning damage
@@ -21,18 +21,18 @@ Mods: {
 
 			Frostbite: {
 				DisplayName: Frostbite
-				Description: 
-				'''
-				Obtain the Frozen effect
-				Attacks deal chilling damage
-				'''
+				Description:
+					'''
+					Obtain the Frozen effect
+					Attacks deal chilling damage
+					'''
 			}
 		}
 
 		Items: {
 			Black_Hammer: {
 				DisplayName: Black Iron Hammer
-				Tooltip: 
+				Tooltip:
 					'''
 					[c/666666:Heavy black iron forging tool]
 					Can be used for construction and demolition
@@ -42,7 +42,7 @@ Mods: {
 
 			Black_Iron_Axe: {
 				DisplayName: Black Iron Axe
-				Tooltip: 
+				Tooltip:
 					'''
 					[c/666666:Cost-effective black iron tool]
 					Axe blade treated with special quenching process
@@ -51,7 +51,7 @@ Mods: {
 
 			Black_iron_ingot: {
 				DisplayName: Black Iron Ingot
-				Tooltip: 
+				Tooltip:
 					'''
 					Smelted from black iron ore
 					Can be used for craft black iron equipment
@@ -60,7 +60,7 @@ Mods: {
 
 			Black_iron_pickaxe: {
 				DisplayName: Black Iron Pickaxe
-				Tooltip: 
+				Tooltip:
 					'''
 					[c/666666:Standard black iron mining tool]
 					Durable and easy to maintain
@@ -69,8 +69,8 @@ Mods: {
 			}
 
 			Black_iron_sword: {
-				DisplayName: [c/FFF700:Royal Black Iron Sword]
-				Tooltip: 
+				DisplayName: Royal Black Iron Sword
+				Tooltip:
 					'''
 					[c/FFD700:Are you willing to offer devotion to this weapon]
 					The blade is engraved with ancient royal patterns
@@ -83,7 +83,7 @@ Mods: {
 
 			Decayed_crystal: {
 				DisplayName: Decayed Crystal
-				Tooltip: 
+				Tooltip:
 					'''
 					This weapon is engraved with ancient patterns
 					This weapon relies on devotion rather than sharpness
@@ -320,6 +320,36 @@ Mods: {
 
 			SearingLight: {
 				DisplayName: Searing Light
+				Tooltip: ""
+			}
+
+			BlackHammer: {
+				DisplayName: Black Hammer
+				Tooltip: ""
+			}
+
+			BlackIronAxe: {
+				DisplayName: Black Iron Axe
+				Tooltip: ""
+			}
+
+			BlackIronIngot: {
+				DisplayName: Black Iron Ingot
+				Tooltip: ""
+			}
+
+			BlackIronPickAxe: {
+				DisplayName: Black Iron Pick Axe
+				Tooltip: ""
+			}
+
+			BlackIronShield: {
+				DisplayName: Black Iron Shield
+				Tooltip: ""
+			}
+
+			BlackIronSword: {
+				DisplayName: Black Iron Sword
 				Tooltip: ""
 			}
 		}
