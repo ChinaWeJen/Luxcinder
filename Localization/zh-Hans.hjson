@@ -20,62 +20,56 @@ Mods: {
 			}
 
 			Frostbite: {
-				// DisplayName: Frostbite
-				// Description: Mods.Luxcinder.Buffs.Frostbite.Description
+				DisplayName: 霜冻增益
+				Description:
+					'''
+					获得冰霜剑刃效果
+					攻击附带冰冻伤害
+					'''
 			}
 		}
 
 		Items: {
-			BlackHammer: {
-				DisplayName: 黑铁重锤
-				Tooltip: 沉甸甸的锻造工具，敲击时会发出沉闷的金属声
+			Black_Hammer: {
+				// DisplayName: Black Iron Hammer
+				/* Tooltip:
+					'''
+					[c/666666:Heavy black iron forging tool]
+					Can be used for construction and demolition
+					Hammer head engraved with anti-slip pattern
+					''' */
 			}
 
-			BlackIronAxe: {
-				DisplayName: 黑铁伐木斧
-				Tooltip:
+			Black_Iron_Axe: {
+				// DisplayName: Black Iron Axe
+				/* Tooltip:
 					'''
-					[c/666666:专为伐木设计的重型工具]
-					斧刃经过特殊平衡处理
-					[c/8B4513:【高效砍伐】]木材掉落量增加15%
-					[c/FFD700:【精准劈砍】]有几率获得双倍木材
-					握柄采用防震设计
-					斧面刻有林业符文
-					'''
+					[c/666666:Cost-effective black iron tool]
+					Axe blade treated with special quenching process
+					''' */
 			}
 
-			BlackIronIngot: {
-				DisplayName: 黑铁锭
-				Tooltip: 经过精炼的黑铁金属块，表面有独特的暗色纹路
+			Black_iron_ingot: {
+				// DisplayName: Black Iron Ingot
+				/* Tooltip:
+					'''
+					Smelted from black iron ore
+					Can be used for craft black iron equipment
+					''' */
 			}
 
-			BlackIronPickAxe: {
-				DisplayName: 黑铁矿镐
-				Tooltip:
+			Black_iron_pickaxe: {
+				// DisplayName: Black Iron Pickaxe
+				/* Tooltip:
 					'''
-					[c/666666:坚固耐用的采矿工具]
-					镐头经过特殊淬火处理
-					[c/8B4513:【高效开采】]挖掘速度提升20%
-					[c/FFD700:【矿脉感知】]小概率发现隐藏矿脉
-					握柄包裹着防滑皮革
-					在黑暗中会发出微弱的金属光泽
-					'''
+					[c/666666:Standard black iron mining tool]
+					Durable and easy to maintain
+					Suitable for mining most ores
+					''' */
 			}
 
-			BlackIronShield: {
-				DisplayName: 黑铁圣盾
-				Tooltip:
-					'''
-					[c/666666:由黑铁与神圣合金打造的防御装备]
-					盾面刻有守护符文
-
-					表面有古老的战斗痕迹
-					在危急时刻会发出金色微光
-					'''
-			}
-
-			BlackIronSword: {
-				DisplayName: 黑铁圣剑
+			Black_iron_sword: {
+				DisplayName: 皇家黑铁剑
 				Tooltip:
 					'''
 					[c/666666:由古老黑铁锻造的仪式武器]
@@ -87,9 +81,21 @@ Mods: {
 					'''
 			}
 
+			Decayed_crystal: {
+				DisplayName: 腐化结晶
+				Tooltip:
+					'''
+					这颗被腐化能量侵蚀的结晶散发着不祥的紫光
+					[c/800080:【腐化之力】]+12%魔法伤害和8%暴击率
+					[c/FF0000:【腐化代价】]每秒损失5点生命值
+					握持时会感到能量在血管中灼烧
+					耳边萦绕着低沉的耳语声
+					'''
+			}
+
 			Decayedcrystal: {
-				DisplayName: 腐化晶核
-				Tooltip: 被黑暗能量侵蚀的晶体核心，散发着不稳定的能量波动
+				// DisplayName: Decayedcrystal
+				// Tooltip: ""
 			}
 
 			DecayedFragments: {
@@ -121,41 +127,33 @@ Mods: {
 			}
 
 			ReasonTrappedDreams: {
-				DisplayName: 被困的理性
-				Tooltip: 被囚禁的理性，能听到微弱的求救声
+				// DisplayName: Reason Trapped Dreams
+				// Tooltip: ""
 			}
 
 			Rottencrystals: {
-				DisplayName: 腐化晶簇
-				Tooltip: 散发着令人不安的能量波动，晶体表面布满紫色裂纹
+				// DisplayName: Rottencrystals
+				// Tooltip: ""
 			}
 
 			RottingToxin: {
-				DisplayName: 腐败毒素
-				Tooltip: 从腐化之王体内提取的剧毒物质，是制作毒系装备的核心材料
+				// DisplayName: Rotting Toxin
+				// Tooltip: ""
 			}
 
 			SwordContract: {
-				DisplayName: 剑之契约
-				Tooltip: 以生命为代价换取力量的古老契约，使用时请三思
+				// DisplayName: Sword Contract
+				// Tooltip: ""
 			}
 
 			NightmareEssence: {
-				DisplayName: 噩梦精华
-				Tooltip:
-					'''
-					这是从腐化之王体内提取的诡异液体
-					装在瓶子里会自己蠕动，像有生命一样
-					制作强力腐化装备的关键材料
-					打开瓶盖会冒出黑烟，还能听到怪声
-					摸起来冰凉刺骨，让人不舒服
-					晚上会发出吓人的紫色微光
-					'''
+				// DisplayName: Nightmare Essence
+				// Tooltip: ""
 			}
 
 			NonferrousMetals: {
-				DisplayName: 异色金属
-				Tooltip: 闪烁着不寻常光泽的神秘合金，蕴含着未知的能量
+				// DisplayName: Nonferrous Metals
+				// Tooltip: ""
 			}
 
 			Encyclopedia: {
@@ -172,59 +170,38 @@ Mods: {
 			}
 
 			ScienceTechnologyANDInnovation: {
-				DisplayName: 科技革新蓝图
-				Tooltip:
-					'''
-					[c/00BFFF:未来科技的精密设计图]
-					图纸上流动着天蓝色的能量纹路
-					[c/1E90FF:【创新思维】]提升工作台制作效率
-					能听到微弱的机械运转声
-					边缘标注着复杂的计算公式
-					在月光下会显现隐藏的图纸
-					'''
+				// DisplayName: Science Technology A N D Innovation
+				// Tooltip: ""
 			}
 
 			SurvivalGuide: {
-				DisplayName: 生存指南手册
-				Tooltip:
-					'''
-					[c/32CD32:冒险者必备的实用指南]
-					封面散发着生机勃勃的绿光
-					[c/7CFC00:【生存技巧】]降低环境伤害
-					书页间夹着各种植物标本
-					能闻到淡淡的草药香气
-					在危机时刻会微微发热
-					内页记满了实用的生存笔记
-					'''
+				// DisplayName: Survival Guide
+				// Tooltip: ""
 			}
 
 			AshPortal: {
-				DisplayName: 灰烬传送门
-				Tooltip: 由古老灰烬构成的空间通道，散发着微弱的热浪
+				// DisplayName: Ash Portal
+				// Tooltip: ""
 			}
 
 			DeepLightTower: {
-				DisplayName: 深光之塔
-				Tooltip: 从深渊中升起的光明建筑，散发着穿透黑暗的纯净光芒
+				// DisplayName: Deep Light Tower
+				// Tooltip: ""
 			}
 
 			GiantStoneBlastFurnace: {
-				DisplayName: 巨型石制高炉
-				Tooltip:
-					'''
-					古老的冶炼设备
-					能熔炼特殊矿石
-					'''
+				// DisplayName: Giant Stone Blast Furnace
+				// Tooltip: ""
 			}
 
 			IceDagger: {
-				DisplayName: 寒霜之吻
-				Tooltip: 刀刃凝结着永不融化的霜华，轻轻一触便能冻结灵魂
+				// DisplayName: Ice Dagger
+				// Tooltip: ""
 			}
 
 			Lostancientpendant: {
-				DisplayName: 失落古坠
-				Tooltip: 时光长河中遗落的信物，承载着被遗忘的誓言
+				// DisplayName: Lostancientpendant
+				// Tooltip: ""
 			}
 
 			SourceSpiritBow: {
@@ -233,14 +210,8 @@ Mods: {
 			}
 
 			Storyfragments: {
-				DisplayName: 记忆残片
-				Tooltip:
-					'''
-					散落的记忆碎片
-					触碰时能听到模糊的耳语
-					表面有微弱的光芒闪烁
-					似乎记录着某个被遗忘的故事
-					'''
+				// DisplayName: Storyfragments
+				// Tooltip: ""
 			}
 
 			Vowrose: {
@@ -255,16 +226,8 @@ Mods: {
 			}
 
 			AlloyRipper: {
-				DisplayName: 合金撕裂者
-				Tooltip:
-					'''
-					[c/FF4500:【炽热剑刃】]刀刃持续散发高温
-					[c/FF0000:【撕裂效果】]攻击造成深度伤口
-					[c/FF8C00:【过载模式】]连续攻击会提升伤害
-					握柄带有散热鳍片设计
-					使用时能听到金属的嘶鸣声
-					刀身会随着战斗逐渐发红
-					'''
+				// DisplayName: Alloy Ripper
+				// Tooltip: ""
 			}
 
 			Quenched: {
@@ -279,40 +242,23 @@ Mods: {
 			}
 
 			Quenchedalloypickaxe: {
-				DisplayName: 淬火合金镐
-				Tooltip:
-					'''
-					[c/FF8C00:【高温合金】]融合了淬火石矿与黑铁的特殊工具
-					[c/00BFFF:【高效开采】]挖掘速度提升35%
-					[c/1E90FF:【矿脉感知】]小概率发现隐藏矿脉
-					镐头带有淬火形成的特殊纹路
-					使用时会产生蓝色火星
-					握柄经过防热处理
-					在黑暗中会发出微弱的蓝光
-					'''
+				// DisplayName: Quenchedalloypickaxe
+				// Tooltip: ""
 			}
 
 			QuenchedIngot: {
-				DisplayName: 淬火合金锭
-				Tooltip:
-					'''
-					[c/FF8C00:【高温锻造】]经过特殊淬火工艺处理的合金
-					[c/1E90FF:【能量传导】]完美传导魔法与物理能量
-					表面有流动的火焰纹路
-					触碰时能感受到微弱的热量
-					是制作高级装备的核心材料
-					在黑暗中会发出橙红色微光
-					'''
+				// DisplayName: Quenched Ingot
+				// Tooltip: ""
 			}
 
 			Nightmaresummon: {
-				DisplayName: 噩梦召唤物
-				Tooltip: 用于召唤黑暗存在的危险物品，使用时请保持警惕
+				// DisplayName: Nightmaresummon
+				// Tooltip: ""
 			}
 
 			SkeletonSight: {
-				DisplayName: 骸骨之瞳
-				Tooltip: 透过亡者的眼睛窥视世界的另一面
+				// DisplayName: Skeleton Sight
+				// Tooltip: ""
 			}
 
 			UIViewer: {
@@ -404,6 +350,59 @@ Mods: {
 				// DisplayName: Searing Light
 				// Tooltip: ""
 			}
+
+			BlackHammer: {
+				DisplayName: 黑铁重锤
+				Tooltip: 沉甸甸的锻造工具，敲击时会发出沉闷的金属声
+			}
+
+			BlackIronAxe: {
+				DisplayName: 黑铁伐木斧
+				Tooltip:
+					'''
+					[c/666666:专为伐木设计的重型工具]
+					斧刃经过特殊平衡处理
+					[c/8B4513:【高效砍伐】]木材掉落量增加15%
+					[c/FFD700:【精准劈砍】]有几率获得双倍木材
+					握柄采用防震设计
+					斧面刻有林业符文
+					'''
+			}
+
+			BlackIronIngot: {
+				DisplayName: 黑铁锭
+				Tooltip: 经过精炼的黑铁金属块，表面有独特的暗色纹路
+			}
+
+			BlackIronPickAxe: {
+				DisplayName: 黑铁矿镐
+				Tooltip:
+					'''
+					[c/666666:坚固耐用的采矿工具]
+					镐头经过特殊淬火处理
+					[c/8B4513:【高效开采】]挖掘速度提升20%
+					[c/FFD700:【矿脉感知】]小概率发现隐藏矿脉
+					握柄包裹着防滑皮革
+					在黑暗中会发出微弱的金属光泽
+					'''
+			}
+
+			BlackIronShield: {
+				DisplayName: 黑铁圣盾
+				Tooltip:
+					'''
+					[c/666666:由黑铁与神圣合金打造的防御装备]
+					盾面刻有守护符文
+
+					表面有古老的战斗痕迹
+					在危急时刻会发出金色微光
+					'''
+			}
+
+			BlackIronSword: {
+				// DisplayName: Black Iron Sword
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -446,6 +445,8 @@ Mods: {
 			// LamentStormP.DisplayName: Lament Storm P
 			// LamentStormVortex.DisplayName: Lament Storm Vortex
 			// GoddessDimLightAttack.DisplayName: Goddess Dim Light Attack
+			// LamentStormHoldProjectile.DisplayName: Lament Storm Hold Projectile
+			// LamentStormPDummy.DisplayName: Lament Storm P Dummy
 		}
 	}
 }

@@ -11,45 +11,86 @@ Mods: {
 
 		Buffs: {
 			Alloy_Ripper_Buff: {
-				DisplayName: Alloy_ Ripper_ Buff
-				Description: Mods.Luxcinder.Buffs.Alloy_Ripper_Buff.Description
+				DisplayName: Alloy Ripper
+				Description:
+					'''
+					Obtain the Blazing Blade effect
+					Attacks deal burning damage
+					'''
 			}
 
 			Frostbite: {
 				DisplayName: Frostbite
-				Description: Mods.Luxcinder.Buffs.Frostbite.Description
+				Description:
+					'''
+					Obtain the Frozen effect
+					Attacks deal chilling damage
+					'''
 			}
 		}
 
 		Items: {
-			BlackHammer: {
-				DisplayName: Black Hammer
-				Tooltip: ""
+			Black_Hammer: {
+				DisplayName: Black Iron Hammer
+				Tooltip:
+					'''
+					[c/666666:Heavy black iron forging tool]
+					Can be used for construction and demolition
+					Hammer head engraved with anti-slip pattern
+					'''
 			}
 
-			BlackIronAxe: {
+			Black_Iron_Axe: {
 				DisplayName: Black Iron Axe
-				Tooltip: ""
+				Tooltip:
+					'''
+					[c/666666:Cost-effective black iron tool]
+					Axe blade treated with special quenching process
+					'''
 			}
 
-			BlackIronIngot: {
+			Black_iron_ingot: {
 				DisplayName: Black Iron Ingot
-				Tooltip: ""
+				Tooltip:
+					'''
+					Smelted from black iron ore
+					Can be used for craft black iron equipment
+					'''
 			}
 
-			BlackIronPickAxe: {
-				DisplayName: Black Iron Pick Axe
-				Tooltip: ""
+			Black_iron_pickaxe: {
+				DisplayName: Black Iron Pickaxe
+				Tooltip:
+					'''
+					[c/666666:Standard black iron mining tool]
+					Durable and easy to maintain
+					Suitable for mining most ores
+					'''
 			}
 
-			BlackIronShield: {
-				DisplayName: Black Iron Shield
-				Tooltip: ""
+			Black_iron_sword: {
+				DisplayName: Royal Black Iron Sword
+				Tooltip:
+					'''
+					[c/FFD700:Are you willing to offer devotion to this weapon]
+					The blade is engraved with ancient royal patterns
+					Clearly this weapon relies on devotion rather than sharpness
+					[c/FF0000:【Devotion】] 25% chance to deal 26 damage
+					[c/FF00FF:【Grace】]3% chance to deal 40 damage
+					The blade emits a faint blue glow under moonlight
+					'''
 			}
 
-			BlackIronSword: {
-				DisplayName: Black Iron Sword
-				Tooltip: ""
+			Decayed_crystal: {
+				DisplayName: Decayed Crystal
+				Tooltip:
+					'''
+					This weapon is engraved with ancient patterns
+					This weapon relies on devotion rather than sharpness
+					[c/FF0000:【Devotion】] 25% chance to deal 26 damage
+					[c/FF00FF:【Grace】]3% chance to deal 40 damage
+					This weapon emits a faint blue glow under moonlight
+					'''
 			}
 
 			Decayedcrystal: {
@@ -281,6 +322,36 @@ Mods: {
 				DisplayName: Searing Light
 				Tooltip: ""
 			}
+
+			BlackHammer: {
+				DisplayName: Black Hammer
+				Tooltip: ""
+			}
+
+			BlackIronAxe: {
+				DisplayName: Black Iron Axe
+				Tooltip: ""
+			}
+
+			BlackIronIngot: {
+				DisplayName: Black Iron Ingot
+				Tooltip: ""
+			}
+
+			BlackIronPickAxe: {
+				DisplayName: Black Iron Pick Axe
+				Tooltip: ""
+			}
+
+			BlackIronShield: {
+				DisplayName: Black Iron Shield
+				Tooltip: ""
+			}
+
+			BlackIronSword: {
+				DisplayName: Black Iron Sword
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -323,6 +394,8 @@ Mods: {
 			LamentStormP.DisplayName: Lament Storm P
 			LamentStormVortex.DisplayName: Lament Storm Vortex
 			GoddessDimLightAttack.DisplayName: Goddess Dim Light Attack
+			LamentStormHoldProjectile.DisplayName: Lament Storm Hold Projectile
+			LamentStormPDummy.DisplayName: Lament Storm P Dummy
 		}
 	}
 }
