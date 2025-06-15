@@ -24,7 +24,7 @@ Content: {
 			NightmareBeam.DisplayName: 噩梦光束
 
 			Dialogue: {
-				Summoned: 腐烂王启动！
+				Summoned: 腐烂王已苏醒！
 				Phase2: 我是腐烂王
 				Defeated: 腐烂王被打败！
 			}
