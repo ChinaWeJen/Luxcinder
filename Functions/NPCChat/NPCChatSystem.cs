@@ -34,6 +34,7 @@ namespace Luxcinder.Functions.NPCChat
                 if (npcID != -1 && Main.npc[npcID].type == ModContent.NPCType<Sylvia>())
                 {
                     _activeNPCChatUI.Activate(Main.npc[npcID]);
+					_activeNPCChatUI.Update(Main.gameTimeCache);
                     _activeNPCChatUI.Draw(Main.spriteBatch);
                     return true;
                 }
@@ -43,7 +44,7 @@ namespace Luxcinder.Functions.NPCChat
 
         public override void UpdateUI(GameTime gameTime)
         {
-            _activeNPCChatUI.Update(gameTime);
+            //_activeNPCChatUI.Update(gameTime);
         }
 
         public override void PostUpdateNPCs()
