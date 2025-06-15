@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,7 +42,7 @@ namespace Luxcinder.Content.Projectiles
         }
 
         [System.Obsolete]
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             // 消失时产生小爆炸
             for (int i = 0; i < 8; i++)

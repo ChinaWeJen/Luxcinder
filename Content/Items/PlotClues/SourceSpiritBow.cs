@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
@@ -117,7 +117,7 @@ namespace LuxCinder.Content.Items.PlotClues
         }
 
 		[Obsolete]
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
             // 击中时的粒子效果
             for (int i = 0; i < 8; i++)

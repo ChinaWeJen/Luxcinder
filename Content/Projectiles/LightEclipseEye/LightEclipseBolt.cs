@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -57,7 +57,7 @@ namespace Luxcinder.Content.Projectiles.LightEclipseEye
         }
 
         [Obsolete]
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             // 爆炸效果
             for (int i = 0; i < 10; i++)
