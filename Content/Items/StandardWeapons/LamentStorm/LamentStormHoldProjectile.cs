@@ -273,6 +273,7 @@ public class LamentStormHoldProjectile : ModProjectile
 			}
 
 			Projectile.Kill(); // 蓄力弹幕消失
+			player.reuseDelay = 20;
 		}
 	}
 
