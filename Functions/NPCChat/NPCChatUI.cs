@@ -41,8 +41,11 @@ namespace Luxcinder.Functions.NPCChat
 		private LuxUIText _mainTextUI;
 		private LuxUIVertialAlign _optionsHanger;
 		private LuxUIHorizontalSplit _nextStepBar;
+		private LuxUIText _npcNameUI;
+		private LuxUIImage _npcBarImage;
+		private LuxUIImage _npcIconImage;
 
-		private Asset<Texture2D> _texture_聊天栏;
+		private Asset<Texture2D> _texture_月亮;
 		private Asset<Texture2D> _texture_宝石;
 		private Asset<Texture2D> _texture_下一步;
 		private Asset<Texture2D> _texture_下一步_Hover;
@@ -83,10 +86,10 @@ namespace Luxcinder.Functions.NPCChat
 
 		public override void OnInitialize()
 		{
-			//Main.QueueMainThreadAction(() =>
-			//{
-			//	_debugDrawer = new BasicDebugDrawer(Main.graphics.GraphicsDevice);
-			//});
+			Main.QueueMainThreadAction(() =>
+			{
+				_debugDrawer = new BasicDebugDrawer(Main.graphics.GraphicsDevice);
+			});
 			InitializeResources();
 
 			_backgroundPanel = new LuxUIPanel(this.RequestModRelativeTexture("Images/TextBackground"), 32, 32, 32, 32);
@@ -129,7 +132,16 @@ namespace Luxcinder.Functions.NPCChat
 
 			luxUIVertialAlign.AddChild(_nextStepBar);
 
+			_npcNameUI = new LuxUIText("");
+			_npcBarImage = new LuxUIImage(_texture_月亮);
+			_npcIconImage = new LuxUIImage(_texture_下一步);
+			_npcIconImage.AllowResizingDimensions = false;
+			_npcIconImage.Width.Set(80, 0);
+			_npcIconImage.Height.Set(80, 0);
 			base.AddChild(_backgroundPanel);
+			base.AddChild(_npcNameUI);
+			base.AddChild(_npcBarImage);
+			base.AddChild(_npcIconImage);
 		}
 
 		private void _nextStepButton_OnMouseOut(LuxUIMouseEvent evt, LuxUIContainer listeningElement)
@@ -155,7 +167,7 @@ namespace Luxcinder.Functions.NPCChat
 		private void InitializeResources()
         {
             string relativePath = AssetExtensions.GetModRelativePathFull<NPCChatUI>();
-            _texture_聊天栏 = ModContent.Request<Texture2D>($"{relativePath}/Images/聊天栏");
+			_texture_月亮 = ModContent.Request<Texture2D>($"{relativePath}/Images/月亮");
             _texture_宝石 = ModContent.Request<Texture2D>($"{relativePath}/Images/宝石");
             _texture_下一步 = ModContent.Request<Texture2D>($"{relativePath}/Images/NextStep");
             _texture_下一步_Hover = ModContent.Request<Texture2D>($"{relativePath}/Images/NextStep_Hover");
@@ -205,6 +217,18 @@ namespace Luxcinder.Functions.NPCChat
                 _backgroundPanel.Left.Set(npcUIPos.X - dimension.Width / 2, 0f);
                 _backgroundPanel.Top.Set(npcUIPos.Y + 46, 0f);
 
+				_npcBarImage.Top.Set(npcUIPos.Y + 5, 0f);
+				_npcBarImage.Left.Set(npcUIPos.X - dimension.Width / 2 + 80, 0f);
+				_npcBarImage.NormalizedOrigin = Vector2.Zero;
+
+				_npcNameUI.SetText( targetNPC.GivenOrTypeName);
+				_npcNameUI.Top.Set(npcUIPos.Y + 5, 0f); 
+				_npcNameUI.Left.Set(npcUIPos.X - dimension.Width / 2 + 120, 0f);
+
+				_npcIconImage.Top.Set(npcUIPos.Y - 50, 0f);
+				_npcIconImage.Left.Set(npcUIPos.X - dimension.Width / 2, 0);
+				_npcIconImage.SetImage(TextureAssets.NpcHead[NPCHeadID.Guide]);
+				_npcIconImage.NormalizedOrigin = Vector2.One * 0.5f;
 
 				bool canShowNextStep = IsReady && _options.Count == 0;
 				if (canShowNextStep)
