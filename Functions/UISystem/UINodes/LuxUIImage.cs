@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -93,11 +93,11 @@ public class LuxUIImage : LuxUIContainer
             return;
         }
 
-        Vector2 vector = texture2D.Size();
-        Vector2 vector2 = dimensions.Position() + vector * (1f - ImageScale) / 2f + vector * NormalizedOrigin;
+        Vector2 vector = new Vector2(dimensions.Width, dimensions.Height);
+        Vector2 vector2 = dimensions.Position() + vector * NormalizedOrigin;
         if (RemoveFloatingPointsFromDrawPosition)
             vector2 = vector2.Floor();
 
-        spriteBatch.Draw(texture2D, vector2, null, Color, Rotation, vector * NormalizedOrigin, ImageScale, SpriteEffects.None, 0f);
+        spriteBatch.Draw(texture2D, vector2, null, Color, Rotation, texture2D.Size() * NormalizedOrigin, ImageScale, SpriteEffects.None, 0f);
     }
 }
