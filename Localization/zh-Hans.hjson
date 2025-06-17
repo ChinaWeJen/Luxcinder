@@ -403,6 +403,21 @@ Mods: {
 				// DisplayName: Black Iron Sword
 				// Tooltip: ""
 			}
+
+			PureEdge: {
+				// DisplayName: Pure Edge
+				// Tooltip: ""
+			}
+
+			FrozenCore: {
+				// DisplayName: Frozen Core
+				// Tooltip: ""
+			}
+
+			SeaAttack: {
+				// DisplayName: Sea Attack
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -433,6 +448,9 @@ Mods: {
 			}
 
 			// GoddessDimLight.DisplayName: Goddess Dim Light
+			// FrostBitingGiantWormBody.DisplayName: Frost Biting Giant Worm Body
+			// FrostBitingGiantWormHead.DisplayName: Frost Biting Giant Worm Head
+			// FrostBitingGiantWormTail.DisplayName: Frost Biting Giant Worm Tail
 		}
 
 		Projectiles: {
@@ -447,6 +465,10 @@ Mods: {
 			// GoddessDimLightAttack.DisplayName: Goddess Dim Light Attack
 			// LamentStormHoldProjectile.DisplayName: Lament Storm Hold Projectile
 			// LamentStormPDummy.DisplayName: Lament Storm P Dummy
+			// PureEdgeKoothrip.DisplayName: Pure Edge Koothrip
+			// PureEdgeParticleWave.DisplayName: Pure Edge Particle Wave
+			// PureEdgeSlash.DisplayName: Pure Edge Slash
+			// SeaWave.DisplayName: Sea Wave
 		}
 	}
 }
