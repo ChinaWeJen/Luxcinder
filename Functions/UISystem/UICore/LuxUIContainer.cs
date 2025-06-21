@@ -558,22 +558,21 @@ public class LuxUIContainer
 
 	public virtual void Draw(SpriteBatchX spriteBatch)
 	{
-		if (!Visible)
-		{
-			return;
-		}
 		bool overflowHidden = OverflowHidden;
 		bool useImmediateMode = false;
 		SamplerState anisotropicClamp = SamplerState.AnisotropicClamp;
-		if (useImmediateMode)
+		if (Visible)
 		{
-			spriteBatch.Push(SpriteSortMode.Immediate, BlendState.NonPremultiplied, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);
-			DrawSelf(spriteBatch);
-			spriteBatch.Pop();
-		}
-		else
-		{
-			DrawSelf(spriteBatch);
+			if (useImmediateMode)
+			{
+				spriteBatch.Push(SpriteSortMode.Immediate, BlendState.NonPremultiplied, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);
+				DrawSelf(spriteBatch);
+				spriteBatch.Pop();
+			}
+			else
+			{
+				DrawSelf(spriteBatch);
+			}
 		}
 
 		if (overflowHidden)

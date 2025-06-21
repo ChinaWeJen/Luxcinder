@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +9,8 @@ using Terraria.UI;
 namespace Luxcinder.Functions.MissionSystem;
 public class MissionSystem : ModSystem
 {
-    public override void OnModLoad() => base.OnModLoad();
+	public override void OnModLoad()
+	{
+		base.OnModLoad();
+	}
 }
