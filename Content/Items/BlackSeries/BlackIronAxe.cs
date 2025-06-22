@@ -25,7 +25,7 @@ namespace Luxcinder.Content.Items.BlackSeries
 			Item.autoReuse = true;
 			Item.useTurn = true; // 允许使用转向
 
-			Item.axe = 65; // 斧力数值(铂金斧35的2倍)
+			Item.axe = 55; // 斧力数值(铂金斧35的2倍)
 		}
 
 		public override void AddRecipes()
