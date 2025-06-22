@@ -31,7 +31,7 @@ namespace Luxcinder.Content.Items.BlackSeries
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<Blacklronlngot>(8); // 与原版铂金斧材料数量一致
+			recipe.AddIngredient<BlackIronIngot>(8); // 与原版铂金斧材料数量一致
 			recipe.AddIngredient(ItemID.Wood, 3); // 添加木材作为辅助材料
 			recipe.AddTile<GiantStoneBlastFurnace>()
 				.Register();
