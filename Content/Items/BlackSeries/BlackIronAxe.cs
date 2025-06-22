@@ -11,7 +11,7 @@ namespace Luxcinder.Content.Items.BlackSeries
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 13;  // 原16降低12.5%
+			Item.damage = 14;  // 原16降低12.5%
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 40;
 			Item.height = 40;
