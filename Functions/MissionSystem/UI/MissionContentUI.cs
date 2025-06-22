@@ -19,6 +19,9 @@ public class MissionContentUI : LuxUIContainer
 
 	private LuxUIVertialAlign _missionConditionList;
 	private Mission _mission;
+
+	public Mission Mission { get => _mission; }
+
 	public MissionContentUI()
 	{
 		LuxUIVertialAlign luxUIVertialAlign = new LuxUIVertialAlign();
@@ -72,7 +75,7 @@ public class MissionContentUI : LuxUIContainer
 		}
 		else
 		{
-			_missionName.SetText(mission.Name.Value);
+			_missionName.SetText($"【{mission.Name.Value}】");
 			_missionDescription.SetText(mission.Description.Value);
 			_missionStatusText.SetText(mission.Status.ToString());
 			_missionReturnText.SetText("把任务交回给NPC以完成任务");

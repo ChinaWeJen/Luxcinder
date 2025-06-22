@@ -12,6 +12,7 @@ using Luxcinder.Functions.UISystem.UINodes;
 using Luxcinder.Functions.UISystem.UINodes.Layout;
 using ReLogic.Content;
 using ReLogic.Graphics;
+using Terraria.GameContent;
 
 namespace Luxcinder.Functions.MissionSystem.UI;
 
@@ -43,11 +44,12 @@ public class MissionPageFullUI : LuxUIState
 		_backgroundPanel.Height.SetAuto(true);
 		_backgroundPanel.SetPadding(32);
 
-		var sideView = new LuxUIContainer();
+		var sideView = new LuxUIPanel(TextureAssets.InventoryBack7);
 		sideView.Width.Set(0, 1f);
 		sideView.Height.Set(300, 0);
+		sideView.MarginRight = 16;
 
-		var horizontalSplit = new LuxUIHorizontalSplit(0.3f, sideView, _missionContentUI, true);
+		var horizontalSplit = new LuxUIHorizontalSplit(0.33f, sideView, _missionContentUI, true);
 		horizontalSplit.Width.Set(0, 1);
 		horizontalSplit.Height.SetAuto(true);
 		_backgroundPanel.AddChild(horizontalSplit);
@@ -57,7 +59,13 @@ public class MissionPageFullUI : LuxUIState
 	public void SetMission(Mission mission)
 	{
 		_missionContentUI.SetMission(mission);
+		if (mission != null)
+		{
+			mission.CheckCanComplete(Main.LocalPlayer);
+		}
 	}
+
+	public Mission Mission { get => _missionContentUI.Mission; }
 
 	public void Refresh()
 	{
@@ -76,12 +84,12 @@ public class MissionPageFullUI : LuxUIState
 	{
 		base.Draw(spriteBatch);
 
-		if (_debugDrawer != null)
-		{
-			_debugDrawer.Begin(Main.UIScaleMatrix);
-			DrawDebugHitbox(_debugDrawer, true);
-			_debugDrawer.End();
-		}
+		//if (_debugDrawer != null)
+		//{
+		//	_debugDrawer.Begin(Main.UIScaleMatrix);
+		//	DrawDebugHitbox(_debugDrawer, true);
+		//	_debugDrawer.End();
+		//}
 	}
 }
 
@@ -106,14 +114,10 @@ public class MissionPageFullUI_InventoryLayer : LuxcinderUILayer
 	public override void OnActivate()
 	{
 		var missionPlayer = Main.LocalPlayer.GetModPlayer<MissionPlayer>();
-		if (missionPlayer.HasIncompletedMission())
+		if(_uiState.Mission == null)
 		{
-			var mission = missionPlayer.Missions.Values.FirstOrDefault(m => m.Status == MissionStatus.InProgress || m.Status == MissionStatus.CanComplete);
+			var mission = missionPlayer.Missions.Values.FirstOrDefault();
 			_uiState.SetMission(mission);
-		}
-		else
-		{
-			_uiState.SetMission(null);
 		}
 	}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Humanizer;
 using Luxcinder.Content.Items.Mission.One;
 using Luxcinder.Functions.MissionSystem;
 using Luxcinder.Functions.MissionSystem.Core;
@@ -82,19 +83,46 @@ namespace Luxcinder.Content.NPCs.Sylvia
 
             var para4 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q4").Value);
             var para5 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q5").Value);
-            var para6 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q6").Value);
+            var para6 = new PlainTextCondition(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q6T").Value, 
+				() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q6").Value,
+				() => Main.LocalPlayer.GetModPlayer<MissionPlayer>().CheckIfMissionCompleted("Sylvia_Books"));
 
-            para3.Next = para4;
-            para4.Next = para5;
-            para5.Next = para6;
-            para6.Next = null; // 让para6循环，表示结束
+			var para7 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q7").Value);
+			var para8 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q8").Value);
+			var para9 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q9").Value);
+			var para10 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q10").Value);
+			var para11 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q11").Value);
+			var para12 = new PlainText(() => Mod.GetLocalization($"{NPCInternalName}.Dialogue.FirstMet.Q12").Value);
+
+			para3.Next = para4;
+			para4.Next = para5;
+			para5.Next = para6;
+			para6.Next = para7;
+			para7.Next = para8;
+			para8.Next = para9;
+			para9.Next = para10;
+			para10.Next = para11;
+			para11.Next = para12;
+			para12.Next = null; // 结束对话
 
 
-            // 启动流程
-            _flow = new NPCChatControlFlow();
+			// 启动流程
+			_flow = new NPCChatControlFlow();
             _flow.Start(para1);
 
 			para4.OnUserChooseOption += Para4_OnUserChooseOption;
+			para6.OnUserChooseOption += Para6_OnUserChooseOption;
+		}
+
+		private void Para6_OnUserChooseOption(int index)
+		{
+			if (index != 0)
+				return;
+			var modPlayer = Main.LocalPlayer.GetModPlayer<MissionPlayer>();
+			if (modPlayer.CheckIfMissionCompleted("Sylvia_Books"))
+			{
+				modPlayer.CompleteMission("Sylvia_Books");
+			}
 		}
 
 		private void Para4_OnUserChooseOption(int index)

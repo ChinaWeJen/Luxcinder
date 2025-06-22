@@ -67,3 +67,36 @@ public class PlainTextWithOptions : NPCChatNode
         }
     }
 }
+
+
+public class PlainTextCondition : NPCChatNode
+{
+	public override NPCChatPage PageInfo
+	{
+		get
+		{
+			return new NPCChatPage(_condition() ? _textTrue() : _textFalse(), null);
+		}
+	}
+	public override bool CanMoveNext => _condition() ? _canMoveNext : false;
+
+	private Func<string> _textTrue;
+	private Func<string> _textFalse;
+	private Func<bool> _condition;
+
+	private bool _canMoveNext = false;
+
+	public event Action<int> OnUserChooseOption;
+	public PlainTextCondition(Func<string> textTrue, Func<string> textFalse, Func<bool> condition)
+	{
+		_textTrue = textTrue;
+		_textFalse = textFalse;
+		_condition = condition;
+	}
+
+	public override void UserChooseOption(int index)
+	{
+		OnUserChooseOption?.Invoke(index);
+		_canMoveNext = true;
+	}
+}

@@ -8,6 +8,7 @@ using Luxcinder.Functions.MissionSystem.Core;
 using Luxcinder.Functions.UISystem;
 using Luxcinder.Functions.UISystem.UICore;
 using Luxcinder.Functions.UISystem.UINodes;
+using Luxcinder.Functions.UISystem.UINodes.Layout;
 using ReLogic.Content;
 using ReLogic.Graphics;
 
@@ -39,7 +40,33 @@ public class MissionPageUI : LuxUIState
 		_backgroundPanel.Width.Set(500, 0f);
 		_backgroundPanel.Height.SetAuto(true);
 		_backgroundPanel.SetPadding(32);
-		_backgroundPanel.AddChild(_missionContentUI);
+
+		var verticalAlign = new LuxUIVertialAlign();
+		verticalAlign.Height.SetAuto(true);
+		verticalAlign.Width.Set(0, 1f);
+		verticalAlign.AddChild(_missionContentUI);
+
+		var confirmButton = new LuxUIText("确认");
+		var anchor = new LuxUIAnchor(confirmButton, Vector2.One * 0.5f, Vector2.One * 0.5f);
+		anchor.Height.Set(30, 0);
+		verticalAlign.AddChild(anchor);
+		confirmButton.OnLeftClick += (evt, listeningElement) =>
+		{
+			LuxUISystem.SetActive<MissionPageUI_InventoryLayer>(false);
+
+			Main.NewText($"成功接取了任务 [{_missionContentUI.Mission?.Name}]");
+		};
+		confirmButton.OnMouseOver += (evt, listeningElement) =>
+		{
+			confirmButton.TextColor = Color.Yellow;
+		};
+		confirmButton.OnMouseOut += (evt, listeningElement) =>
+		{
+			confirmButton.TextColor = Color.White;
+		};
+		_backgroundPanel.AddChild(verticalAlign);
+
+
 
 		AddChild(_backgroundPanel);
 	}
@@ -66,12 +93,12 @@ public class MissionPageUI : LuxUIState
 	{
 		base.Draw(spriteBatch);
 
-		if (_debugDrawer != null)
-		{
-			_debugDrawer.Begin(Main.UIScaleMatrix);
-			DrawDebugHitbox(_debugDrawer, true);
-			_debugDrawer.End();
-		}
+		//if (_debugDrawer != null)
+		//{
+		//	_debugDrawer.Begin(Main.UIScaleMatrix);
+		//	DrawDebugHitbox(_debugDrawer, true);
+		//	_debugDrawer.End();
+		//}
 	}
 }
 

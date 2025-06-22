@@ -39,7 +39,7 @@ public class MissionPlayer : ModPlayer
 	{
 		if (Missions.ContainsKey(mission.Id))
 		{
-			throw new Exception($"Mission with ID {mission.Id} already exists.");
+			Main.NewText($"Mission with ID {mission.Id} already exists.", Color.Red);
 			return;
 		}
 
@@ -56,6 +56,32 @@ public class MissionPlayer : ModPlayer
 			}
 		}
 		return false;
+	}
+
+	public bool CheckIfMissionCompleted(string missionName)
+	{
+		if (!Missions.ContainsKey(missionName))
+		{
+			return false;
+		}
+
+		if (Missions[missionName].Status == MissionStatus.Completed || Missions[missionName].CheckCanComplete(Player))
+		{
+			return true;
+		}
+		return true;
+	}
+
+	public void CompleteMission(string missionName)
+	{
+		// 完成任务
+		if (!Missions.ContainsKey(missionName))
+		{
+			return;
+		}
+		Missions[missionName].Status = MissionStatus.Completed;
+		Missions[missionName].GiveReward(Player);
+		Main.NewText($"任务 [{Missions[missionName].Name.Value}] 已完成！", Color.Lime);
 	}
 
 	// --- 存档与读取 ---
