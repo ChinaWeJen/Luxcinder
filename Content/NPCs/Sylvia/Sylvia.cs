@@ -1,9 +1,14 @@
-using Luxcinder.Functions.NPCChat;
-using Luxcinder.Functions.NPCChat.Nodes;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using Luxcinder.Content.Items.Mission.One;
+using Luxcinder.Functions.MissionSystem;
+using Luxcinder.Functions.MissionSystem.Core;
+using Luxcinder.Functions.MissionSystem.UI;
+using Luxcinder.Functions.NPCChat;
+using Luxcinder.Functions.NPCChat.Nodes;
+using Luxcinder.Functions.UISystem;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -88,9 +93,39 @@ namespace Luxcinder.Content.NPCs.Sylvia
             // 启动流程
             _flow = new NPCChatControlFlow();
             _flow.Start(para1);
-        }
 
-        public override bool CanChat()
+			para4.OnUserChooseOption += Para4_OnUserChooseOption;
+		}
+
+		private void Para4_OnUserChooseOption(int index)
+		{
+			if (index != 0)
+				return;
+
+			if (Main.LocalPlayer.talkNPC == NPC.whoAmI)
+			{
+				var mission = new Mission
+				{
+					Id = "Sylvia_Books",
+					Name = Mod.GetLocalization($"{NPCInternalName}.Missions.First_Books.Title"),
+					Description = Mod.GetLocalization($"{NPCInternalName}.Missions.First_Books.Description"),
+					Status = MissionStatus.NotAccepted,
+					Conditions = new List<MissionCondition>
+					{
+						new ItemCollectCondition(ModContent.ItemType<Encyclopedia>(), 1),
+						new ItemCollectCondition(ModContent.ItemType<ScienceTechnologyANDInnovation>(), 1),
+						new ItemCollectCondition(ModContent.ItemType<SurvivalGuide>(), 1)
+					}
+				};
+				// 设置接受任务动作
+				Main.LocalPlayer.GetModPlayer<MissionPlayer>().AcceptMission(mission);
+				LuxUISystem.SetActive<MissionPageUI_InventoryLayer>(true);
+				LuxUISystem.GetUI<MissionPageUI_InventoryLayer>().SetMission(mission);
+			}
+			
+		}
+
+		public override bool CanChat()
         {
             return true;
         }

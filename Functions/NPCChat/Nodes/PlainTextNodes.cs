@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,17 @@ public class PlainText : NPCChatNode
     private Func<string> _text;
     private bool _canMoveNext = false;
 
+	public event Action<int> OnUserChooseOption;
     public PlainText(Func<string> text)
     {
         _text = text;
     }
 
-	public override void UserChooseOption(int index) => _canMoveNext = true;
+	public override void UserChooseOption(int index)
+	{
+		OnUserChooseOption?.Invoke(index);
+		_canMoveNext = true;
+	}
 }
 
 
@@ -38,9 +44,9 @@ public class PlainTextWithOptions : NPCChatNode
             return new NPCChatPage(_text(), optionTexts);
         }
     }
+	public event Action<int> OnUserChooseOption;
 
-
-    private Func<string> _text;
+	private Func<string> _text;
     private List<(Func<string>, NPCChatNode)> _options = new List<(Func<string>, NPCChatNode)>();
     private bool _canMoveNext = false;
 
@@ -55,7 +61,8 @@ public class PlainTextWithOptions : NPCChatNode
     {
         if (index != -1)
         {
-            _canMoveNext = true;
+			OnUserChooseOption?.Invoke(index);
+			_canMoveNext = true;
             Next = _options[index].Item2;
         }
     }

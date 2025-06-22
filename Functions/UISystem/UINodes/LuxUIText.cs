@@ -103,7 +103,7 @@ public class LuxUIText : LuxUIContainer
         DynamicSpriteFont dynamicSpriteFont = (_isLarge ? FontAssets.DeathText.Value : FontAssets.MouseText.Value);
         if (TextLayout == TextLayout.AutoWrap)
         {
-            _visibleText = dynamicSpriteFont.CreateWrappedText(_text, _width.TypedValue / _textScale);
+            _visibleText = dynamicSpriteFont.CreateWrappedText(_text, ResolvedInnerWidth / _textScale);
         }
         else
         {
@@ -120,7 +120,7 @@ public class LuxUIText : LuxUIContainer
                 {
                     DynamicSpriteFont dynamicSpriteFont = (_isLarge ? FontAssets.DeathText.Value : FontAssets.MouseText.Value);
                     Vector2 size = ChatManager.GetStringSize(dynamicSpriteFont, _text, Vector2.One);
-                    return size.X * _textScale;
+                    return size.X * _textScale + PaddingLeft + PaddingRight + MarginLeft + MarginRight;
                 }
             case TextLayout.Block:
                 return base.ResolveWidth(topMostDimensions);
@@ -139,14 +139,14 @@ public class LuxUIText : LuxUIContainer
             case TextLayout.Inline:
                 {
                     Vector2 size = ChatManager.GetStringSize(dynamicSpriteFont, _visibleText, Vector2.One);
-                    return size.Y * _textScale;
+                    return size.Y * _textScale + PaddingTop + PaddingBottom + MarginBottom + MarginTop;
                 }
             case TextLayout.Block:
                 return base.ResolveHeight(topMostDimensions);
             case TextLayout.AutoWrap:
                 {
                     Vector2 size = ChatManager.GetStringSize(dynamicSpriteFont, _visibleText, Vector2.One);
-                    return size.Y * _textScale;
+                    return size.Y * _textScale + PaddingTop + PaddingBottom + MarginBottom + MarginTop;
                 }
             default:
                 return base.ResolveHeight(topMostDimensions);

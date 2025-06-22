@@ -30,67 +30,67 @@ Mods: {
 		}
 
 		Items: {
-			BlackHammer: {
-				DisplayName: 黑铁重锤
-				Tooltip:
+			Black_Hammer: {
+				// DisplayName: Black Iron Hammer
+				/* Tooltip:
 					'''
-					[c/666666:沉重的黑铁锻造工具]
-					可用于建造和拆除
-					锤头刻有防滑纹路
-					'''
+					[c/666666:Heavy black iron forging tool]
+					Can be used for construction and demolition
+					Hammer head engraved with anti-slip pattern
+					''' */
 			}
 
-			BlackIronAxe: {
-				DisplayName: 黑铁战斧
-				Tooltip:
+			Black_Iron_Axe: {
+				// DisplayName: Black Iron Axe
+				/* Tooltip:
 					'''
-					[c/666666:性价比的黑铁工具]
-					斧刃经过特殊淬火处理
-					'''
+					[c/666666:Cost-effective black iron tool]
+					Axe blade treated with special quenching process
+					''' */
 			}
 
-			BlackIronIngot: {
-				DisplayName: 黑铁锭
-				Tooltip:
+			Black_iron_ingot: {
+				// DisplayName: Black Iron Ingot
+				/* Tooltip:
 					'''
-					由黑铁矿石冶炼而成
-					用于制作黑铁装备
-					'''
+					Smelted from black iron ore
+					Can be used for craft black iron equipment
+					''' */
 			}
 
-			BlackIronPickAxe: {
-				DisplayName: 黑铁镐
-				Tooltip:
+			Black_iron_pickaxe: {
+				// DisplayName: Black Iron Pickaxe
+				/* Tooltip:
 					'''
-					[c/666666:标准的黑铁采矿工具]
-					坚固耐用且维护简单
-					适合开采大多数矿石
-					'''
+					[c/666666:Standard black iron mining tool]
+					Durable and easy to maintain
+					Suitable for mining most ores
+					''' */
 			}
 
-			BlackIronSword: {
-				DisplayName: 皇家黑铁剑
-				Tooltip:
+			Black_iron_sword: {
+				// DisplayName: Royal Black Iron Sword
+				/* Tooltip:
 					'''
-					[c/FFD700:你愿意为这把武器献出虔诚吗]
-					剑身刻有古老的皇家纹章
-					显然这把武器不是靠锋利而是靠虔诚
-					[c/FF0000:【虔诚】]25%几率造成26伤害
-					[c/FF00FF:【恩赐】]3%几率造成40伤害
-					剑刃在月光下会泛出幽蓝色的光芒
-					'''
+					[c/FFD700:Are you willing to offer devotion to this weapon]
+					The blade is engraved with ancient royal patterns
+					Clearly this weapon relies on devotion rather than sharpness
+					[c/FF0000:【Devotion】] 25% chance to deal 26 damage
+					[c/FF00FF:【Grace】]3% chance to deal 40 damage
+					The blade emits a faint blue glow under moonlight
+					''' */
 			}
 
-			BlackIronShield: {
-				DisplayName: 黑铁圣盾
-				Tooltip:
+			Decayed_crystal: {
+				// DisplayName: Decayed Crystal
+				/* Tooltip:
 					'''
-					[c/666666:由黑铁与神圣合金打造的防御装备]
-					[c/FF0000:【神圣】]防御力小于20时，额外增加3点防御
-					盾面刻有守护符文
-					表面有古老的战斗痕迹
-					在危急时刻会发出金色微光
-					'''
+					This weapon is engraved with ancient patterns
+					This weapon relies on devotion rather than sharpness
+					[c/FF0000:【Devotion】] 25% chance to deal 26 damage
+					[c/FF00FF:【Grace】]3% chance to deal 40 damage
+					This weapon emits a faint blue glow under moonlight
+					''' */
 			}
 
 			Decayedcrystal: {
@@ -210,6 +210,68 @@ Mods: {
 					'''
 			}
 
+			NightmareEssence: {
+				DisplayName: 噩梦精华
+				Tooltip:
+					'''
+					这是从腐化之王体内提取的诡异液体
+					装在瓶子里会自己蠕动，像有生命一样
+					制作强力腐化装备的关键材料
+					打开瓶盖会冒出黑烟，还能听到怪声
+					摸起来冰凉刺骨，让人不舒服
+					晚上会发出吓人的紫色微光
+					'''
+			}
+
+			NonferrousMetals: {
+				DisplayName: 异色金属
+				Tooltip:
+					'''
+					闪烁着不寻常光泽的神秘合金
+					蕴含着未知的能量
+					'''
+			}
+
+			Encyclopedia: {
+				DisplayName: 远古知识典籍
+				Tooltip:
+					'''
+					[c/FFA500:记载着失落文明的智慧结晶]
+					书页边缘泛着温暖的橙色微光
+					[c/FF8C00:【知识启迪】]携带时获得经验加成
+					触碰时能感受到知识的脉动
+					书脊上刻有古老的符文
+					在黑暗中会发出柔和的橙光
+					'''
+			}
+
+			ScienceTechnologyANDInnovation: {
+				DisplayName: 科技革新蓝图
+				Tooltip:
+					'''
+					[c/00BFFF:未来科技的精密设计图]
+					图纸上流动着天蓝色的能量纹路
+					[c/1E90FF:【创新思维】]提升工作台制作效率
+					能听到微弱的机械运转声
+					边缘标注着复杂的计算公式
+					在月光下会显现隐藏的图纸
+					'''
+			}
+
+			SurvivalGuide: {
+				DisplayName: 生存指南手册
+				Tooltip:
+					'''
+					[c/32CD32:冒险者必备的实用指南]
+					封面散发着生机勃勃的绿光
+					[c/7CFC00:【生存技巧】]降低环境伤害
+					书页间夹着各种植物标本
+					能闻到淡淡的草药香气
+					在危机时刻会微微发热
+					内页记满了实用的生存笔记
+					'''
+			}
+
 			AshPortal: {
 				DisplayName: 灰烬传送门
 				Tooltip:
@@ -269,6 +331,11 @@ Mods: {
 					'''
 			}
 
+			SourceSpiritBow: {
+				DisplayName: 幽源之弓
+				Tooltip: "[c/FFD700:【幽源】]发射幽源之箭，命中敌人会产生冰晶爆炸"
+			}
+
 			Storyfragments: {
 				DisplayName: 记忆碎片
 				Tooltip:
@@ -291,31 +358,6 @@ Mods: {
 					'''
 			}
 
-			Quenched: {
-				DisplayName: 淬炼石矿
-				Tooltip:
-					'''
-					[c/FF8C00: 【残响】蒸发余烬只留下纯粹的金属本源]
-					一块表面流淌着液态火焰纹路的神秘矿石
-					能感受到远古熔炉的脉动
-					与腐化或光明的能量碰撞时会产生诡异的共鸣	
-					'''
-			}
-
-			QuenchedIngot: {
-				DisplayName: 淬火合金锭
-				Tooltip:
-					'''
-					似乎并不属于泰拉大陆的锻造工艺
-					[c/FF8C00:【高温锻造】]经过特殊淬火工艺处理的合金
-					[c/1E90FF:【能量传导】]完美传导魔法与物理能量
-					表面有流动的火焰纹路
-					触碰时能感受到微弱的热量
-					是制作高级装备的核心材料
-					在黑暗中会发出橙红色微光
-					'''
-			}
-
 			AlloyRipper: {
 				DisplayName: 合金撕裂者
 				Tooltip:
@@ -326,6 +368,17 @@ Mods: {
 					刀身会随着战斗逐渐发红
 					[c/FF8C00: 【高温剑刃】]烈焰似乎在手里流淌，对敌人造成6秒燃烧效果
 					[c/FF6347: 【勇气】]更能放手一搏，当你手持该武器的防御力小于35便获得100的生命力上限加成
+					'''
+			}
+
+			Quenched: {
+				DisplayName: 淬炼石矿
+				Tooltip:
+					'''
+					[c/FF8C00: 【残响】蒸发余烬只留下纯粹的金属本源]
+					一块表面流淌着液态火焰纹路的神秘矿石
+					能感受到远古熔炉的脉动
+					与腐化或光明的能量碰撞时会产生诡异的共鸣	
 					'''
 			}
 
@@ -340,16 +393,17 @@ Mods: {
 					'''
 			}
 
-			NightmareEssence: {
-				DisplayName: 噩梦精华
+			QuenchedIngot: {
+				DisplayName: 淬火合金锭
 				Tooltip:
 					'''
-					这是从腐化之王体内提取的诡异液体
-					装在瓶子里会自己蠕动，像有生命一样
-					制作强力腐化装备的关键材料
-					打开瓶盖会冒出黑烟，还能听到怪声
-					摸起来冰凉刺骨，让人不舒服
-					晚上会发出吓人的紫色微光
+					似乎并不属于泰拉大陆的锻造工艺
+					[c/FF8C00:【高温锻造】]经过特殊淬火工艺处理的合金
+					[c/1E90FF:【能量传导】]完美传导魔法与物理能量
+					表面有流动的火焰纹路
+					触碰时能感受到微弱的热量
+					是制作高级装备的核心材料
+					在黑暗中会发出橙红色微光
 					'''
 			}
 
@@ -368,247 +422,261 @@ Mods: {
 					'''
 			}
 
-			NonferrousMetals: {
-				DisplayName: 异色金属
-				Tooltip: 
-				'''
-				闪烁着不寻常光泽的神秘合金
-				蕴含着未知的能量
-				'''
-			}
-
 			SkeletonSight: {
 				DisplayName: 骸骨之瞳
-				Tooltip: 
-				'''
-				透过亡者的眼睛窥视世界的另一面
-				'''
+				Tooltip: 透过亡者的眼睛窥视世界的另一面
 			}
 
-			Encyclopedia: {
-				DisplayName: 远古知识典籍
-				Tooltip:
-					'''
-					[c/FFA500:记载着失落文明的智慧结晶]
-					书页边缘泛着温暖的橙色微光
-					[c/FF8C00:【知识启迪】]携带时获得经验加成
-					触碰时能感受到知识的脉动
-					书脊上刻有古老的符文
-					在黑暗中会发出柔和的橙光
-					'''
-			}
-
-			ScienceTechnologyANDInnovation: {
-				DisplayName: 科技革新蓝图
-				Tooltip:
-					'''
-					[c/00BFFF:未来科技的精密设计图]
-					图纸上流动着天蓝色的能量纹路
-					[c/1E90FF:【创新思维】]提升工作台制作效率
-					能听到微弱的机械运转声
-					边缘标注着复杂的计算公式
-					在月光下会显现隐藏的图纸
-					'''
-			}
-
-			SurvivalGuide: {
-				DisplayName: 生存指南手册
-				Tooltip:
-					'''
-					[c/32CD32:冒险者必备的实用指南]
-					封面散发着生机勃勃的绿光
-					[c/7CFC00:【生存技巧】]降低环境伤害
-					书页间夹着各种植物标本
-					能闻到淡淡的草药香气
-					在危机时刻会微微发热
-					内页记满了实用的生存笔记
-					'''
-			}
-
-			SourceSpiritBow: {
-				DisplayName: 幽源之弓
-				Tooltip: 
-				'''
-				[c/FFD700:【幽源】]发射幽源之箭，命中敌人会产生冰晶爆炸
-				'''
+			UIViewer: {
+				// DisplayName: U I Viewer
+				// Tooltip: ""
 			}
 
 			LamentStorm: {
 				DisplayName: 哀恸风暴
-				Tooltip: 
-				'''
-				具有两种攻击模式，使用鼠标中键切换
-				平射&坠星
-				我是那即将迫近的风暴
-				'''
+				Tooltip:
+					'''
+					具有两种攻击模式，使用鼠标中键切换
+					平射&坠星
+					我是那即将迫近的风暴
+					'''
 			}
 
 			BlazingGold: {
 				DisplayName: 炽金之辉
-				Tooltip: 
-				'''
-				免疫火焰以及岩浆
-				[c/FFD700:【炽金】]当玩家的最大生命值小于等于 350 时，提供以下加成：
-				防御力 +4
-				近战伤害增加 15%
-				近战暴击率提升 8%
-				'''
+				Tooltip:
+					'''
+					免疫火焰以及岩浆
+					[c/FFD700:【炽金】]当玩家的最大生命值小于等于 350 时，提供以下加成：
+					防御力 +4
+					近战伤害增加 15%
+					近战暴击率提升 8%
+					'''
 			}
 
 			CornerGrass: {
 				DisplayName: 隅灵草
-				Tooltip: 
-				'''
-				近战攻速提升5%
-				移速提升5%
-				'''
+				Tooltip:
+					'''
+					近战攻速提升5%
+					移速提升5%
+					'''
 			}
 
 			CorrosionNecklace: {
 				DisplayName: 蚀骨项链
-				Tooltip: 
-				'''
-				根据防御值，最大生命值，移速分别提供
-				近战伤害加成，魔法伤害加成。远程伤害加成
-				'''
+				Tooltip:
+					'''
+					根据防御值，最大生命值，移速分别提供
+					近战伤害加成，魔法伤害加成。远程伤害加成
+					'''
 			}
 
 			DiamondTitaniumPlate: {
 				DisplayName: 晶钛护甲
-				Tooltip: 
-				'''
-				生命值提升100
-				'''
+				Tooltip: 生命值提升100
 			}
 
 			GoldenGuardian: {
 				DisplayName: 鎏金守卫
-				Tooltip: 
-				'''
-				每100生命值可以让防御值+4
-				[c/402B58:但是代价是什么呢？]
-				'''
+				Tooltip:
+					'''
+					每100生命值可以让防御值+4
+					[c/402B58:但是代价是什么呢？]
+					'''
 			}
 
 			GuardianShield: {
 				DisplayName: 守望者之盾
-				Tooltip: 
-				'''
-				最大生命值+40
-				免疫燃烧
-				生命恢复速度增加
-				'''
+				Tooltip:
+					'''
+					最大生命值+40
+					免疫燃烧
+					生命恢复速度增加
+					'''
 			}
 
 			LifePendant: {
 				DisplayName: 生命吊坠
-				Tooltip: 
-				'''
-				最大生命值+20
-				生命恢复速度增加
-				'''
+				Tooltip:
+					'''
+					最大生命值+20
+					生命恢复速度增加
+					'''
 			}
 
 			LightEnforcer: {
 				DisplayName: 辉光执法者
-				Tooltip: 
-				'''
-				免疫燃烧及击退
-				伤害提升12%
-				近战暴击率增加10%
-				近战攻速增加10%
-				[c/F7FF79:【辉光】]当生命值低于200的时候，会发挥出它的真正力量
-				光辉的结晶啊，请降下恩典！
-				'''
+				Tooltip:
+					'''
+					免疫燃烧及击退
+					伤害提升12%
+					近战暴击率增加10%
+					近战攻速增加10%
+					[c/F7FF79:【辉光】]当生命值低于200的时候，会发挥出它的真正力量
+					光辉的结晶啊，请降下恩典！
+					'''
 			}
 
 			OmniMedal: {
 				DisplayName: 全能勋章
-				Tooltip: 
-				'''
-				免疫击退
-				生命恢复速度增加
-				提供9%全类型伤害加成
-				'''
+				Tooltip:
+					'''
+					免疫击退
+					生命恢复速度增加
+					提供9%全类型伤害加成
+					'''
 			}
 
 			PlantHabitat: {
 				DisplayName: 植生栖境
-				Tooltip: 
-				'''
-				魔法伤害加成+25%
-				最大魔力值强制为 40
-				减少 80 点最大生命值
-				生命恢复速度增加
-				'''
+				Tooltip:
+					'''
+					魔法伤害加成+25%
+					最大魔力值强制为 40
+					减少 80 点最大生命值
+					生命恢复速度增加
+					'''
 			}
 
 			SacredDeer: {
 				DisplayName: 圣鹿
-				Tooltip: 
-				'''
-				免疫大部分减益
-				持续发光
-				全部伤害-5%
-				魔法伤害-50%
-				[c/A9A9A9:【昼夜分化】]根据时间不同获得不同效果
-				白天：生命恢复速度增加，最大生命值+50
-				夜晚：移速提升10%，获得“迅捷”状态
-				'''
+				Tooltip:
+					'''
+					免疫大部分减益
+					持续发光
+					全部伤害-5%
+					魔法伤害-50%
+					[c/A9A9A9:【昼夜分化】]根据时间不同获得不同效果
+					白天：生命恢复速度增加，最大生命值+50
+					夜晚：移速提升10%，获得“迅捷”状态
+					'''
 			}
 
 			SwiftBladeShield: {
 				DisplayName: 迅刃之盾
-				Tooltip: 
-				'''
-				免疫击退
-				近战攻速+10%
-				近战暴击率+8%
-				移速+15%
-				'''
+				Tooltip:
+					'''
+					免疫击退
+					近战攻速+10%
+					近战暴击率+8%
+					移速+15%
+					'''
 			}
 
 			TartarusShield: {
 				DisplayName: 塔尔塔罗斯之盾
-				Tooltip: 
-				'''
-				最大生命值+100
-				生命恢复速度增加
-				免疫燃烧及击退
-				近战攻速+7%
-				近战暴击率+7%
-				近战伤害+50%
-				[c/FF5751:【地狱祝福】]如果生命值大于350，防御值+4，全部伤害+10%
-				诞生于地狱的盾牌将再一次降临世间
-				'''
+				Tooltip:
+					'''
+					最大生命值+100
+					生命恢复速度增加
+					免疫燃烧及击退
+					近战攻速+7%
+					近战暴击率+7%
+					近战伤害+50%
+					[c/FF5751:【地狱祝福】]如果生命值大于350，防御值+4，全部伤害+10%
+					诞生于地狱的盾牌将再一次降临世间
+					'''
 			}
 
 			WorldShaker: {
 				DisplayName: 震世者
-				Tooltip: 
-				'''
-				免疫燃烧及击退
-				全部伤害+10%
-				近战攻速+50%
-				近战暴击率+50%
-				[c/B60600:【淬火】]如果生命值大于200，防御值+35，全部伤害额外+5%
-				'''
+				Tooltip:
+					'''
+					免疫燃烧及击退
+					全部伤害+10%
+					近战攻速+50%
+					近战暴击率+50%
+					[c/B60600:【淬火】]如果生命值大于200，防御值+35，全部伤害额外+5%
+					'''
 			}
 
 			AncientSoul: {
 				DisplayName: 远古遗魂
-				Tooltip: 
-				'''
-				诞生自上古的灵魂碎片
-				'''
+				Tooltip: 诞生自上古的灵魂碎片
 			}
 
 			SearingLight: {
 				DisplayName: 炽烈之光
-				Tooltip: 
-				'''
-				用途不明的物质，发出耀眼的光辉
-				'''
+				Tooltip: 用途不明的物质，发出耀眼的光辉
+			}
+
+			BlackHammer: {
+				DisplayName: 黑铁重锤
+				Tooltip:
+					'''
+					[c/666666:沉重的黑铁锻造工具]
+					可用于建造和拆除
+					锤头刻有防滑纹路
+					'''
+			}
+
+			BlackIronAxe: {
+				DisplayName: 黑铁战斧
+				Tooltip:
+					'''
+					[c/666666:性价比的黑铁工具]
+					斧刃经过特殊淬火处理
+					'''
+			}
+
+			BlackIronIngot: {
+				DisplayName: 黑铁锭
+				Tooltip:
+					'''
+					由黑铁矿石冶炼而成
+					用于制作黑铁装备
+					'''
+			}
+
+			BlackIronPickAxe: {
+				DisplayName: 黑铁镐
+				Tooltip:
+					'''
+					[c/666666:标准的黑铁采矿工具]
+					坚固耐用且维护简单
+					适合开采大多数矿石
+					'''
+			}
+
+			BlackIronShield: {
+				DisplayName: 黑铁圣盾
+				Tooltip:
+					'''
+					[c/666666:由黑铁与神圣合金打造的防御装备]
+					[c/FF0000:【神圣】]防御力小于20时，额外增加3点防御
+					盾面刻有守护符文
+					表面有古老的战斗痕迹
+					在危急时刻会发出金色微光
+					'''
+			}
+
+			BlackIronSword: {
+				DisplayName: 皇家黑铁剑
+				Tooltip:
+					'''
+					[c/FFD700:你愿意为这把武器献出虔诚吗]
+					剑身刻有古老的皇家纹章
+					显然这把武器不是靠锋利而是靠虔诚
+					[c/FF0000:【虔诚】]25%几率造成26伤害
+					[c/FF00FF:【恩赐】]3%几率造成40伤害
+					剑刃在月光下会泛出幽蓝色的光芒
+					'''
+			}
+
+			PureEdge: {
+				// DisplayName: Pure Edge
+				// Tooltip: ""
+			}
+
+			FrozenCore: {
+				// DisplayName: Frozen Core
+				// Tooltip: ""
+			}
+
+			SeaAttack: {
+				// DisplayName: Sea Attack
+				// Tooltip: ""
 			}
 		}
 
@@ -640,6 +708,9 @@ Mods: {
 			}
 
 			// GoddessDimLight.DisplayName: Goddess Dim Light
+			// FrostBitingGiantWormBody.DisplayName: Frost Biting Giant Worm Body
+			// FrostBitingGiantWormHead.DisplayName: Frost Biting Giant Worm Head
+			// FrostBitingGiantWormTail.DisplayName: Frost Biting Giant Worm Tail
 		}
 
 		Projectiles: {
@@ -654,6 +725,10 @@ Mods: {
 			// GoddessDimLightAttack.DisplayName: Goddess Dim Light Attack
 			// LamentStormHoldProjectile.DisplayName: Lament Storm Hold Projectile
 			// LamentStormPDummy.DisplayName: Lament Storm P Dummy
+			// PureEdgeKoothrip.DisplayName: Pure Edge Koothrip
+			// PureEdgeParticleWave.DisplayName: Pure Edge Particle Wave
+			// PureEdgeSlash.DisplayName: Pure Edge Slash
+			// SeaWave.DisplayName: Sea Wave
 		}
 	}
 }

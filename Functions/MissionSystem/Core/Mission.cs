@@ -18,7 +18,7 @@ public enum MissionStatus
 
 public class Mission
 {
-	public int Id { get; set; }
+	public string Id { get; set; }
 	public LocalizedText Name { get; set; }
 	public LocalizedText Description { get; set; }
 

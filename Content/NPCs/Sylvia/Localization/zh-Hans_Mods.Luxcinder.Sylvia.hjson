@@ -14,3 +14,12 @@ Dialogue: {
 		Q6: 这个世界也很奇妙呢，诶，你找齐书了嘛？
 	}
 }
+
+Missions: {
+	First_Books: {
+		Title: 书籍的收集
+		Description: 收集一些书籍，了解这个世界的知识。
+		Progress: 我需要更多的书籍来了解这个世界。
+		Complete: 太好了！这些书籍对我来说非常有用，谢谢你！
+	}
+}

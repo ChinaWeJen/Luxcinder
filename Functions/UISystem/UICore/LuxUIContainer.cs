@@ -273,6 +273,15 @@ public class LuxUIContainer
 		}
 	}
 
+	public void SetVisibleRecursive(bool visible)
+	{
+		Visible = visible;
+		foreach (var child in Children)
+		{
+			child.SetVisibleRecursive(visible);
+		}
+	}
+
 	// 初始化依赖关系
 	public virtual void InitializeDependencies()
 	{
@@ -622,6 +631,22 @@ public class LuxUIContainer
 		int num5 = Terraria.Utils.Clamp(rectangle.Right, scissorRectangle.Left, scissorRectangle.Right);
 		int num6 = Terraria.Utils.Clamp(rectangle.Bottom, scissorRectangle.Top, scissorRectangle.Bottom);
 		return new Rectangle(num3, num4, num5 - num3, num6 - num4);
+	}
+
+	public void SetPadding(float padding)
+	{
+		PaddingBottom = padding;
+		PaddingLeft = padding;
+		PaddingRight = padding;
+		PaddingTop = padding;
+	}
+
+	public void SetMargin(float margin)
+	{
+		MarginBottom = margin;
+		MarginLeft = margin;
+		MarginRight = margin;
+		MarginTop = margin;
 	}
 
 	public void Initialize()
