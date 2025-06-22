@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
-using Luxcinder.Content.Items.QuenchedSeries;
 
 namespace Luxcinder.Content.Items.BlackSeries
 {
@@ -35,7 +34,7 @@ namespace Luxcinder.Content.Items.BlackSeries
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<QuenchedIngot>(9)
+			recipe.AddIngredient<Blacklronlngot>(9)
 			.AddIngredient(ItemID.Wood, 3)// 添加木材作为辅助材料
 		.AddTile(TileID.Anvils)
 .Register();
