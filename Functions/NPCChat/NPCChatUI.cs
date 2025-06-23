@@ -240,6 +240,7 @@ namespace Luxcinder.Functions.NPCChat
 					_nextStepBar.Height.Set(0, 0);
 				}
 				_nextStepButton.Visible = canShowNextStep;
+				_optionsHanger.SetVisibleRecursive(IsReady);
 				_nextStepButton.IgnoresMouseInteraction = !(canShowNextStep);
 
 				if (_backgroundPanel.IsMouseHovering)

@@ -18,10 +18,12 @@ public abstract class LuxcinderUILayer : ILoadable
         get;
     }
 
-    public void Load(Mod mod)
+	public bool IsActive { get; set; } = false;
+
+	public void Load(Mod mod)
     {
         Mod = mod;
-        UISystem.RegisterUI(this);
+        LuxUISystem.RegisterUI(this);
     }
 
     public void Unload()

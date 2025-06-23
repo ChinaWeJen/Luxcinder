@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,10 +33,21 @@ public class LuxUIFramedImage : LuxUIContainer
             if (value > 0)
             {
                 _frames = value;
-                _currentFrame = 0; // Reset to first frame when changing frames
             }
         }
     }
+
+	public int FrameTime
+	{
+		get => _frameTime;
+		set
+		{
+			if (value > 0)
+			{
+				_frameTime = value;
+			}
+		}
+	}
 
     private int _frames;
     private int _frameTime;
@@ -69,8 +80,6 @@ public class LuxUIFramedImage : LuxUIContainer
 
     public override void Update(GameTime gameTime)
     {
-
-        base.Update(gameTime);
         if (_frameTime > 0)
         {
             _frameCounter++;
@@ -82,7 +91,8 @@ public class LuxUIFramedImage : LuxUIContainer
                     _currentFrame = 0;
             }
         }
-    }
+		base.Update(gameTime);
+	}
 
     protected override void DrawSelf(SpriteBatchX spriteBatch)
     {

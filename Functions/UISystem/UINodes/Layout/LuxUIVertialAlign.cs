@@ -8,7 +8,8 @@ using Terraria.UI;
 
 namespace Luxcinder.Functions.UISystem.UINodes.Layout;
 public class LuxUIVertialAlign : LuxUIContainer
-{	protected override float ResolveHeight(CalculatedStyle topMostDimensions)
+{	
+	protected override float ResolveHeight(CalculatedStyle topMostDimensions)
 	{
 		float height = 0;
 		foreach (var child in Children)
