@@ -17,12 +17,12 @@ namespace Luxcinder.Content.Items.Accessory
 			Item.height = 20;
 			Item.maxStack = 1;
 			Item.value = 35000; // The cost of the item in copper coins. (1 = 1 copper, 100 = 1 silver, 1000 = 1 gold, 10000 = 1 platinum)
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = ItemUseStyleID.None;//饰品无法挥动
 			Item.useTurn = true;
 			Item.useAnimation = 15;
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 10;
-			Item.autoReuse = true;
+			Item.autoReuse = false;
 			Item.placeStyle = 0;
 			Item.accessory = true;
 			}
