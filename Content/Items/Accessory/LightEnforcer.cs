@@ -26,11 +26,11 @@ namespace Luxcinder.Content.Items.Accessory
             Item.defense = 5;
         
             // 使用属性
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useStyle = ItemUseStyleID.None;//饰品无法挥动
             Item.useTime = 10;
             Item.useAnimation = 15;
             Item.useTurn = true;
-            Item.autoReuse = true;
+            Item.autoReuse = false;
             Item.placeStyle = 0;
         
             // 饰品属性
